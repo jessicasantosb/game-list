@@ -11,10 +11,10 @@
 
 ```bash
 # Clone the repository
-git
+git clone git@github.com:jessicasantosb/AWS_FS_ABR25_D03_COMPASS_Desafio3_GameList_Frontend.git
 
 # Navigate to the folder
-cd AWS_FS_ABR25_D02_COMPASS
+cd AWS_FS_ABR25_D03_COMPASS_Desafio3_GameList_Frontend
 
 # Install dependencies
 npm install
