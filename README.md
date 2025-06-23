@@ -22,7 +22,7 @@ yarn
 # Build the Docker image
 docker build . -t "game-list-frontend:v1.0"
 
-# Run the container (detached mode)
+# Run the container
 docker run --rm -p 5173:5173 --name game-list-frontend game-list-frontend:v1.0
 ```
 
