@@ -16,11 +16,14 @@ git clone git@github.com:jessicasantosb/AWS_FS_ABR25_D03_COMPASS_Desafio3_GameLi
 # Navigate to the folder
 cd AWS_FS_ABR25_D03_COMPASS_Desafio3_GameList_Frontend
 
-# Install dependencies
-npm install
-# or
+# Install dependencies (use either npm or yarn)
 yarn
 
+# Build the Docker image
+docker build . -t "game-list-frontend:v1.0"
+
+# Run the container (detached mode)
+docker run --rm -p 5173:5173 --name game-list-frontend game-list-frontend:v1.0
 ```
 
 ---
