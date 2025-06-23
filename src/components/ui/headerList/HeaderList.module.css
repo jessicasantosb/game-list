@@ -1,0 +1,36 @@
+.headerRow {
+  display: grid;
+  grid-template-columns: 20px 80px 100px 120px 90px 90px 120px;
+  background-color: var(--obsidian);
+  color: var(--white);
+  font-weight: bold;
+  text-align: center;
+  padding: 12px 10px;
+  max-width: 1150px;
+  margin: auto;
+  justify-content: space-around;
+  user-select: none;
+}
+
+.headerItem {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  cursor: pointer;
+  gap: 5px;
+  color: var(--graybutton);
+  font-weight: 600;
+}
+
+.sortIcon {
+  font-size: 10px;
+  color: var(--turquoise);
+}
+
+.imageSpace {
+  width: 90px;
+}
+
+.iconsSpace {
+  width: 120px;
+}

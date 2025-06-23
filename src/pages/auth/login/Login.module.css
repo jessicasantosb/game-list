@@ -1,0 +1,90 @@
+.login {
+  margin: 0;
+  height: 100vh;
+  background-color: var(--grayform);
+  background-image: url('../../../assets/wallpaper.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.cardheader {
+  display: flex;
+  flex-direction: column;
+  margin: 12px auto 54px;
+  gap: 16px;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.subtitle {
+  color: var(--lightgray);
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.inputLabel {
+  color: var(--gray);
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.form {
+  margin: 0 auto;
+  width: 95%;
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btnlogin {
+  border-style: none;
+  padding: 8px 0;
+  border: 2px solid var(--turquoise);
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  background: none;
+  color: var(--turquoise);
+  height: 44px;
+  margin-top: 10px;
+}
+
+.btnlogin:hover {
+  background-color: var(--turquoise);
+  color: var(--white);
+  border: none;
+}
+
+.footer {
+  margin: 28px 0 40px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--gray);
+}
+
+.footer a {
+  color: var(--turquoise);
+}
