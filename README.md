@@ -1,29 +1,36 @@
 <p align="center">
+  <img src="https://img.icons8.com/fluency/48/node-js.png" width="50"/>
   <img src="https://img.icons8.com/color/48/typescript.png" width="50"/>
-  <img src="https://img.icons8.com/color/48/react-native.png" width="50"/>
+  <img src="https://img.icons8.com/?size=100&id=tBBf3P8HL0vR&format=png&color=000000" width="50"/>
 </p>
 
-<h1 align="center">Desafio 3 - Game List - Frontend</h1>
+<h1 align="center">Desafio 3 - Game List</h1>
+<p align="center"><a href="https://" target="_blank" rel="noopener noreferrer">AWS EC2 Deploy</a></p>
 
 ## ⚙️ Installation
+
+## Prerequisites
+
+- [Node.js](https://nodejs.org/)
+- [Docker & Docker Compose](https://docs.docker.com/compose/install/)
+- [NGINX](https://nginx.org/) (opcional para produção, já que está configurado no container)
+- [Yarn](https://yarnpkg.com/) or [NPM](https://www.npmjs.com/)
+- A database (ex: [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) ou local)
 
 ## Steps
 
 ```bash
 # Clone the repository
-git clone git@github.com:jessicasantosb/AWS_FS_ABR25_D03_COMPASS_Desafio3_GameList_Frontend.git
+git clone git@github.com:jessicasantosb/AWS_FS_ABR25_D03_COMPASS_Desafio3_GameList.git
 
 # Navigate to the folder
-cd AWS_FS_ABR25_D03_COMPASS_Desafio3_GameList_Frontend
+cd AWS_FS_ABR25_D03_COMPASS_Desafio3_GameList
 
 # Install dependencies (use either npm or yarn)
 yarn
 
-# Build the Docker image
-docker build . -t "game-list-frontend:v1.0"
-
-# Run the container
-docker run --rm -p 5173:5173 --name game-list-frontend game-list-frontend:v1.0
+# Build and start all containers with Docker Compose
+docker compose up --build
 ```
 
 ---
@@ -31,9 +38,18 @@ docker run --rm -p 5173:5173 --name game-list-frontend game-list-frontend:v1.0
 ## 🤖 Environment Variables
 
 ```bash
+Create a .env file in the root of the backend folder with the following content:
+
+PORT={your_port}
+JWT_SECRET={your_secret_key}
+DATABASE_URL=postgresql://user:password@localhost:5432/database
+
+```
+
+```bash
 Create a .env file in the root of the frontend folder with the following content:
 
-VITE_API_URL=http://localhost:8888
+VITE_API_URL=/api
 
 ```
 
@@ -41,9 +57,31 @@ VITE_API_URL=http://localhost:8888
 
 ## 💻 Technologies Used
 
+- **Node.js**
 - **TypeScript**
 - **React**
+- **Express**
+- **Cors**
+- **MongoDB + Mongoose**
+- **JWT**
+- **Bcrypt**
 - **Vite**
 - **JWT-decode**
 - **Axios**
+- **tsx**
 - **ESLint + Prettier**
+
+---
+
+## 🚀 How to Access
+
+- Frontend: http://localhost (NGINX proxyando frontend e backend via /api)
+- Backend API health check: http://localhost/api/health
+
+---
+
+## ⚠️ Notes
+
+- Make sure the backend is listening on 0.0.0.0 to accept external connections from NGINX.
+- The frontend uses /api as a prefix for API calls, which NGINX forwards to the backend.
+- To run the frontend locally without Docker, you can use Vite’s proxy to http://localhost:8888 on port 5173 (see vite.config.js).
