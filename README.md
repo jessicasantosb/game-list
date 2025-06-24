@@ -77,7 +77,7 @@ VITE_API_URL=/api
 
 - Frontend: http://localhost (NGINX proxyando frontend e backend via /api)
 - Backend API health check: http://localhost/api/health
-
+- Previous challenge (without using NGINX): **[DESAFIO 2](https://github.com/Giron-jpg/AWS_FS_ABR25_D02_COMPASS_Game_List)**
 ---
 
 ## ⚠️ Notes
