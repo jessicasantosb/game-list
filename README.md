@@ -9,7 +9,7 @@
 
 <h1 align="center">Desafio 3 - Game List</h1>
 
-## [➡️ ✨ AWS EC2 Deploy ✨ ⬅️](https://)
+## [➡️ ✨ AWS EC2 Deploy ✨ ⬅️](http://ec2-3-142-212-163.us-east-2.compute.amazonaws.com/)
 
 ## ⚙️ Installation
 
@@ -34,7 +34,8 @@ cd AWS_FS_ABR25_D03_COMPASS_Desafio3_GameList
 yarn
 
 # Build and start all containers with Docker Compose
-docker compose up --build
+docker compose up -d --build
+
 ```
 
 ---
@@ -59,6 +60,14 @@ VITE_API_URL=/api
 
 ---
 
+## 🚀 How to Access
+
+- Frontend: http://localhost (NGINX proxyando frontend e backend via /api)
+- Backend API health check: http://localhost/api/health
+- Previous challenge (without using NGINX): **[DESAFIO 2 🔗](https://github.com/Giron-jpg/AWS_FS_ABR25_D02_COMPASS_Game_List)**
+
+---
+
 ## 💻 Technologies Used
 
 - **Node.js**
@@ -74,14 +83,6 @@ VITE_API_URL=/api
 - **Axios**
 - **tsx**
 - **ESLint + Prettier**
-
----
-
-## 🚀 How to Access
-
-- Frontend: http://localhost (NGINX proxyando frontend e backend via /api)
-- Backend API health check: http://localhost/api/health
-- Previous challenge (without using NGINX): **[DESAFIO 2 🔗](https://github.com/Giron-jpg/AWS_FS_ABR25_D02_COMPASS_Game_List)**
 
 ---
 
