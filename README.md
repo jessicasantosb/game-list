@@ -1,7 +1,10 @@
 <p align="center">
-  <img src="https://img.icons8.com/fluency/48/node-js.png" width="50"/>
-  <img src="https://img.icons8.com/color/48/typescript.png" width="50"/>
-  <img src="https://img.icons8.com/?size=100&id=tBBf3P8HL0vR&format=png&color=000000" width="50"/>
+  <img src="https://img.icons8.com/fluency/48/node-js.png" width="70"/>
+  <img src="https://img.icons8.com/color/48/typescript.png" width="70"/>
+  <img src="https://img.icons8.com/?size=100&id=asWSSTBrDlTW&format=png&color=000000" width="70"/>
+  <img src="https://img.icons8.com/color/48/docker.png" width="70"/>
+  <img src="https://img.icons8.com/color/48/nginx.png" width="70"/>
+  <img src="https://img.icons8.com/?size=100&id=e6uRfPIDgoXi&format=png&color=000000" width="70"/>
 </p>
 
 <h1 align="center">Desafio 3 - Game List</h1>
@@ -78,7 +81,8 @@ VITE_API_URL=/api
 
 - Frontend: http://localhost (NGINX proxyando frontend e backend via /api)
 - Backend API health check: http://localhost/api/health
-- Previous challenge (without using NGINX): **[DESAFIO 2](https://github.com/Giron-jpg/AWS_FS_ABR25_D02_COMPASS_Game_List)**
+- Previous challenge (without using NGINX): **[DESAFIO 2 🔗](https://github.com/Giron-jpg/AWS_FS_ABR25_D02_COMPASS_Game_List)**
+
 ---
 
 ## ⚠️ Notes
