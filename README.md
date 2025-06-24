@@ -5,7 +5,8 @@
 </p>
 
 <h1 align="center">Desafio 3 - Game List</h1>
-<p align="center"><a href="https://" target="_blank" rel="noopener noreferrer">AWS EC2 Deploy</a></p>
+
+## [➡️ ✨ AWS EC2 Deploy ✨ ⬅️](https://)
 
 ## ⚙️ Installation
 
@@ -13,9 +14,9 @@
 
 - [Node.js](https://nodejs.org/)
 - [Docker & Docker Compose](https://docs.docker.com/compose/install/)
-- [NGINX](https://nginx.org/) (opcional para produção, já que está configurado no container)
+- [NGINX](https://nginx.org/) (optional, it's already on container)
 - [Yarn](https://yarnpkg.com/) or [NPM](https://www.npmjs.com/)
-- A database (ex: [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) ou local)
+- A database (ex: [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) or local)
 
 ## Steps
 
