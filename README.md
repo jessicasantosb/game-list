@@ -9,7 +9,7 @@
 
 <h1 align="center">Desafio 3 - Game List</h1>
 
-## [➡️ ✨ AWS EC2 Deploy ✨ ⬅️](http://ec2-3-142-212-163.us-east-2.compute.amazonaws.com/)
+## [➡️ ✨ AWS EC2 Deploy ✨ ⬅️](http://ec2-3-132-237-48.us-east-2.compute.amazonaws.com/)
 
 ## ⚙️ Installation
 
