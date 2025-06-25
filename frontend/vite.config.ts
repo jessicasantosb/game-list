@@ -8,7 +8,10 @@ export default defineConfig({
       usePolling: true,
     },
     host: true,
-    allowedHosts: ['0.0.0.0', 'localhost'],
+    allowedHosts: [
+      'http://ec2-3-132-237-48.us-east-2.compute.amazonaws.com/',
+      'localhost',
+    ],
     strictPort: true,
     port: 5173,
     proxy: {
