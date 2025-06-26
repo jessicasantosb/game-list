@@ -1,4 +1,4 @@
-.dialogContent {
+.content {
   width: 750px;
   height: 629px;
   padding: 40px;
@@ -14,7 +14,7 @@
   z-index: 1000;
 }
 
-.dialogTitle {
+.title {
   font-size: 32px;
   font-weight: bold;
   color: var(--black);
@@ -30,7 +30,7 @@
   margin: 0 auto;
 }
 
-.formGroup input {
+.label input {
   margin-top: 7px;
   border: 1px solid var(--grayform);
   border-radius: 8px;
@@ -42,19 +42,8 @@
   transition: border-color 0.2s ease;
 }
 
-.required {
-  color: var(--alert);
-  margin-left: 4px;
-}
-
-label {
+.label {
   font-size: 14px;
   font-weight: 400;
   color: var(--black);
-}
-
-p {
-  color: var(--white);
-  font-size: 12px;
-  font-weight: 500;
 }

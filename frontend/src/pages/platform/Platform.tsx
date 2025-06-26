@@ -4,9 +4,13 @@ import { CustomPagination } from '../../components/customPagination/CustomPagina
 import { Header } from '../../components/header/Header';
 import HeaderList from '../../components/ui/headerList/HeaderList';
 import ListItems from '../../components/ui/listItems/ListItems';
+import { useDeletePlatform } from '../../hooks/data/usePlatformsMutations';
 import { useFetchPlatforms } from '../../hooks/data/usePlatformsQueries';
 import { formatDateYear } from '../../utils/formatDateYear';
 import { per_page } from '../../utils/getPaginationItems';
+import DeleteModal from '../components/DeleteModal';
+import { CreatePlatform } from './forms/create/Create';
+import { UpdatePlatform } from './forms/update/Update';
 
 export type SortHeaders = {
   sort: string;
@@ -25,7 +29,7 @@ export const Platform = () => {
   const [page, setPage] = useState(1);
   const [dir, setDir] = useState<'asc' | 'desc'>('asc');
   const [sort, setSort] = useState<string>('title');
-  // const deletePlatform = useDeletePlatform();
+  const deletePlatform = useDeletePlatform();
 
   const platformsQuery = useFetchPlatforms({ sort, dir, page, per_page });
   const platforms = platformsQuery.data?.platforms;
@@ -43,7 +47,7 @@ export const Platform = () => {
       <Header
         title='Platforms'
         buttonText='NEW PLATFORM'
-        // createForm={<NewPlatform onCreated={useFetchPlatforms} />}
+        createForm={<CreatePlatform />}
       />
 
       <HeaderList fields={headers} onSortClick={handleSort} />
@@ -62,18 +66,13 @@ export const Platform = () => {
               iconDetails
               iconEdit
               iconDelete
-              // editForm={
-              //   <EditPlatform
-              //     platform={platform}
-              //     onCreated={useFetchPlatforms}
-              //   />
-              // }
-              // deleteForm={
-              //   <DeleteModal
-              //     type='platform'
-              //     onDelete={() => deletePlatform.mutate(platform._id)}
-              //   />
-              // }
+              editForm={<UpdatePlatform platform={platform} />}
+              deleteForm={
+                <DeleteModal
+                  type='platform'
+                  onDelete={() => deletePlatform.mutate(platform._id)}
+                />
+              }
             />
           ))}
         </div>

@@ -4,9 +4,9 @@ import { Header } from '../../components/header/Header';
 import { HomeCard } from '../../components/homeCard/HomeCard';
 import { useUser } from '../../hooks/useUser';
 import { category, game, platform, starHome } from '../../utils/icons';
-import { NewCategory } from '../category/forms/create/CreateCategories';
+import { CreateCategory } from '../category/forms/create/Create';
 import { CreateGame } from '../games/forms/create/Create';
-import { NewPlatform } from '../platform/forms/create/CreatePlatform';
+import { CreatePlatform } from '../platform/forms/create/Create';
 
 import { useFetchSummary } from '../../hooks/data/useStatsQueries';
 import styles from './Home.module.css';
@@ -23,7 +23,7 @@ export function Home() {
   const { user } = useUser();
 
   useEffect(() => {
-     if (!stats.data) {
+    if (!stats.data) {
       setSummary({
         gamesCount: 0,
         favoriteGamesCount: 0,
@@ -61,7 +61,7 @@ export function Home() {
           icon={category}
           title='Categories'
           count={summary.categoriesCount}
-          createForm={<NewCategory />}
+          createForm={<CreateCategory />}
         />
 
         <HomeCard
@@ -70,7 +70,7 @@ export function Home() {
           icon={platform}
           title='Platforms'
           count={summary.platformCount}
-          createForm={<NewPlatform />}
+          createForm={<CreatePlatform />}
         />
 
         <HomeCard
