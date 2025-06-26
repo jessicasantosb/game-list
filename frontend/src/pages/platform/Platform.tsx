@@ -30,7 +30,6 @@ export const Platform = () => {
   const platformsQuery = useFetchPlatforms({ sort, dir, page, per_page });
   const platforms = platformsQuery.data?.platforms;
   const count = platformsQuery.data?.count;
-  console.log('platforms:', platforms);
 
   const totalPages = Math.ceil(Number(count) / per_page);
 

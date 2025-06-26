@@ -42,7 +42,6 @@ export function Games() {
   const gamesQuery = useFetchGames(params);
   const games = gamesQuery.data?.games;
   const count = gamesQuery.data?.count;
-  console.log('games: ', games);
 
   const totalPages = Math.ceil(Number(count) / per_page);
 
