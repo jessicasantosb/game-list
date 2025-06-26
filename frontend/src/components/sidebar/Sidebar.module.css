@@ -10,7 +10,7 @@
 }
 
 .open {
-  width: 270px;
+  width: 290px;
 }
 
 .closed {
@@ -92,11 +92,11 @@
   background-color: var(--darkgray);
 }
 
-.navItem:hover{
+.navItem:hover {
   background-color: var(--turquoise);
 }
 
-.logout:hover{
+.logout:hover {
   background-color: var(--alert);
 }
 
@@ -124,7 +124,7 @@
     display: block;
     position: absolute;
     top: 1rem;
-    left: 0.70rem;
+    left: 0.7rem;
     width: 40px;
     height: 40px;
     background-color: var(--turquoise);
