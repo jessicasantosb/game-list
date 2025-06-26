@@ -39,7 +39,8 @@ docker compose up -d --build
 #### Notes
 
 - Access on http://localhost
-- To run the frontend locally without Docker, you can use Vite’s proxy to http://localhost:8888 on port 5173 (see vite.config.js).
+- To run the frontend locally without Docker, you can use **Vite’s proxy** to http://localhost:8888 on port 5173 (see vite.config.js).
+- If you’re not using **MongoDB Atlas (cloud)**, this setup includes a ready-to-use local MongoDB container.
 
 ---
 
