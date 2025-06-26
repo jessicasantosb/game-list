@@ -1,4 +1,4 @@
-import type { PaginationRequest } from "./Shared";
+import type { PaginationRequest } from './Shared';
 
 export type GameResponse = {
   _id?: string;
@@ -23,10 +23,8 @@ export type GameGetAllResponse = {
 
 export type GameFavoriteRequest = { data: { favorite: boolean }; id: string };
 
-export type GamesPaginationRequest = {
-  params: PaginationRequest & {
-    title: string;
-    category: string;
-    favorite: boolean;
-  };
+export type GamesPaginationRequest = PaginationRequest & {
+  title?: string;
+  category?: string;
+  favorite?: boolean;
 };

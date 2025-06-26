@@ -13,6 +13,7 @@ import {
   useFavoriteGame,
 } from '../../hooks/data/useGamesMutations';
 import { useFetchGames } from '../../hooks/data/useGamesQueries';
+import type { GamesPaginationRequest } from '../../types/Game';
 import { formatDate } from '../../utils/formatDate';
 import { per_page } from '../../utils/getPaginationItems';
 import DeleteModal from '../components/DeleteModal';
@@ -35,17 +36,14 @@ const headers: SortHeaders[] = [
 
 export function Games() {
   const [page, setPage] = useState(1);
-  const [dir, setDir] = useState<'asc' | 'desc'>('asc');
-  const [sort, setSort] = useState<string>('title');
-  const [title, setTitle] = useState<string>('title');
-  const [category, setCategory] = useState<string>('');
-  const [favorite, setFavorite] = useState<boolean>(false);
+  const [params, setParams] = useState<GamesPaginationRequest>({
+    per_page: 5,
+    page: 1,
+  });
   const deleteGame = useDeleteGame();
   const favoriteGame = useFavoriteGame();
 
-  const gamesQuery = useFetchGames({
-    params: { sort, dir, page, per_page, title, category, favorite },
-  });
+  const gamesQuery = useFetchGames(params);
 
   const games = gamesQuery.data?.games;
   const count = gamesQuery.data?.count;
@@ -53,21 +51,30 @@ export function Games() {
   const totalPages = Math.ceil(Number(count) / per_page);
 
   const handleSort = (newSort: string) => {
-    setSort(newSort);
-    setDir((prev) => (prev === 'asc' ? 'desc' : 'asc'));
+    setParams((prev) => ({
+      ...prev,
+      sort: newSort,
+      dir: prev.dir === 'asc' ? 'desc' : 'asc',
+    }));
   };
 
   const handleFilters = ({ title, category, favorite }: FiltersState) => {
-    const _favorite = favorite === 'true';
-    setTitle(title);
-    setCategory(category);
-    setFavorite(_favorite);
+    setParams((prev) => ({
+      ...prev,
+      title,
+      category,
+      favorite: !favorite,
+    }));
   };
 
   const handleClearFilters = () => {
-    setTitle('');
-    setCategory('');
-    setFavorite(false);
+    setParams((prev) => ({
+      ...prev,
+      title: '',
+      category: '',
+      favorite: false,
+    }));
+
     gamesQuery.refetch();
   };
 
