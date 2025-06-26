@@ -11,3 +11,8 @@ export type BaseResponse = {
   updatedAt: string;
   __v: number;
 };
+
+export type SortHeaders = {
+  sort: string;
+  label: string;
+};

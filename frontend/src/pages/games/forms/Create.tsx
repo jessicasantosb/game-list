@@ -1,28 +1,28 @@
 import { type FormEvent } from 'react';
 import { toast } from 'react-toastify';
-import { Button } from '../../../../components/ui/button/Button';
+import { Button } from '../../../components/ui/button/Button';
 import {
   DialogClose,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '../../../../components/ui/dialog/Dialog';
-import { Input } from '../../../../components/ui/input/Input';
-import { Label } from '../../../../components/ui/label/Label';
+} from '../../../components/ui/dialog/Dialog';
+import { Input } from '../../../components/ui/input/Input';
+import { Label } from '../../../components/ui/label/Label';
 import {
   Select,
   SelectGroup,
   SelectItem,
-} from '../../../../components/ui/select/Select';
-import { useFetchCategories } from '../../../../hooks/data/useCategoriesQueries';
-import { useCreateGame } from '../../../../hooks/data/useGamesMutations';
-import { useFetchPlatforms } from '../../../../hooks/data/usePlatformsQueries';
-import { useDialog } from '../../../../hooks/useDialog';
-import { gameCreateSchema } from '../../../../schemas/gameCreate';
-import { getDataForm } from '../../../../utils/getFormData';
-import style from './Create.module.css';
-import { Textarea } from '../../../../components/ui/textarea/Textarea';
+} from '../../../components/ui/select/Select';
+import { Textarea } from '../../../components/ui/textarea/Textarea';
+import { useFetchCategories } from '../../../hooks/data/useCategoriesQueries';
+import { useCreateGame } from '../../../hooks/data/useGamesMutations';
+import { useFetchPlatforms } from '../../../hooks/data/usePlatformsQueries';
+import { useDialog } from '../../../hooks/useDialog';
+import { gameCreateSchema } from '../../../schemas/gameCreate';
+import { getDataForm } from '../../../utils/getFormData';
+import style from './Forms.module.css';
 
 export function CreateGame() {
   const createGame = useCreateGame();
@@ -165,9 +165,7 @@ export function CreateGame() {
         </Label>
 
         <DialogFooter>
-          <Button type='submit'>
-            <p className={style.button}>CREATE</p>
-          </Button>
+          <Button type='submit'>CREATE</Button>
         </DialogFooter>
       </form>
     </DialogContent>

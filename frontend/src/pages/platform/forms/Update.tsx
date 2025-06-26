@@ -1,30 +1,32 @@
 import { useState, type FormEvent } from 'react';
 import { toast } from 'react-toastify';
 
-import { Button } from '../../../../components/ui/button/Button';
+import { Button } from '../../../components/ui/button/Button';
 import {
   DialogClose,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '../../../../components/ui/dialog/Dialog';
-import { Input } from '../../../../components/ui/input/Input';
-import { Label } from '../../../../components/ui/label/Label';
-import { useDialog } from '../../../../hooks/useDialog';
-import { toInputDateString } from '../../../../utils/toInputDateString';
+} from '../../../components/ui/dialog/Dialog';
+import { Input } from '../../../components/ui/input/Input';
+import { Label } from '../../../components/ui/label/Label';
+import { useDialog } from '../../../hooks/useDialog';
+import { toInputDateString } from '../../../utils/toInputDateString';
 
-import { useUpdatePlatform } from '../../../../hooks/data/usePlatformsMutations';
-import { platformUpdateSchema } from '../../../../schemas/platformUpdate';
-import type { PlatformResponse } from '../../../../types/Platform';
-import { getDataForm } from '../../../../utils/getFormData';
-import style from './Update.module.css';
+import { useUpdatePlatform } from '../../../hooks/data/usePlatformsMutations';
+import { platformUpdateSchema } from '../../../schemas/platformUpdate';
+import type { PlatformResponse } from '../../../types/Platform';
+import { getDataForm } from '../../../utils/getFormData';
+import style from './Forms.module.css';
 
 export function UpdatePlatform({ platform }: { platform: PlatformResponse }) {
   const [platformData, setPlatformData] = useState({
     title: platform.title,
     company: platform.company || '',
-    year: platform.acquisition_year ? new Date(platform.acquisition_year) : undefined,
+    year: platform.acquisition_year
+      ? new Date(platform.acquisition_year)
+      : undefined,
     imageUrl: platform.image_url || '',
   });
   const updatePlatform = useUpdatePlatform();
@@ -128,14 +130,14 @@ export function UpdatePlatform({ platform }: { platform: PlatformResponse }) {
             }
           />
         </Label>
-      </form>
 
-      <DialogFooter>
-        <Button>
-          <p>Edit platform</p>
-          <p>+</p>
-        </Button>
-      </DialogFooter>
+        <DialogFooter>
+          <Button type='submit'>
+            <p>Edit platform</p>
+            <p>+</p>
+          </Button>
+        </DialogFooter>
+      </form>
     </DialogContent>
   );
 }

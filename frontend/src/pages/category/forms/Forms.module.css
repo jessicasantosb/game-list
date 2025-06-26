@@ -45,7 +45,7 @@
   border-radius: 8px;
   font-size: 14px;
   font-weight: 400;
-  color: #c4c4c4;
+  color: var(--black);
   background-color: var(--white);
   resize: vertical;
   min-height: 120px;

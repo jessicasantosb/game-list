@@ -1,30 +1,30 @@
 import { useState, type FormEvent } from 'react';
 import { toast } from 'react-toastify';
 
-import { Button } from '../../../../components/ui/button/Button';
+import { Button } from '../../../components/ui/button/Button';
 import {
   DialogClose,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '../../../../components/ui/dialog/Dialog';
-import { Input } from '../../../../components/ui/input/Input';
-import { Label } from '../../../../components/ui/label/Label';
+} from '../../../components/ui/dialog/Dialog';
+import { Input } from '../../../components/ui/input/Input';
+import { Label } from '../../../components/ui/label/Label';
 import {
   Select,
   SelectGroup,
   SelectItem,
-} from '../../../../components/ui/select/Select';
-import { useDialog } from '../../../../hooks/useDialog';
-import type { GameResponse } from '../../../../types/Game';
+} from '../../../components/ui/select/Select';
+import { useDialog } from '../../../hooks/useDialog';
+import type { GameResponse } from '../../../types/Game';
 
-import { useFetchCategories } from '../../../../hooks/data/useCategoriesQueries';
-import { useUpdateGame } from '../../../../hooks/data/useGamesMutations';
-import { useFetchPlatforms } from '../../../../hooks/data/usePlatformsQueries';
-import { gameUpdateSchema } from '../../../../schemas/gameUpdate';
-import { getDataForm } from '../../../../utils/getFormData';
-import style from './Update.module.css';
+import { useFetchCategories } from '../../../hooks/data/useCategoriesQueries';
+import { useUpdateGame } from '../../../hooks/data/useGamesMutations';
+import { useFetchPlatforms } from '../../../hooks/data/usePlatformsQueries';
+import { gameUpdateSchema } from '../../../schemas/gameUpdate';
+import { getDataForm } from '../../../utils/getFormData';
+import style from './Forms.module.css';
 
 export function UpdateGame({ game }: { game: GameResponse }) {
   const [gameData, setGameData] = useState({
@@ -199,7 +199,7 @@ export function UpdateGame({ game }: { game: GameResponse }) {
         </div>
 
         <DialogFooter>
-          <Button>CONFIRM</Button>
+          <Button type='submit'>CONFIRM</Button>
         </DialogFooter>
       </form>
     </DialogContent>

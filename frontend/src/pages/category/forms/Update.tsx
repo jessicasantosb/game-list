@@ -1,23 +1,23 @@
 import { useState, type FormEvent } from 'react';
 import { toast } from 'react-toastify';
 
-import { Button } from '../../../../components/ui/button/Button';
+import { Button } from '../../../components/ui/button/Button';
 import {
   DialogClose,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '../../../../components/ui/dialog/Dialog';
-import { Input } from '../../../../components/ui/input/Input';
-import { Label } from '../../../../components/ui/label/Label';
-import { Textarea } from '../../../../components/ui/textarea/Textarea';
-import { useUpdateCategory } from '../../../../hooks/data/useCategoriesMutations';
-import { useDialog } from '../../../../hooks/useDialog';
-import { categoryUpdateSchema } from '../../../../schemas/categoryUpdate';
-import type { CategoryResponse } from '../../../../types/Category';
-import { getDataForm } from '../../../../utils/getFormData';
-import style from './Update.module.css';
+} from '../../../components/ui/dialog/Dialog';
+import { Input } from '../../../components/ui/input/Input';
+import { Label } from '../../../components/ui/label/Label';
+import { Textarea } from '../../../components/ui/textarea/Textarea';
+import { useUpdateCategory } from '../../../hooks/data/useCategoriesMutations';
+import { useDialog } from '../../../hooks/useDialog';
+import { categoryUpdateSchema } from '../../../schemas/categoryUpdate';
+import type { CategoryResponse } from '../../../types/Category';
+import { getDataForm } from '../../../utils/getFormData';
+import style from './Forms.module.css';
 
 export function UpdateCategory({ category }: { category: CategoryResponse }) {
   const [categoryData, setCategoryData] = useState({
@@ -85,14 +85,11 @@ export function UpdateCategory({ category }: { category: CategoryResponse }) {
             className={style.textarea}
           />
         </Label>
-      </form>
 
-      <DialogFooter>
-        <Button>
-          <p>Edit category</p>
-          <p>+</p>
-        </Button>
-      </DialogFooter>
+        <DialogFooter>
+          <Button type='submit'>Edit category</Button>
+        </DialogFooter>
+      </form>
     </DialogContent>
   );
 }

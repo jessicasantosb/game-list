@@ -9,13 +9,9 @@ import { useFetchCategories } from '../../hooks/data/useCategoriesQueries';
 import { formatDate } from '../../utils/formatDate';
 import { per_page } from '../../utils/getPaginationItems';
 import DeleteModal from '../components/DeleteModal';
-import { CreateCategory } from './forms/create/Create';
-import { UpdateCategory } from './forms/update/Update';
-
-export type SortHeaders = {
-  sort: string;
-  label: string;
-};
+import { CreateCategory } from './forms/Create';
+import { UpdateCategory } from './forms/Update';
+import type { SortHeaders } from '../../types/Shared';
 
 const headers: SortHeaders[] = [
   { sort: 'title', label: 'Title' },

@@ -1,4 +1,4 @@
-.dialogContent {
+.content {
   width: 750px;
   height: auto;
   padding: 40px;
@@ -14,17 +14,11 @@
   z-index: 1000;
 }
 
-.dialogTitle {
+.title {
   font-size: 32px;
   font-weight: bold;
   color: var(--black);
   margin-bottom: 30px;
-}
-
-.dialogClose {
-  width: 13px;
-  background-color: var(--white);
-  height: 29px;
 }
 
 .form {
@@ -36,14 +30,17 @@
   margin: 0 auto;
 }
 
-.formGroup {
+.label {
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 7px;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--black);
 }
 
-.formGroup input {
+.label input {
   display: flex;
   width: 100%;
   height: auto;
@@ -52,8 +49,7 @@
   border-radius: 8px;
   font-size: 14px;
   font-weight: 400;
-  color: var(--grayform);
-  background-color: var(--graybgform);
+  background-color: var(--white);
   transition: border-color 0.2s ease;
 }
 
@@ -62,35 +58,23 @@
   border-radius: 8px;
   font-size: 14px;
   font-weight: 400;
-  color: var(--grayform);
-  background-color: var(--graybgform);
+  background-color: var(--white);
   resize: vertical;
   min-height: 120px;
   width: 100%;
   padding: 8px;
 }
 
-.containerData {
+.container {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.containerRow {
+.row {
   display: flex;
   justify-content: space-between;
   gap: 100px;
-}
-
-.required {
-  color: var(--alert);
-  margin-left: 4px;
-}
-
-label {
-  font-size: 14px;
-  font-weight: 400;
-  color: var(--black);
 }
 
 .checkbox {
@@ -101,8 +85,5 @@ label {
 }
 
 .button {
-  width: 108px;
-  color: var(--white);
-  font-size: 12px;
-  font-weight: 500;
+  width: 141px;
 }

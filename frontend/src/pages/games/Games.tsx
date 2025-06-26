@@ -14,17 +14,13 @@ import {
 } from '../../hooks/data/useGamesMutations';
 import { useFetchGames } from '../../hooks/data/useGamesQueries';
 import type { GamesPaginationRequest } from '../../types/Game';
+import type { SortHeaders } from '../../types/Shared';
 import { formatDate } from '../../utils/formatDate';
 import { per_page } from '../../utils/getPaginationItems';
 import DeleteModal from '../components/DeleteModal';
-import { CreateGame } from './forms/create/Create';
-import { DetailsGame } from './forms/details/Details';
-import { UpdateGame } from './forms/update/Update';
-
-export type SortHeaders = {
-  sort: string;
-  label: string;
-};
+import { CreateGame } from './forms/Create';
+import { DetailsGame } from './forms/Details';
+import { UpdateGame } from './forms/Update';
 
 const headers: SortHeaders[] = [
   { sort: 'title', label: 'Title' },
@@ -44,9 +40,9 @@ export function Games() {
   const favoriteGame = useFavoriteGame();
 
   const gamesQuery = useFetchGames(params);
-
   const games = gamesQuery.data?.games;
   const count = gamesQuery.data?.count;
+  console.log('games: ', games);
 
   const totalPages = Math.ceil(Number(count) / per_page);
 
@@ -86,10 +82,11 @@ export function Games() {
       <HeaderList fields={headers} onSortClick={handleSort} />
 
       <div className='itemsContainer'>
+        {gamesQuery.isLoading && <p>Loading...</p>}
         <div>
-          {games?.map((game, index) => (
+          {games?.map((game) => (
             <ListItems
-              key={index}
+              key={game._id}
               imageUrl={game.image_url}
               camp1={game.title}
               camp2={game.category}

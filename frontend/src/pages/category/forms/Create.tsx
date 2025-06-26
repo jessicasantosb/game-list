@@ -1,23 +1,23 @@
 import { type FormEvent } from 'react';
 import { toast } from 'react-toastify';
 
-import { Button } from '../../../../components/ui/button/Button';
+import { Button } from '../../../components/ui/button/Button';
 import {
   DialogClose,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '../../../../components/ui/dialog/Dialog';
-import { Input } from '../../../../components/ui/input/Input';
-import { Label } from '../../../../components/ui/label/Label';
-import { Textarea } from '../../../../components/ui/textarea/Textarea';
-import { useDialog } from '../../../../hooks/useDialog';
+} from '../../../components/ui/dialog/Dialog';
+import { Input } from '../../../components/ui/input/Input';
+import { Label } from '../../../components/ui/label/Label';
+import { Textarea } from '../../../components/ui/textarea/Textarea';
+import { useDialog } from '../../../hooks/useDialog';
 
-import { useCreateCategory } from '../../../../hooks/data/useCategoriesMutations';
-import { categoryCreateSchema } from '../../../../schemas/categoryCreate';
-import { getDataForm } from '../../../../utils/getFormData';
-import style from './Create.module.css';
+import { useCreateCategory } from '../../../hooks/data/useCategoriesMutations';
+import { categoryCreateSchema } from '../../../schemas/categoryCreate';
+import { getDataForm } from '../../../utils/getFormData';
+import style from './Forms.module.css';
 
 export function CreateCategory() {
   const createCategory = useCreateCategory();
@@ -65,14 +65,14 @@ export function CreateCategory() {
             placeholder='Amazing game'
           />
         </Label>
-      </form>
 
-      <DialogFooter>
-        <Button>
-          <p>Save category</p>
-          <p>+</p>
-        </Button>
-      </DialogFooter>
+        <DialogFooter>
+          <Button type='submit'>
+            <p>Save category</p>
+            <p>+</p>
+          </Button>
+        </DialogFooter>
+      </form>
     </DialogContent>
   );
 }

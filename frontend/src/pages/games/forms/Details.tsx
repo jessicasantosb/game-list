@@ -1,5 +1,5 @@
 import type { HTMLAttributes, ReactNode } from 'react';
-import { Button } from '../../../../components/ui/button/Button';
+import { Button } from '../../../components/ui/button/Button';
 import {
   Dialog,
   DialogClose,
@@ -8,18 +8,18 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '../../../../components/ui/dialog/Dialog';
-import { Input } from '../../../../components/ui/input/Input';
-import { Label } from '../../../../components/ui/label/Label';
+} from '../../../components/ui/dialog/Dialog';
+import { Input } from '../../../components/ui/input/Input';
+import { Label } from '../../../components/ui/label/Label';
 import {
   Select,
   SelectGroup,
   SelectItem,
-} from '../../../../components/ui/select/Select';
-import { Textarea } from '../../../../components/ui/textarea/Textarea';
+} from '../../../components/ui/select/Select';
+import { Textarea } from '../../../components/ui/textarea/Textarea';
 
-import type { GameResponse } from '../../../../types/Game';
-import style from './Details.module.css';
+import type { GameResponse } from '../../../types/Game';
+import style from './Forms.module.css';
 
 type UpdateModalProps = HTMLAttributes<HTMLElement> & {
   updateForm?: ReactNode;

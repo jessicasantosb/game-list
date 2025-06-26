@@ -4,9 +4,9 @@ import { Header } from '../../components/header/Header';
 import { HomeCard } from '../../components/homeCard/HomeCard';
 import { useUser } from '../../hooks/useUser';
 import { category, game, platform, starHome } from '../../utils/icons';
-import { CreateCategory } from '../category/forms/create/Create';
-import { CreateGame } from '../games/forms/create/Create';
-import { CreatePlatform } from '../platform/forms/create/Create';
+import { CreateCategory } from '../category/forms/Create';
+import { CreateGame } from '../games/forms/Create';
+import { CreatePlatform } from '../platform/forms/Create';
 
 import { useFetchSummary } from '../../hooks/data/useStatsQueries';
 import styles from './Home.module.css';

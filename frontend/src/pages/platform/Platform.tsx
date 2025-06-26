@@ -6,16 +6,12 @@ import HeaderList from '../../components/ui/headerList/HeaderList';
 import ListItems from '../../components/ui/listItems/ListItems';
 import { useDeletePlatform } from '../../hooks/data/usePlatformsMutations';
 import { useFetchPlatforms } from '../../hooks/data/usePlatformsQueries';
+import type { SortHeaders } from '../../types/Shared';
 import { formatDateYear } from '../../utils/formatDateYear';
 import { per_page } from '../../utils/getPaginationItems';
 import DeleteModal from '../components/DeleteModal';
-import { CreatePlatform } from './forms/create/Create';
-import { UpdatePlatform } from './forms/update/Update';
-
-export type SortHeaders = {
-  sort: string;
-  label: string;
-};
+import { CreatePlatform } from './forms/Create';
+import { UpdatePlatform } from './forms/Update';
 
 const headers: SortHeaders[] = [
   { sort: 'title', label: 'Title' },
@@ -34,6 +30,7 @@ export const Platform = () => {
   const platformsQuery = useFetchPlatforms({ sort, dir, page, per_page });
   const platforms = platformsQuery.data?.platforms;
   const count = platformsQuery.data?.count;
+  console.log('platforms:', platforms);
 
   const totalPages = Math.ceil(Number(count) / per_page);
 
@@ -53,10 +50,11 @@ export const Platform = () => {
       <HeaderList fields={headers} onSortClick={handleSort} />
 
       <div className='itemsContainer'>
+        {platformsQuery.isLoading && <p>Loading...</p>}
         <div>
-          {platforms?.map((platform, index) => (
+          {platforms?.map((platform) => (
             <ListItems
-              key={index}
+              key={platform._id}
               imageUrl={platform.image_url}
               camp1={platform.title}
               camp2={platform.company}
