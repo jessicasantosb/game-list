@@ -1,4 +1,4 @@
-.dialogContent {
+.content {
   width: 750px;
   height: auto;
   padding: 40px;
@@ -14,7 +14,7 @@
   z-index: 1000;
 }
 
-.dialogTitle {
+.title {
   font-size: 32px;
   font-weight: bold;
   color: var(--black);
@@ -30,10 +30,13 @@
   margin: 0 auto;
 }
 
-.formGroup {
+.label {
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--black);
 }
 
 .textarea {
@@ -49,8 +52,3 @@
   padding: 8px;
 }
 
-label {
-  font-size: 14px;
-  font-weight: 400;
-  color: var(--black);
-}

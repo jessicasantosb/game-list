@@ -4,9 +4,13 @@ import { CustomPagination } from '../../components/customPagination/CustomPagina
 import { Header } from '../../components/header/Header';
 import HeaderList from '../../components/ui/headerList/HeaderList';
 import ListItems from '../../components/ui/listItems/ListItems';
+import { useDeleteCategory } from '../../hooks/data/useCategoriesMutations';
 import { useFetchCategories } from '../../hooks/data/useCategoriesQueries';
 import { formatDate } from '../../utils/formatDate';
 import { per_page } from '../../utils/getPaginationItems';
+import DeleteModal from '../components/DeleteModal';
+import { CreateCategory } from './forms/create/Create';
+import { UpdateCategory } from './forms/update/Update';
 
 export type SortHeaders = {
   sort: string;
@@ -24,7 +28,7 @@ export function Category() {
   const [page, setPage] = useState(1);
   const [dir, setDir] = useState<'asc' | 'desc'>('asc');
   const [sort, setSort] = useState<string>('title');
-  // const deleteCategory = useDeleteCategory();
+  const deleteCategory = useDeleteCategory();
 
   const categoriesQuery = useFetchCategories({ sort, dir, page, per_page });
   const categories = categoriesQuery.data?.categories;
@@ -42,7 +46,7 @@ export function Category() {
       <Header
         title='Categories'
         buttonText='NEW CATEGORY'
-        // createForm={<NewCategory onCreated={useFetchCategories} />}
+        createForm={<CreateCategory onCreated={useFetchCategories} />}
       />
 
       <HeaderList fields={headers} onSortClick={handleSort} />
@@ -59,18 +63,18 @@ export function Category() {
               camp4={formatDate(String(category.updatedAt))}
               iconEdit
               iconDelete
-              // editForm={
-              //   <EditCategory
-              //     category={category}
-              //     onCreated={useFetchCategories}
-              //   />
-              // }
-              // deleteForm={
-              //   <DeleteModal
-              //     type={'category'}
-              //     onDelete={() => deleteCategory.mutate(category._id)}
-              //   />
-              // }
+              editForm={
+                <UpdateCategory
+                  category={category}
+                  onCreated={useFetchCategories}
+                />
+              }
+              deleteForm={
+                <DeleteModal
+                  type={'category'}
+                  onDelete={() => deleteCategory.mutate(category._id)}
+                />
+              }
             />
           ))}
         </div>
