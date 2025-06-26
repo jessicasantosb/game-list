@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState, type FormEvent } from 'react';
 import { toast } from 'react-toastify';
 
 import { Button } from '../../../../components/ui/button/Button';
@@ -16,199 +16,192 @@ import {
   SelectGroup,
   SelectItem,
 } from '../../../../components/ui/select/Select';
-import { useCategory } from '../../../../hooks/useCategory';
 import { useDialog } from '../../../../hooks/useDialog';
-import { useGame } from '../../../../hooks/useGame';
-import { usePlatform } from '../../../../hooks/usePlatform';
-import { type CategoryProps } from '../../../../types/Category';
-import type { EditGamesWithOnCreatedProps } from '../../../../types/Game';
-import { type PlatformProps } from '../../../../types/Platform';
-import { validateForm } from '../../../../utils/validateForm';
+import type { GameResponse } from '../../../../types/Game';
 
+import { useFetchCategories } from '../../../../hooks/data/useCategoriesQueries';
+import { useUpdateGame } from '../../../../hooks/data/useGamesMutations';
+import { useFetchPlatforms } from '../../../../hooks/data/usePlatformsQueries';
+import { gameUpdateSchema } from '../../../../schemas/gameUpdate';
+import { getDataForm } from '../../../../utils/getFormData';
 import style from './Update.module.css';
 
-export function UpdateGame({ game, onCreated }: EditGamesWithOnCreatedProps) {
-  const [title, setNewTitle] = useState(game.title);
-  const [description, setNewDescription] = useState(game.description);
-  const [category, setCategory] = useState(game.category);
-  const [status, setNewStatus] = useState(game.status);
-  const [platform, setPlatform] = useState(game.platform);
-  const [image_url, setUrlImage] = useState(game.image_url);
-  const [acquisition_date] = useState(game.acquisition_date);
-  const [finish_date] = useState(game.finish_date);
-  const [categoryList, setCategoryList] = useState<CategoryProps[]>([]);
-  const [platformList, setPlatformList] = useState<PlatformProps[]>([]);
-  const { getAll: getAllCategories } = useCategory();
-  const { getAll: getAllPlatforms } = usePlatform();
-  const { update } = useGame();
+export function UpdateGame({ game }: { game: GameResponse }) {
+  const [gameData, setGameData] = useState({
+    title: game.title,
+    description: game.description,
+    category: game.category,
+    platform: game.platform,
+    image_url: game.image_url,
+    status: game.status,
+    favorite: game.favorite,
+  });
+  const platforms = useFetchPlatforms();
+  const categories = useFetchCategories();
+  const updateGame = useUpdateGame();
   const { closeDialog } = useDialog();
 
-  const fetchData = async () => {
-    const categoryList = await getAllCategories({});
-    const platformList = await getAllPlatforms({});
-    setPlatformList(platformList);
-    setCategoryList(categoryList);
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const isValid = validateForm(title, image_url);
+    const result = getDataForm({
+      form: e.currentTarget,
+      schema: gameUpdateSchema,
+    });
 
-    if (!isValid) return;
-    if (!category || !acquisition_date || !finish_date || !status) {
-      toast.error('Please fill in all required fields.');
+    if (result.error) {
+      toast.error('You must fill in all fields!');
       return;
     }
 
-    try {
-      await update({
-        itemId: game._id || '',
-        gameData: {
-          title,
-          description,
-          category,
-          status,
-          platform,
-          image_url,
-          acquisition_date,
-          finish_date,
-        },
-      });
+    updateGame.mutate(
+      { ...result.data, id: String(game._id) },
+      {
+        onSuccess: () => toast.success('Game updated successfully!'),
+        onError: () => toast.error('Error updating game!'),
+      },
+    );
 
-      toast.success('Game updated successfully');
-      closeDialog();
-      onCreated();
-    } catch (error) {
-      toast.error('Erro ao atualizar o game');
-      console.error(error);
-    }
+    closeDialog();
   };
 
   return (
-    <div className={style.newGame}>
-      <DialogContent className={style.dialogContent}>
-        <DialogHeader>
-          <DialogTitle className={style.dialogTitle}>
-            Editing: {game.title}
-          </DialogTitle>
-          <DialogClose className={style.dialogClose} />
-        </DialogHeader>
+    <DialogContent className={style.content}>
+      <DialogHeader>
+        <DialogTitle className={style.title}>Editing: {game.title}</DialogTitle>
+        <DialogClose />
+      </DialogHeader>
 
-        <form className={style.form} onSubmit={handleSubmit}>
-          <div className={style.formGroup}>
-            <Label asterisk htmlFor='title'>
-              Title
-            </Label>
-            <div>
-              <Input
-                id='title'
-                placeholder={'title'}
-                value={title}
-                onChange={(e) => setNewTitle(e.target.value)}
-              />
+      <form className={style.form} onSubmit={handleSubmit}>
+        <div className={style.label}>
+          <Label asterisk htmlFor='title'>
+            Title
+          </Label>
+          <Input
+            id='title'
+            placeholder={'title'}
+            value={gameData.title}
+            onChange={(e) =>
+              setGameData((prev) => ({ ...prev, title: e.target.value }))
+            }
+          />
+        </div>
+
+        <div className={style.label}>
+          <Label htmlFor='description'>Description</Label>
+          <div>
+            <textarea
+              id='description'
+              placeholder={'description'}
+              value={gameData.description}
+              onChange={(e) =>
+                setGameData((prev) => ({
+                  ...prev,
+                  description: e.target.value,
+                }))
+              }
+            />
+          </div>
+        </div>
+
+        <div className={style.container}>
+          <div className={style.row}>
+            <div className={style.label}>
+              <Label htmlFor='category' asterisk>
+                Category
+              </Label>
+              <Select
+                id='category'
+                variant='modal'
+                value={gameData.category}
+                onChange={(e) =>
+                  setGameData((prev) => ({
+                    ...prev,
+                    category: e.target.value,
+                  }))
+                }>
+                <SelectGroup>
+                  <SelectItem value=''>Select Category</SelectItem>
+                  {categories.data?.categories?.map((category) => (
+                    <SelectItem key={category.title} value={category.title}>
+                      {category.title}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </Select>
+            </div>
+            <div className={style.label}>
+              <Label htmlFor='platform' asterisk>
+                Platform
+              </Label>
+              <Select
+                id='platform'
+                variant='modal'
+                value={gameData.platform}
+                onChange={(e) =>
+                  setGameData((prev) => ({
+                    ...prev,
+                    platform: e.target.value,
+                  }))
+                }>
+                <SelectGroup>
+                  <SelectItem value=''>Select Platform</SelectItem>
+                  {platforms.data?.platforms.map((platform) => (
+                    <SelectItem key={platform.title} value={platform.title}>
+                      {platform.title}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </Select>
             </div>
           </div>
 
-          <div className={style.formGroup}>
-            <Label htmlFor='description'>Description</Label>
-            <div>
-              <textarea
-                id='description'
-                placeholder={'description'}
-                value={description}
-                onChange={(e) => setNewDescription(e.target.value)}
-                className={style.textarea}
-              />
+          <div className={style.row}>
+            <div className={style.label}>
+              <Label htmlFor='status' asterisk>
+                Status
+              </Label>
+              <Select
+                id='status'
+                variant='modal'
+                value={gameData.status}
+                onChange={(e) =>
+                  setGameData((prev) => ({
+                    ...prev,
+                    status: e.target.value,
+                  }))
+                }>
+                <SelectGroup>
+                  <SelectItem value={'Playing'}>Playing</SelectItem>
+                  <SelectItem value={'Done'}>Done</SelectItem>
+                  <SelectItem value={'Abandoned'}>Abandoned</SelectItem>
+                </SelectGroup>
+              </Select>
             </div>
           </div>
+        </div>
 
-          <div className={style.containerData}>
-            <div className={style.containerRow}>
-              <div className={style.formGroup}>
-                <Label htmlFor='category' asterisk>
-                  Category
-                </Label>
-                <Select
-                  id='category'
-                  variant='modal'
-                  value={category}
-                  onChange={(e) => setCategory(e.target.value)}>
-                  <SelectGroup>
-                    <SelectItem value=''>Select Category</SelectItem>
-                    {categoryList?.map((cat) => (
-                      <SelectItem key={cat.title} value={cat.title}>
-                        {cat.title}
-                      </SelectItem>
-                    ))}
-                  </SelectGroup>
-                </Select>
-              </div>
-              <div className={style.formGroup}>
-                <Label htmlFor='platform' asterisk>
-                  Platform
-                </Label>
-                <Select
-                  id='platform'
-                  variant='modal'
-                  value={platform}
-                  onChange={(e) => setPlatform(e.target.value)}>
-                  <SelectGroup>
-                    <SelectItem value=''>Select Platform</SelectItem>
-                    {platformList?.map((plat) => (
-                      <SelectItem key={plat.title} value={plat.title}>
-                        {plat.title}
-                      </SelectItem>
-                    ))}
-                  </SelectGroup>
-                </Select>
-              </div>
-            </div>
+        <div className={style.label}>
+          <Label htmlFor='image_url'>Imagem (URL)</Label>
 
-            <div className={style.containerRow}>
-              <div className={style.formGroup}>
-                <Label htmlFor='status' asterisk>
-                  Status
-                </Label>
-                <Select
-                  id='status'
-                  variant='modal'
-                  value={status}
-                  onChange={(e) => setNewStatus(e.target.value)}>
-                  <SelectGroup>
-                    <SelectItem value={'Playing'}>Playing</SelectItem>
-                    <SelectItem value={'Done'}>Done</SelectItem>
-                    <SelectItem value={'Abandoned'}>Abandoned</SelectItem>
-                  </SelectGroup>
-                </Select>
-              </div>
-            </div>
-          </div>
+          <Input
+            id='image_url'
+            type='text'
+            placeholder='http://cdn...'
+            value={gameData.image_url}
+            onChange={(e) =>
+              setGameData((prev) => ({
+                ...prev,
+                image_url: e.target.value,
+              }))
+            }
+          />
+        </div>
 
-          <div className={style.formGroup}>
-            <Label htmlFor='image_url'>Imagem (URL)</Label>
-            <div>
-              <Input
-                id='image_url'
-                type='text'
-                placeholder='http://cdn...'
-                value={image_url}
-                onChange={(e) => setUrlImage(e.target.value)}
-              />
-            </div>
-          </div>
-          <DialogFooter>
-            <Button>
-              <p className={style.button}>CONFIRM</p>
-            </Button>
-          </DialogFooter>
-        </form>
-      </DialogContent>
-      {/* <CustomPagination page={page} totalPages={totalPages} setPage={setPage} /> */}
-    </div>
+        <DialogFooter>
+          <Button>CONFIRM</Button>
+        </DialogFooter>
+      </form>
+    </DialogContent>
   );
 }

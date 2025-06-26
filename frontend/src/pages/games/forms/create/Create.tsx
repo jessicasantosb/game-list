@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { type FormEvent } from 'react';
 import { toast } from 'react-toastify';
 import { Button } from '../../../../components/ui/button/Button';
 import {
@@ -15,255 +15,161 @@ import {
   SelectGroup,
   SelectItem,
 } from '../../../../components/ui/select/Select';
-import { useCategory } from '../../../../hooks/useCategory';
+import { useFetchCategories } from '../../../../hooks/data/useCategoriesQueries';
+import { useCreateGame } from '../../../../hooks/data/useGamesMutations';
+import { useFetchPlatforms } from '../../../../hooks/data/usePlatformsQueries';
 import { useDialog } from '../../../../hooks/useDialog';
-import { useGame } from '../../../../hooks/useGame';
-import { usePlatform } from '../../../../hooks/usePlatform';
-import { type CategoryProps } from '../../../../types/Category';
-import { type PlatformProps } from '../../../../types/Platform';
-import { validateForm } from '../../../../utils/validateForm';
+import { gameCreateSchema } from '../../../../schemas/gameCreate';
+import { getDataForm } from '../../../../utils/getFormData';
 import style from './Create.module.css';
+import { Textarea } from '../../../../components/ui/textarea/Textarea';
 
-export function CreateGame({ onCreated }: { onCreated?: () => void }) {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [category, setCategory] = useState('');
-  const [platform, setPlatform] = useState('');
+export function CreateGame() {
+  const createGame = useCreateGame();
+  const categories = useFetchCategories();
+  const platforms = useFetchPlatforms();
   const { closeDialog } = useDialog();
-  const [categoryList, setCategoryList] = useState<CategoryProps[]>([]);
-  const [platformList, setPlatformList] = useState<PlatformProps[]>([]);
-  const [status, setStatus] = useState<'Playing' | 'Done' | 'Abandoned'>(
-    'Playing',
-  );
-  const [acquisition_date, setAcquisitionDate] = useState(Date);
-  const [finish_date, setFinishDate] = useState(Date);
-  const [favorite, setFavorite] = useState(false);
-  const [image_url, setUrlImage] = useState('');
-  const { getAll: getAllCategories } = useCategory();
-  const { getAll: getAllPlatforms } = usePlatform();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const categoryList = await getAllCategories({});
-      const platformList = await getAllPlatforms({});
-      setPlatformList(platformList);
-      setCategoryList(categoryList);
-    };
-    fetchData();
-  }, []);
-
-  const { create, error } = useGame();
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!categoryList.length || !platform.length) {
-      toast.error(
-        'Please create the required items first (category and/or platform).',
-      );
+    const result = getDataForm({
+      form: e.currentTarget,
+      schema: gameCreateSchema,
+    });
+
+    if (result.error) {
+      toast.error('You must fill in all fields!');
       return;
     }
 
-    const isValid = validateForm(title, image_url);
+    createGame.mutate(result.data, {
+      onSuccess: () => toast.success('Game created successfully!'),
+      onError: () => toast.error('Error creating game!'),
+    });
 
-    if (!isValid) return;
-    if (!category || !acquisition_date || !status) {
-      toast.error('Please fill in all required fields.');
-      return;
-    }
-
-    if (status !== 'Playing' && !finish_date) {
-      toast.error('Finish date is required unless status is Playing');
-      return;
-    }
-
-    try {
-      await create({
-        title,
-        description,
-        category,
-        acquisition_date: new Date(acquisition_date),
-        status,
-        platform,
-        finish_date: new Date(finish_date),
-        image_url,
-        favorite,
-      });
-      toast.success('Game registred success!');
-      closeDialog();
-      if (onCreated) onCreated(); // <-- Chama a função para atualizar a lista!
-    } catch {
-      console.log(error);
-      toast.error('Error to create game');
-    }
+    closeDialog();
   };
 
   return (
-    <div className={style.newGame}>
-      <DialogContent className={style.dialogContent}>
-        <DialogHeader>
-          <DialogTitle className={style.dialogTitle}>New Game</DialogTitle>
-          <DialogClose className={style.dialogClose} />
-        </DialogHeader>
+    <DialogContent className={style.content}>
+      <DialogHeader>
+        <DialogTitle className={style.title}>New Game</DialogTitle>
+        <DialogClose className={style.close} />
+      </DialogHeader>
 
-        <form className={style.form} onSubmit={handleSubmit}>
-          <div className={style.formGroup}>
-            <Label asterisk htmlFor='title'>
-              Title
-            </Label>
-            <div>
+      <form className={style.form} onSubmit={handleSubmit}>
+        <div className={style.label}>
+          <Label asterisk>Title</Label>
+          <Input placeholder='Mario Kart 8' name='title' />
+        </div>
+
+        <Label className={style.label}>Description</Label>
+        <div>
+          <Textarea
+            id='description'
+            placeholder='Amazing game'
+            name='description'
+            className={style.textarea}
+          />
+        </div>
+
+        <div className={style.containerData}>
+          <div className={style.row}>
+            <div className={style.formGroup}>
+              <Label asterisk htmlFor='category'>
+                Category
+              </Label>
+              <Select id='category' variant='modal' name='category'>
+                <SelectGroup>
+                  <SelectItem value=''>Select Category</SelectItem>
+                  {categories.data?.categories.map((category) => (
+                    <SelectItem key={category._id} value={category.title}>
+                      {category.title}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </Select>
+            </div>
+            <div className={style.formGroup}>
+              <Label htmlFor='platform'>Platform</Label>
+              <Select id='platform' variant='modal' name='platform'>
+                <SelectGroup>
+                  <SelectItem value=''>Select Platform</SelectItem>
+                  {platforms.data?.platforms.map((platform) => (
+                    <SelectItem key={platform._id} value={platform.title}>
+                      {platform.title}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </Select>
+            </div>
+          </div>
+
+          <div className={style.row}>
+            <div className={style.label}>
+              <Label asterisk>Acquisition date</Label>
               <Input
-                placeholder='Mario Kart 8'
-                id='title'
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
+                id='acquisition_date'
+                type='date'
+                variant='squared'
+                name='acquisition_date'
               />
             </div>
-          </div>
-
-          <div className={style.formGroup}>
-            <Label htmlFor='description'>Description</Label>
-            <div>
-              <textarea
-                id='description'
-                placeholder='Amazing game'
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                className={style.textarea}
-              />
-            </div>
-          </div>
-
-          <div className={style.containerData}>
-            <div className={style.containerRow}>
-              <div className={style.formGroup}>
-                <Label asterisk htmlFor='category'>
-                  Category
-                </Label>
-                <Select
-                  id='category'
-                  variant='modal'
-                  value={category}
-                  onChange={(e) => setCategory(e.target.value)}>
-                  <SelectGroup>
-                    <SelectItem value=''>Select Category</SelectItem>
-                    {categoryList?.map((cat) => (
-                      <SelectItem key={cat.title} value={cat.title}>
-                        {cat.title}
-                      </SelectItem>
-                    ))}
-                  </SelectGroup>
-                </Select>
-              </div>
-              <div className={style.formGroup}>
-                <Label htmlFor='platform'>Platform</Label>
-                <Select
-                  id='platform'
-                  variant='modal'
-                  value={platform}
-                  onChange={(e) => setPlatform(e.target.value)}>
-                  <SelectGroup>
-                    <SelectItem value=''>Select Platform</SelectItem>
-                    {platformList?.map((plat) => (
-                      <SelectItem key={plat.title} value={plat.title}>
-                        {plat.title}
-                      </SelectItem>
-                    ))}
-                  </SelectGroup>
-                </Select>
-              </div>
-            </div>
-
-            <div className={style.containerRow}>
-              <div className={style.formGroup}>
-                <Label asterisk htmlFor='acquisition_date'>
-                  Acquisition date
-                </Label>
-                <div>
-                  <Input
-                    id='acquisition_date'
-                    type='date'
-                    variant='squared'
-                    value={acquisition_date}
-                    onChange={(e) => setAcquisitionDate(e.target.value)}
-                  />
-                </div>
-              </div>
-              <div className={style.formGroup}>
-                <Label asterisk htmlFor='finish_date'>
-                  Finish Date
-                </Label>
-                <div>
-                  <Input
-                    id='finish_date'
-                    type='date'
-                    variant='squared'
-                    value={finish_date}
-                    onChange={(e) => setFinishDate(e.target.value)}
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className={style.containerRow}>
-              <div className={style.formGroup}>
-                <Label asterisk htmlFor='status'>
-                  Status
-                </Label>
-                <Select
-                  id='status'
-                  variant='modal'
-                  value={status}
-                  onChange={(e) =>
-                    setStatus(
-                      e.target.value as 'Playing' | 'Done' | 'Abandoned',
-                    )
-                  }>
-                  <SelectGroup>
-                    <SelectItem value={'Playing'}>Playing</SelectItem>
-                    <SelectItem value={'Done'}>Done</SelectItem>
-                    <SelectItem value={'Abandoned'}>Abandoned</SelectItem>
-                  </SelectGroup>
-                </Select>
-              </div>
-              <div className={style.formGroup}>
-                <div className={style.checkbox}>
-                  <div>
-                    <input
-                      type='checkbox'
-                      name='favorite'
-                      id='favorite'
-                      value={status}
-                      onChange={(e) => setFavorite(e.target.checked)}
-                    />
-                  </div>
-                  <Label asterisk htmlFor='favorite'>
-                    Favorite
-                  </Label>
-                </div>
+            <div className={style.label}>
+              <Label asterisk htmlFor='finish_date'>
+                Finish Date
+              </Label>
+              <div>
+                <Input
+                  id='finish_date'
+                  type='date'
+                  variant='squared'
+                  name='finish_date'
+                />
               </div>
             </div>
           </div>
 
-          <div className={style.formGroup}>
-            <Label htmlFor='image_url'>Imagem (URL)</Label>
-            <div>
-              <Input
-                id='image_url'
-                type='text'
-                placeholder='http://cdn...'
-                value={image_url}
-                onChange={(e) => setUrlImage(e.target.value)}
-              />
+          <div className={style.row}>
+            <div className={style.label}>
+              <Label asterisk htmlFor='status'>
+                Status
+              </Label>
+              <Select id='status' variant='modal' name='status'>
+                <SelectGroup>
+                  <SelectItem value={'Playing'}>Playing</SelectItem>
+                  <SelectItem value={'Done'}>Done</SelectItem>
+                  <SelectItem value={'Abandoned'}>Abandoned</SelectItem>
+                </SelectGroup>
+              </Select>
+            </div>
+
+            <div className={style.checkbox}>
+              <Input type='checkbox' name='favorite' id='favorite' />
+              <Label asterisk htmlFor='favorite'>
+                Favorite
+              </Label>
             </div>
           </div>
-          <DialogFooter>
-            <Button type='submit'>
-              <p className={style.button}>CREATE</p>
-            </Button>
-          </DialogFooter>
-        </form>
-      </DialogContent>
-    </div>
+        </div>
+
+        <Label className={style.label}>
+          Imagem (URL)
+          <Input
+            id='image_url'
+            type='text'
+            placeholder='http://cdn...'
+            name='image_url'
+          />
+        </Label>
+
+        <DialogFooter>
+          <Button type='submit'>
+            <p className={style.button}>CREATE</p>
+          </Button>
+        </DialogFooter>
+      </form>
+    </DialogContent>
   );
 }

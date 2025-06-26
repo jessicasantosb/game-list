@@ -8,19 +8,19 @@ import { Select, SelectGroup, SelectItem } from '../ui/select/Select';
 import style from './Filterbar.module.css';
 
 type Props = {
-  onSearch: (filters: FiltersState) => Promise<void>;
+  onSearch: (filters: FiltersState) => void;
   onClear: () => void;
 };
 
 export type FiltersState = {
-  search: string;
+  title: string;
   category: string;
   favorite: string;
 };
 
 export const GameFilters = ({ onSearch, onClear }: Props) => {
   const [filters, setFilters] = useState<FiltersState>({
-    search: '',
+    title: '',
     category: '',
     favorite: '',
   });
@@ -36,11 +36,11 @@ export const GameFilters = ({ onSearch, onClear }: Props) => {
 
   const handleSearch = () => {
     onSearch(filters);
-    setFilters({ search: '', category: '', favorite: '' });
+    setFilters({ title: '', category: '', favorite: '' });
   };
 
   const handleClear = () => {
-    setFilters({ search: '', category: '', favorite: '' });
+    setFilters({ title: '', category: '', favorite: '' });
     onClear();
   };
 
@@ -50,10 +50,10 @@ export const GameFilters = ({ onSearch, onClear }: Props) => {
         <h3>Filters</h3>
         <Input
           type='text'
-          name='search'
+          name='title'
           variant='rounded'
           placeholder='Search Game'
-          value={filters.search}
+          value={filters.title}
           onChange={handleChange}
         />
 

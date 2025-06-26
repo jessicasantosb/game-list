@@ -1,7 +1,8 @@
 import { useState, type ReactNode } from 'react';
 import { GameContext } from '../hooks/useGame';
-import { api } from '../services/api';
+// import { api } from '../services/api';
 import type { EditGameProps, GameProps } from '../types/Game';
+import type { api } from '../services/api/api';
 
 type GameProviderProps = {
   children: ReactNode;
