@@ -2,7 +2,7 @@ import { AxiosError } from 'axios';
 import { useState, type ReactNode } from 'react';
 import { toast } from 'react-toastify';
 import { CategoryContext } from '../hooks/useCategory';
-import { api } from '../services/api';
+// import { api } from '../services/api';
 import type { CategoryProps, EditCategoryProps } from '../types/Category';
 
 type CategoryProviderProps = {
@@ -21,29 +21,29 @@ export function CategoryProvider({ children }: CategoryProviderProps) {
   const [loading, setLoading] = useState(false);
   const [count, setCount] = useState(0);
 
-  const getAll = async ({
-    sort = 'title',
-    dir,
-    per_page,
-    page,
-  }: GetAllProps) => {
-    try {
-      setLoading(true);
-      const response = await api.get(`/categories`, {
-        params: { sort, dir, page, per_page },
-      });
-      const categories = response.data;
+  // const getAll = async ({
+  //   sort = 'title',
+  //   dir,
+  //   per_page,
+  //   page,
+  // }: GetAllProps) => {
+  //   try {
+  //     setLoading(true);
+  //     const response = await api.get(`/categories`, {
+  //       params: { sort, dir, page, per_page },
+  //     });
+  //     const categories = response.data;
 
-      setLoading(false);
-      setCount(categories.count);
+  //     setLoading(false);
+  //     setCount(categories.count);
 
-      return categories.categories;
-    } catch (error) {
-      console.error('Error fetching category:', error);
-      setError(true);
-      setLoading(false);
-    }
-  };
+  //     return categories.categories;
+  //   } catch (error) {
+  //     console.error('Error fetching category:', error);
+  //     setError(true);
+  //     setLoading(false);
+  //   }
+  // };
 
   const create = async (
     categoryData: Pick<CategoryProps, 'title' | 'description'>,

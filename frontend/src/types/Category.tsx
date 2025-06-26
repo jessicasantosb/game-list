@@ -1,4 +1,4 @@
-export type CategoryProps = {
+export type CategoryResponse = {
   _id: string;
   title: string;
   description?: string;
@@ -7,13 +7,7 @@ export type CategoryProps = {
   is_deleted: boolean;
 };
 
-export type EditCategoryProps = {
-  category: CategoryProps;
-  categoryData: Pick<CategoryProps, 'title' | 'description'>;
-  itemId: string;
-};
-
-export type EditCategoryWithOnCreatedProps = {
-  onCreated: () => void;
-  category: CategoryProps;
+export type CategoryGetAllResponse = {
+  categories: CategoryResponse[];
+  count: number;
 };

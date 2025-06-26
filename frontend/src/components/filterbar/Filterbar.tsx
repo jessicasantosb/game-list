@@ -1,8 +1,7 @@
-import { useEffect, useState, type ChangeEvent } from 'react';
+import { useState, type ChangeEvent } from 'react';
 
 import search from '../../assets/search.svg';
-import { useCategory } from '../../hooks/useCategory';
-import type { CategoryProps } from '../../types/Category';
+import { useFetchCategories } from '../../hooks/data/useCategoriesQueries';
 import { Button } from '../ui/button/Button';
 import { Input } from '../ui/input/Input';
 import { Select, SelectGroup, SelectItem } from '../ui/select/Select';
@@ -20,13 +19,12 @@ export type FiltersState = {
 };
 
 export const GameFilters = ({ onSearch, onClear }: Props) => {
-  const [categories, setCategories] = useState<CategoryProps[]>([]);
   const [filters, setFilters] = useState<FiltersState>({
     search: '',
     category: '',
     favorite: '',
   });
-  const { getAll } = useCategory();
+  const categories = useFetchCategories();
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -45,15 +43,6 @@ export const GameFilters = ({ onSearch, onClear }: Props) => {
     setFilters({ search: '', category: '', favorite: '' });
     onClear();
   };
-
-  useEffect(() => {
-    const fetchCategories = async () => {
-      const data = await getAll({});
-      setCategories(data);
-    };
-
-    fetchCategories();
-  }, [getAll]);
 
   return (
     <div className={style.filtercontainer}>
@@ -77,9 +66,9 @@ export const GameFilters = ({ onSearch, onClear }: Props) => {
             <SelectItem value='' disabled>
               Select Category
             </SelectItem>
-            {categories?.map((cat) => (
-              <SelectItem key={cat.title} value={cat.title}>
-                {cat.title}
+            {categories.data?.categories.map((category) => (
+              <SelectItem key={category.title} value={category.title}>
+                {category.title}
               </SelectItem>
             ))}
           </SelectGroup>

@@ -1,4 +1,4 @@
-export type PlatformProps = {
+export type PlatformResponse = {
   _id: string;
   image_url?: string;
   title: string;
@@ -9,12 +9,7 @@ export type PlatformProps = {
   is_deleted?: boolean;
 };
 
-export type EditPlatformProps = {
-  itemId: string;
-  platformData: Omit<PlatformProps, 'is_deleted'>;
-};
-
-export type EditPlatformWithOnCreatedProps = {
-  onCreated: () => void;
-  platform: PlatformProps;
+export type PlatformGetAllResponse = {
+  platforms: PlatformResponse[];
+  count: number;
 };

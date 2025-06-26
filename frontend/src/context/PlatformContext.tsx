@@ -1,7 +1,7 @@
 import { useState, type ReactNode } from 'react';
 
 import { PlatformContext } from '../hooks/usePlatform';
-import { api } from '../services/api';
+// import { api } from '../services/api';
 import type { EditPlatformProps, PlatformProps } from '../types/Platform';
 
 type PlatformProviderProps = {

@@ -15,7 +15,7 @@ type DeleteType = 'platform' | 'category' | 'game';
 
 interface DeleteModalProps {
   type: DeleteType;
-  onDelete: () => Promise<boolean>;
+  onDelete: () => void;
 }
 
 const getDeleteMessage = (type: DeleteType): string => {
@@ -34,11 +34,6 @@ const getDeleteMessage = (type: DeleteType): string => {
 const DeleteModal: React.FC<DeleteModalProps> = ({ type, onDelete }) => {
   const { closeDialog } = useDialog();
 
-  const handleDelete = async () => {
-    const isDeleted = await onDelete();
-    if (isDeleted) closeDialog();
-  };
-
   return (
     <DialogContent className={styles.modal}>
       <div className={styles.iconWrapper}>
@@ -55,7 +50,7 @@ const DeleteModal: React.FC<DeleteModalProps> = ({ type, onDelete }) => {
         <Button className={styles.cancelBtn} onClick={closeDialog}>
           No, cancel action
         </Button>
-        <Button className={styles.deleteBtn} onClick={handleDelete}>
+        <Button className={styles.deleteBtn} onClick={() => onDelete()}>
           {`Yes, delete this ${type}`}
         </Button>
       </DialogFooter>

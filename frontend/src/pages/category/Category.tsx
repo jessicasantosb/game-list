@@ -1,17 +1,12 @@
-import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
+import { useState } from 'react';
 
 import { CustomPagination } from '../../components/customPagination/CustomPagination';
 import { Header } from '../../components/header/Header';
 import HeaderList from '../../components/ui/headerList/HeaderList';
 import ListItems from '../../components/ui/listItems/ListItems';
-import { useCategory } from '../../hooks/useCategory';
-import type { CategoryProps } from '../../types/Category';
+import { useFetchCategories } from '../../hooks/data/useCategoriesQueries';
 import { formatDate } from '../../utils/formatDate';
 import { per_page } from '../../utils/getPaginationItems';
-import DeleteModal from '../components/DeleteModal';
-import { NewCategory } from './forms/create/CreateCategories';
-import { EditCategory } from './forms/update/UpdateCategories';
 
 export type SortHeaders = {
   sort: string;
@@ -27,70 +22,55 @@ const headers: SortHeaders[] = [
 
 export function Category() {
   const [page, setPage] = useState(1);
-  const [category, setCategory] = useState<CategoryProps[]>();
   const [dir, setDir] = useState<'asc' | 'desc'>('asc');
-  const { getAll, remove, count } = useCategory();
+  const [sort, setSort] = useState<string>('title');
+  // const deleteCategory = useDeleteCategory();
 
-  const totalPages = Math.ceil(count / per_page);
+  const categoriesQuery = useFetchCategories({ sort, dir, page, per_page });
+  const categories = categoriesQuery.data?.categories;
+  const count = categoriesQuery.data?.count;
 
-  const fetchCategories = async () => {
-    const categories = await getAll({ page, per_page });
-    setCategory(categories);
-  };
+  const totalPages = Math.ceil(Number(count) / per_page);
 
-  const handleDelete = async (id: string): Promise<boolean> => {
-    try {
-      await remove(id);
-      fetchCategories();
-      return true;
-    } catch (error) {
-      console.log(error);
-      toast.error('Error deleting category.');
-      return false;
-    }
-  };
-
-  const handleSort = async (sort: string) => {
+  const handleSort = (newSort: string) => {
+    setSort(newSort);
     setDir((prev) => (prev === 'asc' ? 'desc' : 'asc'));
-
-    const categories = await getAll({ sort, dir, page, per_page });
-    setCategory(categories);
   };
-
-  useEffect(() => {
-    fetchCategories();
-  }, [page]);
 
   return (
     <div className='container'>
       <Header
         title='Categories'
         buttonText='NEW CATEGORY'
-        createForm={<NewCategory onCreated={fetchCategories} />}
+        // createForm={<NewCategory onCreated={useFetchCategories} />}
       />
 
       <HeaderList fields={headers} onSortClick={handleSort} />
 
       <div className='itemsContainer'>
+        {categoriesQuery.isLoading && <p>Loading...</p>}
         <div>
-          {category?.map((cat) => (
+          {categories?.map((category) => (
             <ListItems
-              key={cat._id}
-              camp1={cat.title}
-              camp2={cat.description}
-              camp3={formatDate(String(cat.createdAt))}
-              camp4={formatDate(String(cat.updatedAt))}
+              key={category._id}
+              camp1={category.title}
+              camp2={category.description}
+              camp3={formatDate(String(category.createdAt))}
+              camp4={formatDate(String(category.updatedAt))}
               iconEdit
               iconDelete
-              editForm={
-                <EditCategory category={cat} onCreated={fetchCategories} />
-              }
-              deleteForm={
-                <DeleteModal
-                  type={'category'}
-                  onDelete={() => handleDelete(cat._id)}
-                />
-              }
+              // editForm={
+              //   <EditCategory
+              //     category={category}
+              //     onCreated={useFetchCategories}
+              //   />
+              // }
+              // deleteForm={
+              //   <DeleteModal
+              //     type={'category'}
+              //     onDelete={() => deleteCategory.mutate(category._id)}
+              //   />
+              // }
             />
           ))}
         </div>
