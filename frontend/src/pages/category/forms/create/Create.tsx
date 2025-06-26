@@ -19,7 +19,7 @@ import { categoryCreateSchema } from '../../../../schemas/categoryCreate';
 import { getDataForm } from '../../../../utils/getFormData';
 import style from './Create.module.css';
 
-export function CreateCategory({ onCreated }: { onCreated?: () => void }) {
+export function CreateCategory() {
   const createCategory = useCreateCategory();
   const { closeDialog } = useDialog();
 
@@ -42,7 +42,6 @@ export function CreateCategory({ onCreated }: { onCreated?: () => void }) {
     });
 
     closeDialog();
-    onCreated?.();
   };
 
   return (

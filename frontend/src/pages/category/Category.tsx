@@ -46,7 +46,7 @@ export function Category() {
       <Header
         title='Categories'
         buttonText='NEW CATEGORY'
-        createForm={<CreateCategory onCreated={useFetchCategories} />}
+        createForm={<CreateCategory />}
       />
 
       <HeaderList fields={headers} onSortClick={handleSort} />
@@ -63,12 +63,7 @@ export function Category() {
               camp4={formatDate(String(category.updatedAt))}
               iconEdit
               iconDelete
-              editForm={
-                <UpdateCategory
-                  category={category}
-                  onCreated={useFetchCategories}
-                />
-              }
+              editForm={<UpdateCategory category={category} />}
               deleteForm={
                 <DeleteModal
                   type={'category'}

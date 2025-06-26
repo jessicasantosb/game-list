@@ -19,12 +19,7 @@ import type { CategoryResponse } from '../../../../types/Category';
 import { getDataForm } from '../../../../utils/getFormData';
 import style from './Update.module.css';
 
-type UpdateCategoryProps = {
-  category: CategoryResponse;
-  onCreated: () => void;
-};
-
-export function UpdateCategory({ category, onCreated }: UpdateCategoryProps) {
+export function UpdateCategory({ category }: { category: CategoryResponse }) {
   const [categoryData, setCategoryData] = useState({
     title: category.title,
     description: category.description,
@@ -54,7 +49,6 @@ export function UpdateCategory({ category, onCreated }: UpdateCategoryProps) {
     );
 
     closeDialog();
-    onCreated?.();
   };
 
   return (
