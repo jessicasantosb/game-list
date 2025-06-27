@@ -15,9 +15,9 @@ import { Textarea } from '../../../components/ui/textarea/Textarea';
 import { useDialog } from '../../../hooks/useDialog';
 
 import { useCreateCategory } from '../../../hooks/data/useCategoriesMutations';
-import { categoryCreateSchema } from '../../../schemas/categoryCreate';
 import { getDataForm } from '../../../utils/getFormData';
 import style from './Forms.module.css';
+import { categorySchema } from '../../../schemas/category';
 
 export function CreateCategory() {
   const createCategory = useCreateCategory();
@@ -28,7 +28,7 @@ export function CreateCategory() {
 
     const result = getDataForm({
       form: e.currentTarget,
-      schema: categoryCreateSchema,
+      schema: categorySchema,
     });
 
     if (result.error) {

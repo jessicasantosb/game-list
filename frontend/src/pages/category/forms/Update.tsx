@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react';
+import { type FormEvent } from 'react';
 import { toast } from 'react-toastify';
 
 import { Button } from '../../../components/ui/button/Button';
@@ -14,25 +14,24 @@ import { Label } from '../../../components/ui/label/Label';
 import { Textarea } from '../../../components/ui/textarea/Textarea';
 import { useUpdateCategory } from '../../../hooks/data/useCategoriesMutations';
 import { useDialog } from '../../../hooks/useDialog';
-import { categoryUpdateSchema } from '../../../schemas/categoryUpdate';
+import {
+  categorySchema,
+  type CategoryRequest,
+} from '../../../schemas/category';
 import type { CategoryResponse } from '../../../types/Category';
 import { getDataForm } from '../../../utils/getFormData';
 import style from './Forms.module.css';
 
 export function UpdateCategory({ category }: { category: CategoryResponse }) {
-  const [categoryData, setCategoryData] = useState({
-    title: category.title,
-    description: category.description,
-  });
   const updateCategory = useUpdateCategory();
   const { closeDialog } = useDialog();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const result = getDataForm({
+    const result = getDataForm<CategoryRequest>({
       form: e.currentTarget,
-      schema: categoryUpdateSchema,
+      schema: categorySchema,
     });
 
     if (result.error) {
@@ -41,7 +40,10 @@ export function UpdateCategory({ category }: { category: CategoryResponse }) {
     }
 
     updateCategory.mutate(
-      { ...result.data, id: category._id },
+      {
+        data: result.data,
+        id: category._id,
+      },
       {
         onSuccess: () => toast.success('Category updated successfully!'),
         onError: () => toast.error('Error updating category!'),
@@ -61,13 +63,7 @@ export function UpdateCategory({ category }: { category: CategoryResponse }) {
       <form className={style.form} onSubmit={handleSubmit}>
         <div className={style.label}>
           <Label asterisk>Title</Label>
-          <Input
-            name='title'
-            value={categoryData.title}
-            onChange={(e) =>
-              setCategoryData((prev) => ({ ...prev, title: e.target.value }))
-            }
-          />
+          <Input name='title' defaultValue={category.title} />
         </div>
 
         <Label className={style.label}>
@@ -75,13 +71,7 @@ export function UpdateCategory({ category }: { category: CategoryResponse }) {
           <Textarea
             placeholder='Enter category description'
             name='description'
-            value={categoryData.description}
-            onChange={(e) =>
-              setCategoryData((prev) => ({
-                ...prev,
-                description: e.target.value,
-              }))
-            }
+            defaultValue={category.description}
             className={style.textarea}
           />
         </Label>
