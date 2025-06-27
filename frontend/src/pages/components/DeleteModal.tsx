@@ -38,7 +38,7 @@ const DeleteModal: React.FC<DeleteModalProps> = ({ type, onDelete }) => {
     <DialogContent>
       <DialogHeader>
         <DialogClose />
-        <div className={styles.iconWrapper}>
+        <div className={styles.headerWrapper}>
           <DialogTitle className={styles.title}>Are you sure?</DialogTitle>
           <img src={warning} alt='Warning' />
         </div>
@@ -47,17 +47,8 @@ const DeleteModal: React.FC<DeleteModalProps> = ({ type, onDelete }) => {
       <p className={styles.message}>{getDeleteMessage(type)}</p>
 
       <DialogFooter className={styles.actions}>
-        <Button
-          variant='white'
-          style={{ border: '1px solid black' }}
-          onClick={closeDialog}>
-          No, cancel action
-        </Button>
-        <Button
-          style={{ backgroundColor: '#fd4760' }}
-          onClick={() => onDelete()}>
-          {`Yes, delete this ${type}`}
-        </Button>
+        <Button onClick={closeDialog}>No, cancel action</Button>
+        <Button onClick={() => onDelete()}>{`Yes, delete this ${type}`}</Button>
       </DialogFooter>
     </DialogContent>
   );
