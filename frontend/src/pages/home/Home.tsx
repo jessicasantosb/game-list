@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react';
-
 import { Header } from '../../components/header/Header';
 import { HomeCard } from '../../components/homeCard/HomeCard';
 import { category, game, platform, starHome } from '../../utils/icons';
@@ -12,30 +10,8 @@ import { getUserName } from '../../services/getUserName';
 import styles from './Home.module.css';
 
 export function Home() {
-  const [summary, setSummary] = useState({
-    gamesCount: 0,
-    favoriteGamesCount: 0,
-    categoriesCount: 0,
-    platformCount: 0,
-  });
-
-  const stats = useFetchSummary();
+  const { data: stats } = useFetchSummary();
   const user = getUserName();
-  console.log('home ', user);
-
-  useEffect(() => {
-    if (!stats.data) {
-      setSummary({
-        gamesCount: 0,
-        favoriteGamesCount: 0,
-        categoriesCount: 0,
-        platformCount: 0,
-      });
-      return;
-    }
-
-    setSummary(stats.data);
-  }, []);
 
   return (
     <main className='container'>
@@ -52,7 +28,7 @@ export function Home() {
           haveButton
           icon={game}
           title='Games'
-          count={summary.gamesCount}
+          count={stats?.gamesCount}
           createForm={<CreateGame />}
         />
 
@@ -61,7 +37,7 @@ export function Home() {
           haveButton
           icon={category}
           title='Categories'
-          count={summary.categoriesCount}
+          count={stats?.categoriesCount}
           createForm={<CreateCategory />}
         />
 
@@ -70,7 +46,7 @@ export function Home() {
           haveButton
           icon={platform}
           title='Platforms'
-          count={summary.platformCount}
+          count={stats?.platformCount}
           createForm={<CreatePlatform />}
         />
 
@@ -78,7 +54,7 @@ export function Home() {
           to='/games'
           icon={starHome}
           title='Favorite Games'
-          count={summary.favoriteGamesCount}
+          count={stats?.favoriteGamesCount}
         />
       </div>
     </main>
