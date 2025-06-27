@@ -35,6 +35,10 @@
     gap: 1.5rem;
   }
 
+  .title {
+    align-self: flex-start;
+  }
+
   .querys {
     width: 100%;
     max-width: 300px;

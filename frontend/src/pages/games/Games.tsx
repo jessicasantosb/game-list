@@ -74,8 +74,8 @@ export function Games() {
   return (
     <div className='container'>
       <Header title='Games' buttonText='NEW GAME' createForm={<CreateGame />}>
-        <GameFilters onSearch={handleFilters} onClear={handleClearFilters} />
       </Header>
+        <GameFilters onSearch={handleFilters} onClear={handleClearFilters} />
       <HeaderList fields={headers} onSortClick={handleSort} />
       <div className='itemsContainer'>
         <div>

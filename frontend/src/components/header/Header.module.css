@@ -1,16 +1,9 @@
 .header {
   width: 100%;
+  padding-block: 1rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  /* position: relative; */
-  padding-bottom: 1rem;
-  align-items: flex-start;
-  box-sizing: border-box;
-  margin-top: 16px;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  max-width: 1150px;
   user-select: none;
 }
 
@@ -19,16 +12,6 @@
   font-weight: 700;
   margin-left: 1rem;
   word-break: break-word;
-}
-
-.line {
-  height: 1px;
-  background-color: var(--graydialogbox);
-  position: absolute;
-  bottom: 1rem;
-  left: 2.1rem;
-  right: 2.1rem;
-  width: 100%;
 }
 
 .toggleBtn {
@@ -51,24 +34,19 @@
 }
 
 .texts {
-  margin-left: 1.5rem;
-  margin-right: 1rem;
+  margin-top: 0.25rem;
+  margin-inline: 1rem 1.5rem;
   font-size: 0.875rem;
   font-weight: 500;
-  margin-top: 0.625rem;
-  margin-bottom: 1.25rem;
-  width: 100%;
 }
 
 @media screen and (max-width: 1200px) {
   .header {
-    align-items: stretch;
-    margin-top: 8px;
+    padding-top: 2rem;
   }
 
   .title {
-    font-size: 1.25rem;
-    margin-left: 0.5rem;
+    margin-left: 0;
   }
 
   .toggleBtn {
@@ -76,13 +54,6 @@
   }
 
   .texts {
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
-    font-size: 0.75rem;
-  }
-
-  .line {
-    left: 0.5rem;
-    right: 0.5rem;
+    margin-left: 0;
   }
 }

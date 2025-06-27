@@ -38,7 +38,7 @@ export function Home() {
 
   return (
     <main className='container'>
-      <Header hiddenButton hiddenLine>
+      <Header hiddenButton>
         <div className={styles.textHome}>
           <h1>Hello, {user?.full_name}!</h1>
           <p>Choose one of options below.</p>

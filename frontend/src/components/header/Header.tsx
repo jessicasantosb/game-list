@@ -9,7 +9,6 @@ type HeaderProps = HTMLAttributes<HTMLElement> & {
   title?: string;
   buttonText?: string;
   hiddenButton?: boolean;
-  hiddenLine?: boolean;
   createForm?: ReactNode;
 };
 
@@ -18,7 +17,6 @@ export function Header({
   buttonText,
   children,
   hiddenButton,
-  hiddenLine,
   createForm,
   ...props
 }: HeaderProps) {
@@ -51,7 +49,6 @@ export function Header({
           </Dialog>
         )}
         {children}
-        {!hiddenLine && <div />}
       </div>
     </header>
   );
