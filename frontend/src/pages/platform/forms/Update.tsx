@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react';
+import { type FormEvent } from 'react';
 import { toast } from 'react-toastify';
 
 import { Button } from '../../../components/ui/button/Button';
@@ -15,27 +15,22 @@ import { useDialog } from '../../../hooks/useDialog';
 import { toInputDateString } from '../../../utils/toInputDateString';
 
 import { useUpdatePlatform } from '../../../hooks/data/usePlatformsMutations';
-import { platformUpdateSchema } from '../../../schemas/platformUpdate';
+import {
+  platformUpdateSchema,
+  type PlatformUpdateSchema,
+} from '../../../schemas/platformUpdate';
 import type { PlatformResponse } from '../../../types/Platform';
 import { getDataForm } from '../../../utils/getFormData';
 import style from './Forms.module.css';
 
 export function UpdatePlatform({ platform }: { platform: PlatformResponse }) {
-  const [platformData, setPlatformData] = useState({
-    title: platform.title,
-    company: platform.company || '',
-    year: platform.acquisition_year
-      ? new Date(platform.acquisition_year)
-      : undefined,
-    imageUrl: platform.image_url || '',
-  });
   const updatePlatform = useUpdatePlatform();
   const { closeDialog } = useDialog();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const result = getDataForm({
+    const result = getDataForm<PlatformUpdateSchema>({
       form: e.currentTarget,
       schema: platformUpdateSchema,
     });
@@ -46,7 +41,10 @@ export function UpdatePlatform({ platform }: { platform: PlatformResponse }) {
     }
 
     updatePlatform.mutate(
-      { ...result.data, id: platform._id },
+      {
+        data: result.data,
+        id: platform._id,
+      },
       {
         onSuccess: () => toast.success('Platform updated successfully!'),
         onError: () => toast.error('Error updating platform!'),
@@ -66,69 +64,26 @@ export function UpdatePlatform({ platform }: { platform: PlatformResponse }) {
       <form className={style.form} onSubmit={handleSubmit}>
         <div className={style.label}>
           <Label asterisk>Title</Label>
-          <Input
-            value={platformData.title}
-            onChange={(e) =>
-              setPlatformData((prev) => ({ ...prev, title: e.target.value }))
-            }
-          />
+          <Input name='title' defaultValue={platform.title} />
         </div>
 
-        <Label>
+        <Label className={style.label}>
           Company
-          <Input
-            value={platformData.company}
-            onChange={(e) =>
-              setPlatformData((prev) => ({
-                ...prev,
-                company: e.target.value,
-              }))
-            }
-          />
+          <Input name='company' defaultValue={platform.company} />
         </Label>
 
-        <Label>
+        <Label className={style.label}>
           Acquisition year
           <Input
             type='date'
-            value={toInputDateString(platformData.year)}
-            onChange={(e) =>
-              setPlatformData((prev) => ({
-                ...prev,
-                year: e.target.value ? new Date(e.target.value) : undefined,
-              }))
-            }
+            name='acquisition_year'
+            defaultValue={toInputDateString(platform.acquisition_year)}
           />
         </Label>
 
-        <Label>
-          Acquisition year
-          <Input
-            type='date'
-            placeholder='YYYY-MM-DD'
-            value={
-              platformData.year ? toInputDateString(platformData.year) : ''
-            }
-            onChange={(e) =>
-              setPlatformData((prev) => ({
-                ...prev,
-                year: e.target.value ? new Date(e.target.value) : undefined,
-              }))
-            }
-          />
-        </Label>
-
-        <Label>
+        <Label className={style.label}>
           Platform image (url)
-          <Input
-            value={platformData.imageUrl}
-            onChange={(e) =>
-              setPlatformData((prev) => ({
-                ...prev,
-                imageUrl: e.target.value,
-              }))
-            }
-          />
+          <Input name='image_url' defaultValue={platform.image_url} />
         </Label>
 
         <DialogFooter>

@@ -10,7 +10,7 @@ export const getDataForm = <T>({ form, schema }: GetDataForm<T>) => {
   const data: Record<string, unknown> = {};
 
   for (const [key, value] of formData.entries()) {
-    data[key] = value;
+    data[key] = value || undefined;
   }
 
   const result = schema.safeParse(data);

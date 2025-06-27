@@ -1,3 +1,5 @@
+import type { PlatformUpdateSchema } from "../schemas/platformUpdate";
+
 export type PlatformResponse = {
   _id: string;
   image_url?: string;
@@ -12,4 +14,9 @@ export type PlatformResponse = {
 export type PlatformGetAllResponse = {
   platforms: PlatformResponse[];
   count: number;
+};
+
+export type PlatformUpdateRequest = {
+  data:PlatformUpdateSchema;
+  id: string;
 };

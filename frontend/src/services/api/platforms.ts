@@ -1,8 +1,8 @@
 import type { PlatformCreateRequest } from '../../schemas/platformCreate';
-import type { PlatformUpdateRequest } from '../../schemas/platformUpdate';
 import type {
   PlatformGetAllResponse,
   PlatformResponse,
+  PlatformUpdateRequest,
 } from '../../types/Platform';
 import type { BaseResponse, PaginationRequest } from '../../types/Shared';
 import { api } from './api';
@@ -25,6 +25,8 @@ const create = async (data: PlatformCreateRequest) => {
 };
 
 const updateById = async ({ data, id }: PlatformUpdateRequest) => {
+  console.log('update api ');
+
   const result = await api.put<BaseResponse>(`/platforms/${id}`, data);
   return result.data;
 };
