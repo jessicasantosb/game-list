@@ -5,7 +5,7 @@ import type { GamesPaginationRequest } from '../../types/Game';
 
 export const useFetchGames = (params: GamesPaginationRequest) => {
 
-  console.log(params);
+  // console.log(params);
   
   return useQuery({
     queryKey: ['games', params],

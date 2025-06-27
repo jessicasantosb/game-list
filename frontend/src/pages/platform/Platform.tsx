@@ -73,13 +73,9 @@ export const Platform = () => {
             />
           ))}
         </div>
-
-        <CustomPagination
-          page={page}
-          totalPages={totalPages}
-          setPage={setPage}
-        />
       </div>
+
+      <CustomPagination page={page} totalPages={totalPages} setPage={setPage} />
     </div>
   );
 };

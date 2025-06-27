@@ -73,10 +73,10 @@ export function Games() {
 
   return (
     <div className='container'>
-      <Header title='Games' buttonText='NEW GAME' createForm={<CreateGame />}>
-      </Header>
-        <GameFilters onSearch={handleFilters} onClear={handleClearFilters} />
+      <Header title='Games' buttonText='NEW GAME' createForm={<CreateGame />} />
+      <GameFilters onSearch={handleFilters} onClear={handleClearFilters} />
       <HeaderList fields={headers} onSortClick={handleSort} />
+
       <div className='itemsContainer'>
         <div>
           {gamesQuery.isLoading && <p>Loading...</p>}
@@ -130,6 +130,7 @@ export function Games() {
           </div>
         </div>
       </div>
+
       <CustomPagination page={page} totalPages={totalPages} setPage={setPage} />
     </div>
   );

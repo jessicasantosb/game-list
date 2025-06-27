@@ -3,7 +3,6 @@ import { jwtDecode } from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
 
 import { usersService } from '../../services/api/users';
-import { useUser } from '../useUser';
 
 export const useSignUp = () => {
   const signin = useSignIn();
@@ -17,7 +16,6 @@ export const useSignUp = () => {
 };
 
 export const useSignIn = () => {
-  const { setUser } = useUser();
   const navigate = useNavigate();
 
   return useMutation({
@@ -26,8 +24,7 @@ export const useSignIn = () => {
       localStorage.setItem('loggedin', JSON.stringify(accessToken));
 
       const { full_name } = jwtDecode<{ full_name: string }>(accessToken);
-      setUser({ full_name });
-
+      localStorage.setItem('full_name', full_name);
       navigate('/');
     },
   });

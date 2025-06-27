@@ -12,6 +12,10 @@ import { api } from './api';
 
 const getAll = async (params: GamesPaginationRequest) => {
   const result = await api.get<GameGetAllResponse>('/games', { params });
+
+  // tá vindo tudo
+  console.log(result.request.responseURL);
+  
   return result.data;
 };
 

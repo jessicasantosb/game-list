@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react';
 
 import { Header } from '../../components/header/Header';
 import { HomeCard } from '../../components/homeCard/HomeCard';
-import { useUser } from '../../hooks/useUser';
 import { category, game, platform, starHome } from '../../utils/icons';
 import { CreateCategory } from '../category/forms/Create';
 import { CreateGame } from '../games/forms/Create';
 import { CreatePlatform } from '../platform/forms/Create';
 
 import { useFetchSummary } from '../../hooks/data/useStatsQueries';
+import { getUserName } from '../../services/getUserName';
 import styles from './Home.module.css';
 
 export function Home() {
@@ -20,7 +20,8 @@ export function Home() {
   });
 
   const stats = useFetchSummary();
-  const { user } = useUser();
+  const user = getUserName();
+  console.log('home ', user);
 
   useEffect(() => {
     if (!stats.data) {
@@ -40,7 +41,7 @@ export function Home() {
     <main className='container'>
       <Header hiddenButton>
         <div className={styles.textHome}>
-          <h1>Hello, {user?.full_name}!</h1>
+          <h1>Hello, {user.full_name}!</h1>
           <p>Choose one of options below.</p>
         </div>
       </Header>
