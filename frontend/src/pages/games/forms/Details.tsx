@@ -19,7 +19,8 @@ import {
 import { Textarea } from '../../../components/ui/textarea/Textarea';
 
 import type { GameResponse } from '../../../types/Game';
-import style from './Forms.module.css';
+import { toInputDateString } from '../../../utils/toInputDateString';
+import '../../styles/Forms.css';
 
 type UpdateModalProps = HTMLAttributes<HTMLElement> & {
   updateForm?: ReactNode;
@@ -35,39 +36,37 @@ export function DetailsGame({
   if (!game) return null;
 
   return (
-    <DialogContent className={style.content}>
+    <DialogContent>
       <DialogHeader>
-        <DialogTitle className={style.title}>Details: {game.title}</DialogTitle>
+        <DialogTitle>Details: {game.title}</DialogTitle>
         <DialogClose />
       </DialogHeader>
 
-      <form className={style.form}>
-        <div className={style.label}>
+      <form className='form'>
+        <div className='label'>
           <Label asterisk>Title</Label>
-
           <Input value={game.title} readOnly />
         </div>
 
-        <Label className={style.label}>
+        <Label className='label'>
           Description
           <Textarea value={game.description} readOnly />
         </Label>
 
-        <div className={style.data}>
-          <div className={style.row}>
-            <div className={style.label}>
+        <div className='rowWrapper'>
+          <div className='row'>
+            <div className='label'>
               <Label asterisk>Category</Label>
-              <Select variant='disable' value={game.category} disabled>
+              <Select variant='disable' disabled>
                 <SelectGroup>
                   <SelectItem>{game.category}</SelectItem>
                 </SelectGroup>
               </Select>
             </div>
-            <div className={style.formGroup}>
-              <Label asterisk htmlFor='plataform'>
-                Plataform
-              </Label>
-              <Select variant='disable' value={game.platform} disabled>
+
+            <div className='label'>
+              <Label asterisk>Plataform</Label>
+              <Select variant='disable' disabled>
                 <SelectGroup>
                   <SelectItem>{game.platform}</SelectItem>
                 </SelectGroup>
@@ -75,8 +74,30 @@ export function DetailsGame({
             </div>
           </div>
 
-          <div className={style.row}>
-            <div className={style.formGroup}>
+          <div className='row'>
+            <div className='label'>
+              <Label asterisk>Acquisition date</Label>
+              <Input
+                type='date'
+                readOnly
+                value={toInputDateString(game.acquisition_date)}
+              />
+            </div>
+
+            <div className='label'>
+              <Label asterisk htmlFor='finish_date'>
+                Finish Date
+              </Label>
+              <Input
+                type='date'
+                readOnly
+                value={toInputDateString(game.finish_date)}
+              />
+            </div>
+          </div>
+
+          <div className='row'>
+            <div className='label'>
               <Label asterisk htmlFor='status'>
                 Status
               </Label>
@@ -86,11 +107,16 @@ export function DetailsGame({
                 </SelectGroup>
               </Select>
             </div>
+
+            <div className='checkbox'>
+              <Input type='checkbox' readOnly checked={game.favorite} />
+              <Label htmlFor='favorite'>Favorite</Label>
+            </div>
           </div>
         </div>
 
-        <Label className={style.label}>
-          Imagem (URL)
+        <Label className='label'>
+          Image (URL)
           <Input value={game.image_url} readOnly />
         </Label>
       </form>
@@ -98,17 +124,13 @@ export function DetailsGame({
       <DialogFooter>
         <Dialog>
           <DialogTrigger>
-            <Button>
-              <p className={style.button}>DELETE</p>
-            </Button>
+            <Button style={{ backgroundColor: '#fd4760' }}>DELETE</Button>
           </DialogTrigger>
           {deleteForm}
         </Dialog>
         <Dialog>
           <DialogTrigger>
-            <Button>
-              <p className={style.button}>EDIT</p>
-            </Button>
+            <Button>EDIT</Button>
           </DialogTrigger>
           {updateForm}
         </Dialog>

@@ -22,7 +22,7 @@ import {
 } from '../../../schemas/platform';
 import type { PlatformResponse } from '../../../types/Platform';
 import { getDataForm } from '../../../utils/getFormData';
-import style from './Forms.module.css';
+import '../../styles/Forms.css';
 
 export function UpdatePlatform({ platform }: { platform: PlatformResponse }) {
   const updatePlatform = useUpdatePlatform();
@@ -56,24 +56,24 @@ export function UpdatePlatform({ platform }: { platform: PlatformResponse }) {
   };
 
   return (
-    <DialogContent className={style.content}>
+    <DialogContent>
       <DialogHeader>
-        <DialogTitle className={style.title}>Edit platform</DialogTitle>
+        <DialogTitle>Edit platform</DialogTitle>
         <DialogClose />
       </DialogHeader>
 
-      <form className={style.form} onSubmit={handleSubmit}>
-        <div className={style.label}>
+      <form className='form' onSubmit={handleSubmit}>
+        <div className='label'>
           <Label asterisk>Title</Label>
           <Input name='title' defaultValue={platform.title} />
         </div>
 
-        <Label className={style.label}>
+        <Label className='label'>
           Company
           <Input name='company' defaultValue={platform.company} />
         </Label>
 
-        <Label className={style.label}>
+        <Label className='label'>
           Acquisition year
           <Input
             type='date'
@@ -82,7 +82,7 @@ export function UpdatePlatform({ platform }: { platform: PlatformResponse }) {
           />
         </Label>
 
-        <Label className={style.label}>
+        <Label className='label'>
           Platform image (url)
           <Input name='image_url' defaultValue={platform.image_url} />
         </Label>

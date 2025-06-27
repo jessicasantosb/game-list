@@ -26,7 +26,7 @@ import { useFetchPlatforms } from '../../../hooks/data/usePlatformsQueries';
 import { gameSchema, type GameRequest } from '../../../schemas/game';
 import { getDataForm } from '../../../utils/getFormData';
 import { toInputDateString } from '../../../utils/toInputDateString';
-import style from './Forms.module.css';
+import '../../styles/Forms.css';
 
 export function UpdateGame({ game }: { game: GameResponse }) {
   const platforms = useFetchPlatforms();
@@ -62,14 +62,14 @@ export function UpdateGame({ game }: { game: GameResponse }) {
   };
 
   return (
-    <DialogContent className={style.content}>
+    <DialogContent>
       <DialogHeader>
-        <DialogTitle className={style.title}>Editing: {game.title}</DialogTitle>
+        <DialogTitle>Editing: {game.title}</DialogTitle>
         <DialogClose />
       </DialogHeader>
 
-      <form className={style.form} onSubmit={handleSubmit}>
-        <div className={style.label}>
+      <form className='form' onSubmit={handleSubmit}>
+        <div className='label'>
           <Label asterisk htmlFor='title'>
             Title
           </Label>
@@ -81,7 +81,7 @@ export function UpdateGame({ game }: { game: GameResponse }) {
           />
         </div>
 
-        <Label className={style.label}>
+        <Label className='label'>
           Description
           <Textarea
             id='description'
@@ -91,9 +91,9 @@ export function UpdateGame({ game }: { game: GameResponse }) {
           />
         </Label>
 
-        <div className={style.container}>
-          <div className={style.row}>
-            <div className={style.label}>
+        <div className='rowWrapper'>
+          <div className='row'>
+            <div className='label'>
               <Label htmlFor='category' asterisk>
                 Category
               </Label>
@@ -114,7 +114,7 @@ export function UpdateGame({ game }: { game: GameResponse }) {
                 </SelectGroup>
               </Select>
             </div>
-            <div className={style.label}>
+            <div className='label'>
               <Label htmlFor='platform' asterisk>
                 Platform
               </Label>
@@ -137,8 +137,8 @@ export function UpdateGame({ game }: { game: GameResponse }) {
             </div>
           </div>
 
-          <div className={style.row}>
-            <div className={style.label}>
+          <div className='row'>
+            <div className='label'>
               <Label asterisk>Acquisition date</Label>
               <Input
                 id='acquisition_date'
@@ -149,7 +149,7 @@ export function UpdateGame({ game }: { game: GameResponse }) {
               />
             </div>
 
-            <div className={style.label}>
+            <div className='label'>
               <Label asterisk htmlFor='finish_date'>
                 Finish Date
               </Label>
@@ -163,8 +163,8 @@ export function UpdateGame({ game }: { game: GameResponse }) {
             </div>
           </div>
 
-          <div className={style.row}>
-            <div className={style.label}>
+          <div className='row'>
+            <div className='label'>
               <Label htmlFor='status' asterisk>
                 Status
               </Label>
@@ -181,11 +181,11 @@ export function UpdateGame({ game }: { game: GameResponse }) {
               </Select>
             </div>
 
-            <div className={style.checkbox}>
+            <div className='checkbox'>
               <Input
                 type='checkbox'
                 name='favorite'
-                checked={game.favorite}
+                defaultChecked={game.favorite}
                 id='favorite'
               />
               <Label htmlFor='favorite'>Favorite</Label>
@@ -193,8 +193,8 @@ export function UpdateGame({ game }: { game: GameResponse }) {
           </div>
         </div>
 
-        <Label className={style.label}>
-          Imagem (URL)
+        <Label className='label'>
+          Image (URL)
           <Input
             id='image_url'
             type='text'

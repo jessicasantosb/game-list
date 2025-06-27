@@ -14,9 +14,9 @@ import { Label } from '../../../components/ui/label/Label';
 import { useDialog } from '../../../hooks/useDialog';
 
 import { useCreatePlatform } from '../../../hooks/data/usePlatformsMutations';
-import { getDataForm } from '../../../utils/getFormData';
-import style from './Forms.module.css';
 import { platformSchema } from '../../../schemas/platform';
+import { getDataForm } from '../../../utils/getFormData';
+import '../../styles/Forms.css';
 
 export function CreatePlatform() {
   const createPlatform = useCreatePlatform();
@@ -44,29 +44,29 @@ export function CreatePlatform() {
   };
 
   return (
-    <DialogContent className={style.content}>
+    <DialogContent>
       <DialogHeader>
-        <DialogTitle className={style.title}>New platform</DialogTitle>
+        <DialogTitle>New platform</DialogTitle>
         <DialogClose />
       </DialogHeader>
 
-      <form className={style.form} onSubmit={handleSubmit}>
-        <div className={style.label}>
+      <form className='form' onSubmit={handleSubmit}>
+        <div className='label'>
           <Label asterisk>Title</Label>
           <Input placeholder='Epic Games' name='title' />
         </div>
 
-        <Label className={style.label}>
+        <Label className='label'>
           Company
           <Input placeholder='Epic' name='company' />
         </Label>
 
-        <Label className={style.label}>
+        <Label className='label'>
           Acquisition year
           <Input type='date' placeholder='17/05/2019' name='acquisition_year' />
         </Label>
 
-        <Label className={style.label}>
+        <Label className='label'>
           Platform image (url)
           <Input placeholder='http://cdn....' name='image_url' />
         </Label>

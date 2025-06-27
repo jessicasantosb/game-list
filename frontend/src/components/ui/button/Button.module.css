@@ -13,6 +13,10 @@
   cursor: pointer;
 }
 
+.button:hover {
+  opacity: 0.7;
+}
+
 .white {
   border-radius: 8px;
   background: var(--white);

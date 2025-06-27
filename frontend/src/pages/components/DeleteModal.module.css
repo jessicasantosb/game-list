@@ -1,45 +1,9 @@
-.modal {
-  background: var(--white);
-  padding: 76px 117px;
-  width: 750px;
-  max-width: 90vw;
-  max-height: 90vh;
-  text-align: center;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow-y: auto;
-  margin: 0 auto;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.closeBtn {
-  position: absolute;
-  top: 20px;
-  right: 25px;
-  background: transparent;
-  border: none;
-  font-size: 34px;
-  cursor: pointer;
-  font-weight: 300;
-  color: var(--black);
-  padding: 0;
-  margin: 0;
-  line-height: 1;
-}
-
 .iconWrapper {
-  width: 176px;
-  height: 176px;
-  border-radius: 50%;
-  margin: 0 auto 15px;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 
 .title {
@@ -92,12 +56,6 @@
 }
 
 @media (max-width: 768px) {
-  .modal {
-    padding: 50px 30px;
-    width: 90vw;
-    height: auto;
-  }
-
   .iconWrapper {
     width: 120px;
     height: 120px;

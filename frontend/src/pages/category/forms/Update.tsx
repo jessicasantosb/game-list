@@ -20,7 +20,7 @@ import {
 } from '../../../schemas/category';
 import type { CategoryResponse } from '../../../types/Category';
 import { getDataForm } from '../../../utils/getFormData';
-import style from './Forms.module.css';
+import '../../styles/Forms.css';
 
 export function UpdateCategory({ category }: { category: CategoryResponse }) {
   const updateCategory = useUpdateCategory();
@@ -54,25 +54,24 @@ export function UpdateCategory({ category }: { category: CategoryResponse }) {
   };
 
   return (
-    <DialogContent className={style.content}>
+    <DialogContent>
       <DialogHeader>
-        <DialogTitle className={style.title}>Edit category</DialogTitle>
+        <DialogTitle>Edit category</DialogTitle>
         <DialogClose />
       </DialogHeader>
 
-      <form className={style.form} onSubmit={handleSubmit}>
-        <div className={style.label}>
+      <form className='form' onSubmit={handleSubmit}>
+        <div className='label'>
           <Label asterisk>Title</Label>
           <Input name='title' defaultValue={category.title} />
         </div>
 
-        <Label className={style.label}>
+        <Label className='label'>
           Description
           <Textarea
             placeholder='Enter category description'
             name='description'
             defaultValue={category.description}
-            className={style.textarea}
           />
         </Label>
 

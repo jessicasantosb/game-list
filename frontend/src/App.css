@@ -34,11 +34,10 @@ body {
   background-color: var(--obsidian);
   color: var(--white);
   scroll-behavior: smooth;
-  overflow: hidden;
+  overflow-y: hidden;
 }
 
 .container {
-  position: relative;
   flex-direction: column;
   align-items: center;
   min-height: 90dvh;

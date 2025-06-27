@@ -1,6 +1,4 @@
 import React from 'react';
-import styles from './DeleteModal.module.css';
-import { warning } from '../../utils/icons';
 import { Button } from '../../components/ui/button/Button';
 import {
   DialogClose,
@@ -10,6 +8,8 @@ import {
   DialogTitle,
 } from '../../components/ui/dialog/Dialog';
 import { useDialog } from '../../hooks/useDialog';
+import { warning } from '../../utils/icons';
+import styles from './DeleteModal.module.css';
 
 type DeleteType = 'platform' | 'category' | 'game';
 
@@ -35,22 +35,27 @@ const DeleteModal: React.FC<DeleteModalProps> = ({ type, onDelete }) => {
   const { closeDialog } = useDialog();
 
   return (
-    <DialogContent className={styles.modal}>
-      <div className={styles.iconWrapper}>
-        <img src={warning} alt='Warning' />
-      </div>
+    <DialogContent>
       <DialogHeader>
-        <DialogTitle className={styles.title}>Are you sure?</DialogTitle>
-        <DialogClose className={styles.closeBtn} />
+        <DialogClose />
+        <div className={styles.iconWrapper}>
+          <DialogTitle className={styles.title}>Are you sure?</DialogTitle>
+          <img src={warning} alt='Warning' />
+        </div>
       </DialogHeader>
 
       <p className={styles.message}>{getDeleteMessage(type)}</p>
 
       <DialogFooter className={styles.actions}>
-        <Button className={styles.cancelBtn} onClick={closeDialog}>
+        <Button
+          variant='white'
+          style={{ border: '1px solid black' }}
+          onClick={closeDialog}>
           No, cancel action
         </Button>
-        <Button className={styles.deleteBtn} onClick={() => onDelete()}>
+        <Button
+          style={{ backgroundColor: '#fd4760' }}
+          onClick={() => onDelete()}>
           {`Yes, delete this ${type}`}
         </Button>
       </DialogFooter>

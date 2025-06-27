@@ -22,7 +22,7 @@ import { useFetchPlatforms } from '../../../hooks/data/usePlatformsQueries';
 import { useDialog } from '../../../hooks/useDialog';
 import { gameSchema } from '../../../schemas/game';
 import { getDataForm } from '../../../utils/getFormData';
-import style from './Forms.module.css';
+import '../../styles/Forms.css';
 
 export function CreateGame() {
   const createGame = useCreateGame();
@@ -52,31 +52,30 @@ export function CreateGame() {
   };
 
   return (
-    <DialogContent className={style.content}>
+    <DialogContent>
       <DialogHeader>
-        <DialogTitle className={style.title}>New Game</DialogTitle>
-        <DialogClose className={style.close} />
+        <DialogTitle>New Game</DialogTitle>
+        <DialogClose />
       </DialogHeader>
 
-      <form className={style.form} onSubmit={handleSubmit}>
-        <div className={style.label}>
+      <form className='form' onSubmit={handleSubmit}>
+        <div className='label'>
           <Label asterisk>Title</Label>
           <Input placeholder='Mario Kart 8' name='title' />
         </div>
 
-        <Label className={style.label}>
+        <Label className='label'>
           Description
           <Textarea
             id='description'
             placeholder='Amazing game'
             name='description'
-            className={style.textarea}
           />
         </Label>
 
-        <div className={style.containerData}>
-          <div className={style.row}>
-            <div className={style.formGroup}>
+        <div className='rowWrapper'>
+          <div className='row'>
+            <div className='label'>
               <Label asterisk htmlFor='category'>
                 Category
               </Label>
@@ -92,7 +91,7 @@ export function CreateGame() {
               </Select>
             </div>
 
-            <div className={style.formGroup}>
+            <div className='label'>
               <Label htmlFor='platform'>Platform</Label>
               <Select id='platform' variant='modal' name='platform'>
                 <SelectGroup>
@@ -107,32 +106,26 @@ export function CreateGame() {
             </div>
           </div>
 
-          <div className={style.row}>
-            <div className={style.label}>
+          <div className='row'>
+            <div className='label'>
               <Label asterisk>Acquisition date</Label>
               <Input
                 id='acquisition_date'
                 type='date'
-                variant='squared'
                 name='acquisition_date'
               />
             </div>
 
-            <div className={style.label}>
+            <div className='label'>
               <Label asterisk htmlFor='finish_date'>
                 Finish Date
               </Label>
-              <Input
-                id='finish_date'
-                type='date'
-                variant='squared'
-                name='finish_date'
-              />
+              <Input id='finish_date' type='date' name='finish_date' />
             </div>
           </div>
 
-          <div className={style.row}>
-            <div className={style.label}>
+          <div className='row'>
+            <div className='label'>
               <Label asterisk htmlFor='status'>
                 Status
               </Label>
@@ -145,15 +138,15 @@ export function CreateGame() {
               </Select>
             </div>
 
-            <div className={style.checkbox}>
+            <div className='checkbox'>
               <Input type='checkbox' name='favorite' id='favorite' />
               <Label htmlFor='favorite'>Favorite</Label>
             </div>
           </div>
         </div>
 
-        <Label className={style.label}>
-          Imagem (URL)
+        <Label className='label'>
+          Image (URL)
           <Input
             id='image_url'
             type='text'

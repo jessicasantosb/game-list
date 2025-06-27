@@ -15,9 +15,9 @@ import { Textarea } from '../../../components/ui/textarea/Textarea';
 import { useDialog } from '../../../hooks/useDialog';
 
 import { useCreateCategory } from '../../../hooks/data/useCategoriesMutations';
-import { getDataForm } from '../../../utils/getFormData';
-import style from './Forms.module.css';
 import { categorySchema } from '../../../schemas/category';
+import { getDataForm } from '../../../utils/getFormData';
+import '../../styles/Forms.css';
 
 export function CreateCategory() {
   const createCategory = useCreateCategory();
@@ -45,25 +45,21 @@ export function CreateCategory() {
   };
 
   return (
-    <DialogContent className={style.content}>
+    <DialogContent>
       <DialogHeader>
-        <DialogTitle className={style.title}>New category</DialogTitle>
+        <DialogTitle>New category</DialogTitle>
         <DialogClose />
       </DialogHeader>
 
-      <form className={style.form} onSubmit={handleSubmit}>
-        <div className={style.label}>
+      <form className='form' onSubmit={handleSubmit}>
+        <div className='label'>
           <Label asterisk>Title</Label>
           <Input name='title' placeholder='Mario Kart 8' />
         </div>
 
-        <Label className={style.label}>
+        <Label className='label'>
           Description
-          <Textarea
-            className={style.textarea}
-            name='description'
-            placeholder='Amazing game'
-          />
+          <Textarea name='description' placeholder='Amazing game' />
         </Label>
 
         <DialogFooter>
