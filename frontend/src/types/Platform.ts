@@ -1,4 +1,4 @@
-import type { PlatformUpdateSchema } from "../schemas/platformUpdate";
+import type { PlatformRequest } from '../schemas/platform';
 
 export type PlatformResponse = {
   _id: string;
@@ -17,6 +17,6 @@ export type PlatformGetAllResponse = {
 };
 
 export type PlatformUpdateRequest = {
-  data:PlatformUpdateSchema;
+  data: PlatformRequest;
   id: string;
 };

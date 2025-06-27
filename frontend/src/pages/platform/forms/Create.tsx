@@ -14,9 +14,9 @@ import { Label } from '../../../components/ui/label/Label';
 import { useDialog } from '../../../hooks/useDialog';
 
 import { useCreatePlatform } from '../../../hooks/data/usePlatformsMutations';
-import { platformCreateSchema } from '../../../schemas/platformCreate';
 import { getDataForm } from '../../../utils/getFormData';
 import style from './Forms.module.css';
+import { platformSchema } from '../../../schemas/platform';
 
 export function CreatePlatform() {
   const createPlatform = useCreatePlatform();
@@ -27,7 +27,7 @@ export function CreatePlatform() {
 
     const result = getDataForm({
       form: e.currentTarget,
-      schema: platformCreateSchema,
+      schema: platformSchema,
     });
 
     if (result.error) {

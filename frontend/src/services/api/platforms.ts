@@ -1,4 +1,4 @@
-import type { PlatformCreateRequest } from '../../schemas/platformCreate';
+import type { PlatformRequest } from '../../schemas/platform';
 import type {
   PlatformGetAllResponse,
   PlatformResponse,
@@ -19,14 +19,12 @@ const getById = async (id: string) => {
   return result.data;
 };
 
-const create = async (data: PlatformCreateRequest) => {
+const create = async (data: PlatformRequest) => {
   const result = await api.post<BaseResponse>('/platforms', data);
   return result.data;
 };
 
 const updateById = async ({ data, id }: PlatformUpdateRequest) => {
-  console.log('update api ');
-
   const result = await api.put<BaseResponse>(`/platforms/${id}`, data);
   return result.data;
 };

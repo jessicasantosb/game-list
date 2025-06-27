@@ -15,10 +15,11 @@ import { useDialog } from '../../../hooks/useDialog';
 import { toInputDateString } from '../../../utils/toInputDateString';
 
 import { useUpdatePlatform } from '../../../hooks/data/usePlatformsMutations';
+
 import {
-  platformUpdateSchema,
-  type PlatformUpdateSchema,
-} from '../../../schemas/platformUpdate';
+  platformSchema,
+  type PlatformRequest,
+} from '../../../schemas/platform';
 import type { PlatformResponse } from '../../../types/Platform';
 import { getDataForm } from '../../../utils/getFormData';
 import style from './Forms.module.css';
@@ -30,9 +31,9 @@ export function UpdatePlatform({ platform }: { platform: PlatformResponse }) {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const result = getDataForm<PlatformUpdateSchema>({
+    const result = getDataForm<PlatformRequest>({
       form: e.currentTarget,
-      schema: platformUpdateSchema,
+      schema: platformSchema,
     });
 
     if (result.error) {
