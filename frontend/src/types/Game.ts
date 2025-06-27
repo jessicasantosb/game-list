@@ -1,7 +1,8 @@
+import type { GameRequest } from '../schemas/game';
 import type { PaginationRequest } from './Shared';
 
 export type GameResponse = {
-  _id?: string;
+  _id: string;
   image_url: string;
   title: string;
   description: string;
@@ -27,4 +28,9 @@ export type GamesPaginationRequest = PaginationRequest & {
   title?: string;
   category?: string;
   favorite?: boolean;
+};
+
+export type GameUpdateRequest = {
+  data: GameRequest;
+  id: string;
 };

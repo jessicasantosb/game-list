@@ -15,5 +15,9 @@ export const getDataForm = <T>({ form, schema }: GetDataForm<T>) => {
 
   const result = schema.safeParse(data);
 
+  console.log(data);
+  console.log(result);
+  
+
   return result;
 };

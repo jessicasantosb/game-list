@@ -1,10 +1,11 @@
-import type { GameCreateRequest } from '../../schemas/gameCreate';
-import type { GameUpdateRequest } from '../../schemas/gameUpdate';
+
+import type { GameRequest } from '../../schemas/game';
 import type {
   GameFavoriteRequest,
   GameGetAllResponse,
   GameResponse,
   GamesPaginationRequest,
+  GameUpdateRequest,
 } from '../../types/Game';
 import type { BaseResponse } from '../../types/Shared';
 import { api } from './api';
@@ -19,7 +20,7 @@ const getById = async (id: string) => {
   return result.data;
 };
 
-const create = async (data: GameCreateRequest) => {
+const create = async (data: GameRequest) => {  
   const result = await api.post<BaseResponse>('/games', data);
   return result.data;
 };

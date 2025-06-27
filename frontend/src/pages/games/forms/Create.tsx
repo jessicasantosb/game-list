@@ -20,7 +20,7 @@ import { useFetchCategories } from '../../../hooks/data/useCategoriesQueries';
 import { useCreateGame } from '../../../hooks/data/useGamesMutations';
 import { useFetchPlatforms } from '../../../hooks/data/usePlatformsQueries';
 import { useDialog } from '../../../hooks/useDialog';
-import { gameCreateSchema } from '../../../schemas/gameCreate';
+import { gameSchema } from '../../../schemas/game';
 import { getDataForm } from '../../../utils/getFormData';
 import style from './Forms.module.css';
 
@@ -35,11 +35,11 @@ export function CreateGame() {
 
     const result = getDataForm({
       form: e.currentTarget,
-      schema: gameCreateSchema,
+      schema: gameSchema,
     });
 
     if (result.error) {
-      toast.error('You must fill in all fields!');
+      toast.error('Error creating game!');
       return;
     }
 
@@ -64,15 +64,15 @@ export function CreateGame() {
           <Input placeholder='Mario Kart 8' name='title' />
         </div>
 
-        <Label className={style.label}>Description</Label>
-        <div>
+        <Label className={style.label}>
+          Description
           <Textarea
             id='description'
             placeholder='Amazing game'
             name='description'
             className={style.textarea}
           />
-        </div>
+        </Label>
 
         <div className={style.containerData}>
           <div className={style.row}>
@@ -91,6 +91,7 @@ export function CreateGame() {
                 </SelectGroup>
               </Select>
             </div>
+
             <div className={style.formGroup}>
               <Label htmlFor='platform'>Platform</Label>
               <Select id='platform' variant='modal' name='platform'>
@@ -116,18 +117,17 @@ export function CreateGame() {
                 name='acquisition_date'
               />
             </div>
+
             <div className={style.label}>
               <Label asterisk htmlFor='finish_date'>
                 Finish Date
               </Label>
-              <div>
-                <Input
-                  id='finish_date'
-                  type='date'
-                  variant='squared'
-                  name='finish_date'
-                />
-              </div>
+              <Input
+                id='finish_date'
+                type='date'
+                variant='squared'
+                name='finish_date'
+              />
             </div>
           </div>
 
@@ -147,9 +147,7 @@ export function CreateGame() {
 
             <div className={style.checkbox}>
               <Input type='checkbox' name='favorite' id='favorite' />
-              <Label asterisk htmlFor='favorite'>
-                Favorite
-              </Label>
+              <Label htmlFor='favorite'>Favorite</Label>
             </div>
           </div>
         </div>
