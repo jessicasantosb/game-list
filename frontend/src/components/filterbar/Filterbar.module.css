@@ -1,70 +1,64 @@
 .filtercontainer {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
-  width: 95%;
-  gap: 12px;
-  margin-top: 32px;
+  width: 100%;
+  gap: 10rem;
+  margin-top: 2rem;
   user-select: none;
 }
 
-.querys {
-  width: 65%;
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 8px;
+.title {
+  margin-block: auto;
 }
 
-.filtercontainer h3 {
-  margin: auto 10px auto 0;
+.querys {
+  display: flex;
+  flex: 1;
+  gap: 0.75rem;
 }
 
 .buttons {
-  width: 178px;
   display: flex;
-  gap: 12px;
   align-items: center;
-  justify-content: flex-end;
+  gap: 1rem;
 }
 
 .searchbtn {
   display: flex;
 }
 
-.buttons img {
-  margin: auto 2px;
-}
-
-@media (max-width: 1080px) {
+@media screen and (max-width: 1080px) {
   .filtercontainer {
     flex-direction: column;
     align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .querys {
+    width: 100%;
+    max-width: 300px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
   .buttons {
-    align-self: flex-end;
-    margin-top: 12px;
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .buttons > * {
+    flex: 1;
   }
 }
 
-@media (max-width: 345px) {
-  .querys h3 {
-    width: 212px;
-  }
+@media screen and (max-width: 700px) {
   .querys {
-    flex-direction: row-reverse;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-
-  .querys > input,
-  select {
-    width: 212px;
+    max-width: 200px;
   }
 
   .buttons {
-    width: 212px;
-    justify-content: space-between;
+    max-width: 200px;
   }
 }

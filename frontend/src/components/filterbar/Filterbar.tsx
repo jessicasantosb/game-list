@@ -47,7 +47,7 @@ export const GameFilters = ({ onSearch, onClear }: Props) => {
   return (
     <div className={style.filtercontainer}>
       <div className={style.querys}>
-        <h3>Filters</h3>
+        <h3 className={style.title}>Filters</h3>
         <Input
           type='text'
           name='title'
@@ -94,10 +94,8 @@ export const GameFilters = ({ onSearch, onClear }: Props) => {
           Clear
         </Button>
         <Button variant='turquoise' onClick={handleSearch}>
-          <div className={style.searchbtn}>
-            Search
-            <img src={search} alt='Search' />
-          </div>
+          Search
+          <img src={search} alt='Search' />
         </Button>
       </div>
     </div>

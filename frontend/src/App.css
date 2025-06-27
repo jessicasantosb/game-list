@@ -49,5 +49,11 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  overflow-x: scroll;
+  overflow: auto;
+}
+
+@media screen and (max-width: 700px) {
+  .container {
+    padding-inline: 1rem;
+  }
 }

@@ -69,8 +69,6 @@ export function Games() {
       category: '',
       favorite: false,
     }));
-
-    gamesQuery.refetch();
   };
 
   return (
@@ -79,64 +77,60 @@ export function Games() {
         <GameFilters onSearch={handleFilters} onClear={handleClearFilters} />
       </Header>
       <HeaderList fields={headers} onSortClick={handleSort} />
-
       <div className='itemsContainer'>
-        {gamesQuery.isLoading && <p>Loading...</p>}
         <div>
-          {games?.map((game) => (
-            <ListItems
-              key={game._id}
-              imageUrl={game.image_url}
-              camp1={game.title}
-              camp2={game.category}
-              camp3={formatDate(String(game.createdAt))}
-              camp4={
-                game.updatedAt !== game.createdAt
-                  ? formatDate(String(game.updatedAt))
-                  : ''
-              }
-              iconDetails
-              iconEdit
-              iconDelete
-              iconStar
-              isStarred={game.favorite}
-              detailsForm={
-                <DetailsGame
-                  game={game}
-                  updateForm={<UpdateGame game={game} />}
-                  deleteForm={
-                    <DeleteModal
-                      type='game'
-                      onDelete={() => deleteGame.mutate(String(game._id))}
-                    />
-                  }
-                />
-              }
-              editForm={<UpdateGame game={game} />}
-              deleteForm={
-                <DeleteModal
-                  type='game'
-                  onDelete={() => deleteGame.mutate(String(game._id))}
-                />
-              }
-              onStarClick={() =>
-                favoriteGame.mutate({
-                  id: String(game._id),
-                  data: {
-                    favorite: !game.favorite,
-                  },
-                })
-              }
-            />
-          ))}
+          {gamesQuery.isLoading && <p>Loading...</p>}
+          <div>
+            {games?.map((game) => (
+              <ListItems
+                key={game._id}
+                imageUrl={game.image_url}
+                camp1={game.title}
+                camp2={game.category}
+                camp3={formatDate(String(game.createdAt))}
+                camp4={
+                  game.updatedAt !== game.createdAt
+                    ? formatDate(String(game.updatedAt))
+                    : ''
+                }
+                iconDetails
+                iconEdit
+                iconDelete
+                iconStar
+                isStarred={game.favorite}
+                detailsForm={
+                  <DetailsGame
+                    game={game}
+                    updateForm={<UpdateGame game={game} />}
+                    deleteForm={
+                      <DeleteModal
+                        type='game'
+                        onDelete={() => deleteGame.mutate(String(game._id))}
+                      />
+                    }
+                  />
+                }
+                editForm={<UpdateGame game={game} />}
+                deleteForm={
+                  <DeleteModal
+                    type='game'
+                    onDelete={() => deleteGame.mutate(String(game._id))}
+                  />
+                }
+                onStarClick={() =>
+                  favoriteGame.mutate({
+                    id: String(game._id),
+                    data: {
+                      favorite: !game.favorite,
+                    },
+                  })
+                }
+              />
+            ))}
+          </div>
         </div>
-
-        <CustomPagination
-          page={page}
-          totalPages={totalPages}
-          setPage={setPage}
-        />
       </div>
+      <CustomPagination page={page} totalPages={totalPages} setPage={setPage} />
     </div>
   );
 }
