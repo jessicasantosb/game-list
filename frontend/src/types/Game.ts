@@ -13,7 +13,7 @@ export type GameResponse = {
   createdAt?: Date;
   updatedAt?: Date;
   acquisition_date: Date;
-  finish_date: Date | null;
+  finish_date: Date;
   is_deleted?: boolean;
 };
 

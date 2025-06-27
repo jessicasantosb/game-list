@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react';
+import { type FormEvent } from 'react';
 import { toast } from 'react-toastify';
 
 import { Button } from '../../../components/ui/button/Button';
@@ -19,23 +19,16 @@ import {
 import { useDialog } from '../../../hooks/useDialog';
 import type { GameResponse } from '../../../types/Game';
 
+import { Textarea } from '../../../components/ui/textarea/Textarea';
 import { useFetchCategories } from '../../../hooks/data/useCategoriesQueries';
 import { useUpdateGame } from '../../../hooks/data/useGamesMutations';
 import { useFetchPlatforms } from '../../../hooks/data/usePlatformsQueries';
-import { gameUpdateSchema } from '../../../schemas/gameUpdate';
+import { gameSchema, type GameRequest } from '../../../schemas/game';
 import { getDataForm } from '../../../utils/getFormData';
+import { toInputDateString } from '../../../utils/toInputDateString';
 import style from './Forms.module.css';
 
 export function UpdateGame({ game }: { game: GameResponse }) {
-  const [gameData, setGameData] = useState({
-    title: game.title,
-    description: game.description,
-    category: game.category,
-    platform: game.platform,
-    image_url: game.image_url,
-    status: game.status,
-    favorite: game.favorite,
-  });
   const platforms = useFetchPlatforms();
   const categories = useFetchCategories();
   const updateGame = useUpdateGame();
@@ -44,18 +37,21 @@ export function UpdateGame({ game }: { game: GameResponse }) {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const result = getDataForm({
+    const result = getDataForm<GameRequest>({
       form: e.currentTarget,
-      schema: gameUpdateSchema,
+      schema: gameSchema,
     });
 
     if (result.error) {
-      toast.error('You must fill in all fields!');
+      toast.error('You must fill in all required fields!');
       return;
     }
 
     updateGame.mutate(
-      { ...result.data, id: String(game._id) },
+      {
+        data: result.data,
+        id: game._id,
+      },
       {
         onSuccess: () => toast.success('Game updated successfully!'),
         onError: () => toast.error('Error updating game!'),
@@ -80,29 +76,20 @@ export function UpdateGame({ game }: { game: GameResponse }) {
           <Input
             id='title'
             placeholder={'title'}
-            value={gameData.title}
-            onChange={(e) =>
-              setGameData((prev) => ({ ...prev, title: e.target.value }))
-            }
+            defaultValue={game.title}
+            name='title'
           />
         </div>
 
-        <div className={style.label}>
-          <Label htmlFor='description'>Description</Label>
-          <div>
-            <textarea
-              id='description'
-              placeholder={'description'}
-              value={gameData.description}
-              onChange={(e) =>
-                setGameData((prev) => ({
-                  ...prev,
-                  description: e.target.value,
-                }))
-              }
-            />
-          </div>
-        </div>
+        <Label className={style.label}>
+          Description
+          <Textarea
+            id='description'
+            placeholder={'description'}
+            defaultValue={game.description}
+            name='description'
+          />
+        </Label>
 
         <div className={style.container}>
           <div className={style.row}>
@@ -113,17 +100,14 @@ export function UpdateGame({ game }: { game: GameResponse }) {
               <Select
                 id='category'
                 variant='modal'
-                value={gameData.category}
-                onChange={(e) =>
-                  setGameData((prev) => ({
-                    ...prev,
-                    category: e.target.value,
-                  }))
-                }>
+                defaultValue={game.category}
+                name='category'>
                 <SelectGroup>
-                  <SelectItem value=''>Select Category</SelectItem>
+                  <SelectItem defaultValue=''>Select Category</SelectItem>
                   {categories.data?.categories?.map((category) => (
-                    <SelectItem key={category.title} value={category.title}>
+                    <SelectItem
+                      key={category.title}
+                      defaultValue={category.title}>
                       {category.title}
                     </SelectItem>
                   ))}
@@ -137,22 +121,45 @@ export function UpdateGame({ game }: { game: GameResponse }) {
               <Select
                 id='platform'
                 variant='modal'
-                value={gameData.platform}
-                onChange={(e) =>
-                  setGameData((prev) => ({
-                    ...prev,
-                    platform: e.target.value,
-                  }))
-                }>
+                defaultValue={game.platform}
+                name='platform'>
                 <SelectGroup>
-                  <SelectItem value=''>Select Platform</SelectItem>
+                  <SelectItem defaultValue=''>Select Platform</SelectItem>
                   {platforms.data?.platforms.map((platform) => (
-                    <SelectItem key={platform.title} value={platform.title}>
+                    <SelectItem
+                      key={platform.title}
+                      defaultValue={platform.title}>
                       {platform.title}
                     </SelectItem>
                   ))}
                 </SelectGroup>
               </Select>
+            </div>
+          </div>
+
+          <div className={style.row}>
+            <div className={style.label}>
+              <Label asterisk>Acquisition date</Label>
+              <Input
+                id='acquisition_date'
+                type='date'
+                variant='squared'
+                name='acquisition_date'
+                defaultValue={toInputDateString(game.acquisition_date)}
+              />
+            </div>
+
+            <div className={style.label}>
+              <Label asterisk htmlFor='finish_date'>
+                Finish Date
+              </Label>
+              <Input
+                id='finish_date'
+                type='date'
+                variant='squared'
+                name='finish_date'
+                defaultValue={toInputDateString(game.finish_date)}
+              />
             </div>
           </div>
 
@@ -164,40 +171,38 @@ export function UpdateGame({ game }: { game: GameResponse }) {
               <Select
                 id='status'
                 variant='modal'
-                value={gameData.status}
-                onChange={(e) =>
-                  setGameData((prev) => ({
-                    ...prev,
-                    status: e.target.value,
-                  }))
-                }>
+                defaultValue={game.status}
+                name='status'>
                 <SelectGroup>
-                  <SelectItem value={'Playing'}>Playing</SelectItem>
-                  <SelectItem value={'Done'}>Done</SelectItem>
-                  <SelectItem value={'Abandoned'}>Abandoned</SelectItem>
+                  <SelectItem defaultValue={'Playing'}>Playing</SelectItem>
+                  <SelectItem defaultValue={'Done'}>Done</SelectItem>
+                  <SelectItem defaultValue={'Abandoned'}>Abandoned</SelectItem>
                 </SelectGroup>
               </Select>
+            </div>
+
+            <div className={style.checkbox}>
+              <Input
+                type='checkbox'
+                name='favorite'
+                checked={game.favorite}
+                id='favorite'
+              />
+              <Label htmlFor='favorite'>Favorite</Label>
             </div>
           </div>
         </div>
 
-        <div className={style.label}>
-          <Label htmlFor='image_url'>Imagem (URL)</Label>
-
+        <Label className={style.label}>
+          Imagem (URL)
           <Input
             id='image_url'
             type='text'
             placeholder='http://cdn...'
-            value={gameData.image_url}
-            onChange={(e) =>
-              setGameData((prev) => ({
-                ...prev,
-                image_url: e.target.value,
-              }))
-            }
+            defaultValue={game.image_url}
+            name='image_url'
           />
-        </div>
-
+        </Label>
         <DialogFooter>
           <Button type='submit'>CONFIRM</Button>
         </DialogFooter>
