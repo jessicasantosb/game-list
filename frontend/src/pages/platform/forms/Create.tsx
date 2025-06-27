@@ -31,7 +31,7 @@ export function CreatePlatform() {
     });
 
     if (result.error) {
-      toast.error('You must fill in all fields!');
+      toast.error('Error creating platform!');
       return;
     }
 

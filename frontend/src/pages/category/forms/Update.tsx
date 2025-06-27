@@ -35,7 +35,7 @@ export function UpdateCategory({ category }: { category: CategoryResponse }) {
     });
 
     if (result.error) {
-      toast.error('You must fill in all fields!');
+      toast.error('Error updating category!');
       return;
     }
 
