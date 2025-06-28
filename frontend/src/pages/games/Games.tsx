@@ -53,21 +53,21 @@ export function Games() {
     }));
   };
 
-  const handleFilters = ({ title, category, favorite }: FiltersState) => {
+  const handleFilters = (filters: FiltersState) => {
     setParams((prev) => ({
       ...prev,
-      title,
-      category,
-      favorite: !favorite,
+      ...filters,
+      page: 1,
     }));
   };
 
   const handleClearFilters = () => {
     setParams((prev) => ({
       ...prev,
-      title: '',
-      category: '',
-      favorite: false,
+      page: 1,
+      title: undefined,
+      category: undefined,
+      favorite: undefined,
     }));
   };
 
