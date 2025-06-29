@@ -1,36 +1,41 @@
-.textHome {
+.home {
+  padding: 0 2rem 2rem 2rem;
+}
+
+.title {
   margin-left: 3rem;
 }
 
 .cardGrid {
+  height: 100%;
+  width: 100%;
+  max-width: 888px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 2.5rem;
-  width: 100%;
-  max-width: 888px;
-  justify-items: center;
   margin-inline: auto;
-  margin-left: 2rem;
+  margin-left: 1rem;
 }
 
 @media screen and (max-width: 900px) {
-  .textHome {
+  .title {
     margin-left: 0;
   }
 
   .cardGrid {
     grid-template-columns: 1fr;
+    gap: 1rem;
     margin-left: 0;
     margin-top: 2rem;
   }
 }
 
-.textHome h1 {
+.title h1 {
   font-size: 28px;
   font-weight: 700;
 }
 
-.textHome p {
+.title p {
   color: #9d9d9d;
   font-size: 22px;
   font-weight: 400;

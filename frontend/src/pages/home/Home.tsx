@@ -13,9 +13,9 @@ export function Home() {
   const user = getUserName();
 
   return (
-    <main className='container'>
+    <main className={styles.home}>
       <Header hiddenButton>
-        <div className={styles.textHome}>
+        <div className={styles.title}>
           <h1>Hello, {user.full_name}!</h1>
           <p>Choose one of options below.</p>
         </div>
