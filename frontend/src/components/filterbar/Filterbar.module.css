@@ -18,6 +18,10 @@
   gap: 0.75rem;
 }
 
+.querys > * {
+  max-width: 300px;
+}
+
 .buttons {
   display: flex;
   align-items: center;

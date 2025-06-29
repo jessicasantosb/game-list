@@ -26,18 +26,11 @@ export const GameFilters = ({ onSearch, onClear }: Props) => {
   ) => {
     const { name, value } = e.target;
 
-    setFilters((prev) => {
-      if (name === 'favorite') {
-        return {
-          ...prev,
-          favorite: value === '' ? undefined : value === 'true',
-        };
-      }
+    const _favorite = value === 'true' ? true : false;
 
-      return {
-        ...prev,
-        [name]: value === '' ? undefined : value,
-      };
+    setFilters((prev) => {
+      if (name === 'favorite') return { ...prev, favorite: _favorite };
+      return { ...prev, [name]: value };
     });
   };
 
@@ -72,7 +65,6 @@ export const GameFilters = ({ onSearch, onClear }: Props) => {
             <SelectItem value='' disabled>
               Select Category
             </SelectItem>
-            <SelectItem value=''>All</SelectItem>
             {categories.data?.categories.map((category) => (
               <SelectItem key={category.title} value={category.title}>
                 {category.title}
@@ -84,15 +76,20 @@ export const GameFilters = ({ onSearch, onClear }: Props) => {
         <Select
           name='favorite'
           variant='default'
-          value={filters.favorite === undefined ? '' : String(filters.favorite)}
+          value={
+            filters.favorite === undefined
+              ? ''
+              : filters.favorite
+                ? 'true'
+                : 'false'
+          }
           onChange={handleChange}>
           <SelectGroup>
             <SelectItem value='' disabled>
               Select Favorite
             </SelectItem>
-            <SelectItem value=''>All</SelectItem>
-            <SelectItem value='true'>Yes</SelectItem>
-            <SelectItem value='false'>No</SelectItem>
+            <SelectItem value='true'>Favorites Only</SelectItem>
+            <SelectItem value='false'>Non-Favorites</SelectItem>
           </SelectGroup>
         </Select>
       </div>
