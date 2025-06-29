@@ -4,8 +4,8 @@ export type CategoryResponse = {
   _id: string;
   title: string;
   description?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: Date;
+  updatedAt: Date;
   is_deleted: boolean;
 };
 
