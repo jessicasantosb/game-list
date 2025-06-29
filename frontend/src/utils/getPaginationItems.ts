@@ -32,4 +32,4 @@ export const getPaginationItems = (
   return rangeWithDots;
 };
 
-export const per_page = 10;
+export const per_page = 5;
