@@ -1,4 +1,3 @@
-
 import type { GameRequest } from '../../schemas/game';
 import type {
   GameFavoriteRequest,
@@ -12,10 +11,6 @@ import { api } from './api';
 
 const getAll = async (params: GamesPaginationRequest) => {
   const result = await api.get<GameGetAllResponse>('/games', { params });
-
-  // tá vindo tudo
-  console.log(result.request.responseURL);
-  
   return result.data;
 };
 
@@ -24,7 +19,7 @@ const getById = async (id: string) => {
   return result.data;
 };
 
-const create = async (data: GameRequest) => {  
+const create = async (data: GameRequest) => {
   const result = await api.post<BaseResponse>('/games', data);
   return result.data;
 };
