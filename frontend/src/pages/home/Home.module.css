@@ -10,7 +10,7 @@
   max-width: 888px;
   justify-items: center;
   margin-inline: auto;
-  margin-left: 3rem;
+  margin-left: 2rem;
 }
 
 @media screen and (max-width: 900px) {
@@ -21,6 +21,7 @@
   .cardGrid {
     grid-template-columns: 1fr;
     margin-left: 0;
+    margin-top: 2rem;
   }
 }
 
