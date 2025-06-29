@@ -13,7 +13,7 @@ export function Home() {
   const user = getUserName();
 
   return (
-    <main className={styles.home}>
+    <div className={styles.home}>
       <Header hiddenButton>
         <div className={styles.title}>
           <h1>Hello, {user.full_name}!</h1>
@@ -56,6 +56,6 @@ export function Home() {
           count={stats?.favoriteGamesCount}
         />
       </div>
-    </main>
+    </div>
   );
 }

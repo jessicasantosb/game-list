@@ -51,7 +51,7 @@ export const Platform = () => {
   };
 
   return (
-    <div className='container'>
+    <>
       <Header
         title='Platforms'
         buttonText='NEW PLATFORM'
@@ -108,6 +108,6 @@ export const Platform = () => {
       </Table>
 
       <CustomPagination page={page} totalPages={totalPages} setPage={setPage} />
-    </div>
+    </>
   );
 };

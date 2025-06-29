@@ -85,7 +85,7 @@ export function Games() {
   };
 
   return (
-    <div className='container'>
+    <>
       <Header title='Games' buttonText='NEW GAME' createForm={<CreateGame />} />
       <GameFilters onSearch={handleFilters} onClear={handleClearFilters} />
 
@@ -160,6 +160,6 @@ export function Games() {
       </Table>
 
       <CustomPagination page={page} totalPages={totalPages} setPage={setPage} />
-    </div>
+    </>
   );
 }

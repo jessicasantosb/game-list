@@ -48,7 +48,7 @@ export function Category() {
   };
 
   return (
-    <div className='container'>
+    <>
       <Header
         title='Categories'
         buttonText='NEW CATEGORY'
@@ -98,6 +98,6 @@ export function Category() {
       </Table>
 
       <CustomPagination page={page} totalPages={totalPages} setPage={setPage} />
-    </div>
+    </>
   );
 }

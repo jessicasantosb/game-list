@@ -1,7 +1,6 @@
 .container {
   flex: 1;
   width: 100%;
-  min-width: 1200px;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   margin-inline: auto;
@@ -9,6 +8,7 @@
 
 .table {
   width: 100%;
+  min-width: 1200px;
   margin-inline: auto;
   border-spacing: 0px 10px;
   border-top: 1px solid white;
