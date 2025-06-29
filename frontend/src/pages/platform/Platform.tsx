@@ -1,16 +1,17 @@
 import { useState } from 'react';
 
+import { CreatePlatform } from './forms/Create';
 import { CustomPagination } from '../../components/customPagination/CustomPagination';
 import { Header } from '../../components/header/Header';
-import HeaderList from '../../components/ui/headerList/HeaderList';
-import ListItems from '../../components/ui/listItems/ListItems';
+import { Dialog, DialogTrigger } from '../../components/ui/dialog/Dialog';
 import { useDeletePlatform } from '../../hooks/data/usePlatformsMutations';
 import { useFetchPlatforms } from '../../hooks/data/usePlatformsQueries';
 import { formatDateYear } from '../../utils/formatDateYear';
 import { per_page } from '../../utils/getPaginationItems';
 import DeleteModal from '../components/DeleteModal';
-import { CreatePlatform } from './forms/Create';
 import { UpdatePlatform } from './forms/Update';
+import { Table, TableBody, TableButton, TableCell, TableHead, TableHeader, TableHeadFake, TableImage, TableRow } from '../../components/ui/table/Table';
+import { truncateString } from '../../utils/truncateString';
 
 import type { SortHeaders } from '../../types/Shared';
 
@@ -47,34 +48,51 @@ export const Platform = () => {
         createForm={<CreatePlatform />}
       />
 
-      <HeaderList fields={headers} onSortClick={handleSort} />
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHeadFake />
+            {headers.map(({ label, sort }) => (
+              <TableHead key={label} onClick={() => handleSort(sort)}>
+                {label}
+              </TableHead>
+            ))}
+          </TableRow>
+        </TableHeader>
 
-      <div className='itemsContainer'>
-        {platformsQuery.isLoading && <p>Loading...</p>}
-        <div>
+        <TableBody>
           {platforms?.map((platform) => (
-            <ListItems
-              key={platform._id}
-              imageUrl={platform.image_url}
-              camp1={platform.title}
-              camp2={platform.company}
-              camp3={formatDateYear(String(platform.acquisition_year))}
-              camp4={formatDateYear(String(platform.createdAt))}
-              camp5={formatDateYear(String(platform.updatedAt))}
-              iconDetails
-              iconEdit
-              iconDelete
-              editForm={<UpdatePlatform platform={platform} />}
-              deleteForm={
-                <DeleteModal
-                  type='platform'
-                  onDelete={() => deletePlatform.mutate(platform._id)}
-                />
-              }
-            />
+            <TableRow key={platform._id}>
+              <TableCell>
+                <TableImage />
+              </TableCell>
+              <TableCell>{truncateString(platform.title)}</TableCell>
+              <TableCell>{truncateString(platform.company)}</TableCell>
+              <TableCell>{formatDateYear(platform.acquisition_year)}</TableCell>
+              <TableCell>{formatDateYear(platform.createdAt)}</TableCell>
+              <TableCell>{formatDateYear(platform.updatedAt)}</TableCell>
+
+              <TableCell>
+                <Dialog>
+                  <DialogTrigger>
+                    <TableButton formType='edit' />
+                  </DialogTrigger>
+                  <UpdatePlatform platform={platform} />
+                </Dialog>
+              </TableCell>
+              
+              <TableCell style={{ paddingInline: '0px' }}>
+                <Dialog>
+                  <DialogTrigger>
+                    <TableButton formType='delete' />
+                  </DialogTrigger>
+                  <DeleteModal type='platform' onDelete={() => deletePlatform.mutate(platform._id)} />
+                </Dialog>
+              </TableCell>
+            </TableRow>
           ))}
-        </div>
-      </div>
+        </TableBody>
+      </Table>
 
       <CustomPagination page={page} totalPages={totalPages} setPage={setPage} />
     </div>

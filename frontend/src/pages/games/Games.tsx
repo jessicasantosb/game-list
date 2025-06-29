@@ -1,24 +1,25 @@
 import { useState } from 'react';
 
+import { CreateGame } from './forms/Create';
+import { DetailsGame } from './forms/Details';
+import { UpdateGame } from './forms/Update';
 import { CustomPagination } from '../../components/customPagination/CustomPagination';
 import {
   GameFilters,
   type FiltersState,
 } from '../../components/filterbar/Filterbar';
 import { Header } from '../../components/header/Header';
-import HeaderList from '../../components/ui/headerList/HeaderList';
-import ListItems from '../../components/ui/listItems/ListItems';
+import { Dialog, DialogTrigger } from '../../components/ui/dialog/Dialog';
+import { Table, TableBody, TableButton, TableCell, TableHead, TableHeader, TableHeadFake, TableImage, TableRow, TableStarButton } from '../../components/ui/table/Table';
 import {
   useDeleteGame,
   useFavoriteGame,
 } from '../../hooks/data/useGamesMutations';
 import { useFetchGames } from '../../hooks/data/useGamesQueries';
-import { formatDate } from '../../utils/formatDate';
+import { formatDateYear } from '../../utils/formatDateYear';
 import { per_page } from '../../utils/getPaginationItems';
+import { truncateString } from '../../utils/truncateString';
 import DeleteModal from '../components/DeleteModal';
-import { CreateGame } from './forms/Create';
-import { DetailsGame } from './forms/Details';
-import { UpdateGame } from './forms/Update';
 
 import type { GamesPaginationRequest } from '../../types/Game';
 import type { SortHeaders } from '../../types/Shared';
@@ -76,61 +77,73 @@ export function Games() {
     <div className='container'>
       <Header title='Games' buttonText='NEW GAME' createForm={<CreateGame />} />
       <GameFilters onSearch={handleFilters} onClear={handleClearFilters} />
-      <HeaderList fields={headers} onSortClick={handleSort} />
-
-      <div className='itemsContainer'>
-        <div>
-          {gamesQuery.isLoading && <p>Loading...</p>}
-          <div>
-            {games?.map((game) => (
-              <ListItems
-                key={game._id}
-                imageUrl={game.image_url}
-                camp1={game.title}
-                camp2={game.category}
-                camp3={formatDate(String(game.createdAt))}
-                camp4={
-                  game.updatedAt !== game.createdAt
-                    ? formatDate(String(game.updatedAt))
-                    : ''
-                }
-                iconDetails
-                iconEdit
-                iconDelete
-                iconStar
-                isStarred={game.favorite}
-                detailsForm={
-                  <DetailsGame
-                    game={game}
-                    updateForm={<UpdateGame game={game} />}
-                    deleteForm={
-                      <DeleteModal
-                        type='game'
-                        onDelete={() => deleteGame.mutate(String(game._id))}
-                      />
-                    }
-                  />
-                }
-                editForm={<UpdateGame game={game} />}
-                deleteForm={
-                  <DeleteModal
-                    type='game'
-                    onDelete={() => deleteGame.mutate(String(game._id))}
-                  />
-                }
-                onStarClick={() =>
-                  favoriteGame.mutate({
+    
+      <Table>
+         <TableHeader>
+           <TableRow>
+           <TableHeadFake />
+             {headers.map(({ label, sort }) => (
+              <TableHead key={label} onClick={() => handleSort(sort)}>
+                {label}
+              </TableHead>
+            ))}
+          </TableRow>
+        </TableHeader>
+        
+        <TableBody>
+          {games?.map((game) => (
+            <TableRow key={game._id}>
+              <TableCell>
+                <TableImage src={game.image_url} />
+              </TableCell>
+              <TableCell>{truncateString(game.title)}</TableCell>
+              <TableCell>{truncateString(game.category)}</TableCell>
+              <TableCell>{formatDateYear(game.createdAt)}</TableCell>
+              <TableCell>{formatDateYear(game.updatedAt)}</TableCell>
+              <TableCell>
+                <TableStarButton
+                  onClick={() => favoriteGame.mutate({
                     id: String(game._id),
                     data: {
                       favorite: !game.favorite,
                     },
-                  })
-                }
-              />
-            ))}
-          </div>
-        </div>
-      </div>
+                  })}
+                  isFavorite={game.favorite}
+                />
+              </TableCell>
+
+              <TableCell>
+                <Dialog>
+                  <DialogTrigger>
+                    <TableButton formType='view' />
+                  </DialogTrigger>
+                  <DetailsGame game={game} />
+                </Dialog>
+              </TableCell>
+
+              <TableCell>
+                <Dialog>
+                  <DialogTrigger>
+                    <TableButton formType='edit' />
+                  </DialogTrigger>
+                  <UpdateGame game={game} />
+                </Dialog>
+              </TableCell>
+
+              <TableCell style={{ paddingLeft: '0px' }}>
+                <Dialog>
+                  <DialogTrigger>
+                    <TableButton formType='delete' />
+                  </DialogTrigger>
+                  <DeleteModal type='game'
+                    onDelete={() => deleteGame.mutate(String(game._id))} />
+                </Dialog>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    
 
       <CustomPagination page={page} totalPages={totalPages} setPage={setPage} />
     </div>

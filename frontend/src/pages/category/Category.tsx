@@ -2,15 +2,16 @@ import { useState } from 'react';
 
 import { CustomPagination } from '../../components/customPagination/CustomPagination';
 import { Header } from '../../components/header/Header';
-import HeaderList from '../../components/ui/headerList/HeaderList';
-import ListItems from '../../components/ui/listItems/ListItems';
+import { Dialog, DialogTrigger } from '../../components/ui/dialog/Dialog';
 import { useDeleteCategory } from '../../hooks/data/useCategoriesMutations';
 import { useFetchCategories } from '../../hooks/data/useCategoriesQueries';
-import { formatDate } from '../../utils/formatDate';
 import { per_page } from '../../utils/getPaginationItems';
 import DeleteModal from '../components/DeleteModal';
 import { CreateCategory } from './forms/Create';
 import { UpdateCategory } from './forms/Update';
+import { Table, TableBody, TableButton, TableCell, TableHead, TableHeader, TableRow } from '../../components/ui/table/Table';
+import { formatDateYear } from '../../utils/formatDateYear';
+import { truncateString } from '../../utils/truncateString';
 
 import type { SortHeaders } from '../../types/Shared';
 
@@ -45,32 +46,45 @@ export function Category() {
         buttonText='NEW CATEGORY'
         createForm={<CreateCategory />}
       />
-
-      <HeaderList fields={headers} onSortClick={handleSort} />
-
-      <div className='itemsContainer'>
-        {categoriesQuery.isLoading && <p>Loading...</p>}
-        <div>
-          {categories?.map((category) => (
-            <ListItems
-              key={category._id}
-              camp1={category.title}
-              camp2={category.description}
-              camp3={formatDate(String(category.createdAt))}
-              camp4={formatDate(String(category.updatedAt))}
-              iconEdit
-              iconDelete
-              editForm={<UpdateCategory category={category} />}
-              deleteForm={
-                <DeleteModal
-                  type={'category'}
-                  onDelete={() => deleteCategory.mutate(category._id)}
-                />
-              }
-            />
+   <Table>
+        <TableHeader>
+          {headers.map(({ label, sort }) => (
+            <TableHead key={label} onClick={() => handleSort(sort)}>
+              {label}
+            </TableHead>
           ))}
-        </div>
-      </div>
+        </TableHeader>
+
+        <TableBody>
+          {categories?.map((category) => (
+            <TableRow key={category._id}>
+              <TableCell>{truncateString(category.title)}</TableCell>
+              <TableCell>{truncateString(category.description)}</TableCell>
+              <TableCell>{formatDateYear(category.createdAt)}</TableCell>
+              <TableCell>{formatDateYear(category.updatedAt)}</TableCell>     
+
+              <TableCell>
+                <Dialog>
+                  <DialogTrigger>
+                    <TableButton formType='edit' />
+                  </DialogTrigger>
+                  <UpdateCategory category={category} />
+                </Dialog>
+              </TableCell>
+              
+              <TableCell style={{ paddingInline: '0px' }}>
+                <Dialog>
+                  <DialogTrigger>
+                    <TableButton formType='delete' />
+                  </DialogTrigger>
+                  <DeleteModal type={'category'}
+                  onDelete={() => deleteCategory.mutate(category._id)} />
+                </Dialog>
+              </TableCell>      
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
 
       <CustomPagination page={page} totalPages={totalPages} setPage={setPage} />
     </div>
