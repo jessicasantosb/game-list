@@ -1,9 +1,9 @@
 import type { HTMLAttributes, ReactNode } from 'react';
-import { Button } from '../ui/button/Button';
-import style from './Header.module.css';
-import { arrow } from '../../utils/icons';
 import { useSidebar } from '../../hooks/useSidebar';
+import { arrow } from '../../utils/icons';
+import { Button } from '../ui/button/Button';
 import { Dialog, DialogTrigger } from '../ui/dialog/Dialog';
+import style from './Header.module.css';
 
 type HeaderProps = HTMLAttributes<HTMLElement> & {
   title?: string;
@@ -51,7 +51,7 @@ export function Header({
           </Dialog>
         )}
         {children}
-        {!hiddenLine && <div className={style.line}></div>}
+        {!hiddenLine && <div />}
       </div>
     </header>
   );

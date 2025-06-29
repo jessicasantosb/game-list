@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
+import { useState } from 'react';
 
 import { CustomPagination } from '../../components/customPagination/CustomPagination';
 import {
@@ -9,19 +8,19 @@ import {
 import { Header } from '../../components/header/Header';
 import HeaderList from '../../components/ui/headerList/HeaderList';
 import ListItems from '../../components/ui/listItems/ListItems';
-import { useGame } from '../../hooks/useGame';
-import type { GameProps } from '../../types/Game';
+import {
+  useDeleteGame,
+  useFavoriteGame,
+} from '../../hooks/data/useGamesMutations';
+import { useFetchGames } from '../../hooks/data/useGamesQueries';
+import type { GamesPaginationRequest } from '../../types/Game';
+import type { SortHeaders } from '../../types/Shared';
 import { formatDate } from '../../utils/formatDate';
 import { per_page } from '../../utils/getPaginationItems';
 import DeleteModal from '../components/DeleteModal';
-import { CreateGame } from './forms/create/Create';
-import { DetailsGame } from './forms/details/Details';
-import { UpdateGame } from './forms/update/Update';
-
-export type SortHeaders = {
-  sort: string;
-  label: string;
-};
+import { CreateGame } from './forms/Create';
+import { DetailsGame } from './forms/Details';
+import { UpdateGame } from './forms/Update';
 
 const headers: SortHeaders[] = [
   { sort: 'title', label: 'Title' },
@@ -33,95 +32,60 @@ const headers: SortHeaders[] = [
 
 export function Games() {
   const [page, setPage] = useState(1);
-  const [games, setGames] = useState<GameProps[]>([]);
-  const [dir, setDir] = useState<'asc' | 'desc'>('asc');
-  const { getAll, toggleIsFavorite, remove, count } = useGame();
+  const [params, setParams] = useState<GamesPaginationRequest>({
+    per_page: 5,
+    page: 1,
+  });
+  const deleteGame = useDeleteGame();
+  const favoriteGame = useFavoriteGame();
 
-  const totalPages = Math.ceil(count / per_page);
+  const gamesQuery = useFetchGames(params);
+  const games = gamesQuery.data?.games;
+  const count = gamesQuery.data?.count;
 
-  const fetchGames = async () => {
-    const data = await getAll({ page, per_page });
+  const totalPages = Math.ceil(Number(count) / per_page);
 
-    setGames(data);
+  const handleSort = (newSort: string) => {
+    setParams((prev) => ({
+      ...prev,
+      sort: newSort,
+      dir: prev.dir === 'asc' ? 'desc' : 'asc',
+    }));
   };
 
-  const handleFilters = async ({
-    search,
-    category,
-    favorite,
-  }: FiltersState) => {
-    const _favorite = favorite === 'true' ? true : false;
-
-    const games = await getAll({
-      title: search,
+  const handleFilters = ({ title, category, favorite }: FiltersState) => {
+    setParams((prev) => ({
+      ...prev,
+      title,
       category,
-      favorite: _favorite,
-    });
-
-    setGames(games);
+      favorite: !favorite,
+    }));
   };
 
   const handleClearFilters = () => {
-    fetchGames();
+    setParams((prev) => ({
+      ...prev,
+      title: '',
+      category: '',
+      favorite: false,
+    }));
+
+    gamesQuery.refetch();
   };
-
-  const handleSortClick = async (sort: string) => {
-    setDir((prev) => (prev === 'asc' ? 'desc' : 'asc'));
-
-    const games = await getAll({ sort, dir, page, per_page });
-
-    setGames(games);
-  };
-
-  const handleStarClick = async (game: GameProps) => {
-    if (!game._id) {
-      toast.error('Game ID not found!');
-      return;
-    }
-    try {
-      await toggleIsFavorite(game._id, !game.favorite);
-      toast.success(
-        `Game ${game.favorite ? 'removed from favorites' : 'added to favorites'}!`,
-      );
-      await fetchGames();
-    } catch (error) {
-      console.log(error);
-      toast.error('Error updating favorite');
-    }
-  };
-
-  const handleDelete = async (id: string): Promise<boolean> => {
-    try {
-      await remove(id);
-      toast.success('Game deleted successfully');
-      fetchGames();
-      return true;
-    } catch (error) {
-      console.error(error);
-      toast.error('Error deleting game');
-      return false;
-    }
-  };
-
-  useEffect(() => {
-    fetchGames();
-  }, [page]);
 
   return (
     <div className='container'>
-      <Header
-        title='Games'
-        buttonText='NEW GAME'
-        createForm={<CreateGame onCreated={fetchGames} />}>
+      <Header title='Games' buttonText='NEW GAME' createForm={<CreateGame />}>
         <GameFilters onSearch={handleFilters} onClear={handleClearFilters} />
       </Header>
-      <HeaderList fields={headers} onSortClick={handleSortClick} />
+      <HeaderList fields={headers} onSortClick={handleSort} />
 
       <div className='itemsContainer'>
+        {gamesQuery.isLoading && <p>Loading...</p>}
         <div>
-          {games?.map((game, index) => (
+          {games?.map((game) => (
             <ListItems
-              key={index}
+              key={game._id}
               imageUrl={game.image_url}
               camp1={game.title}
               camp2={game.category}
@@ -139,29 +103,30 @@ export function Games() {
               detailsForm={
                 <DetailsGame
                   game={game}
-                  updateForm={<UpdateGame game={game} onCreated={fetchGames} />}
+                  updateForm={<UpdateGame game={game} />}
                   deleteForm={
                     <DeleteModal
                       type='game'
-                      onDelete={() =>
-                        game._id
-                          ? handleDelete(game._id)
-                          : Promise.resolve(false)
-                      }
+                      onDelete={() => deleteGame.mutate(String(game._id))}
                     />
                   }
                 />
               }
-              editForm={<UpdateGame game={game} onCreated={fetchGames} />}
+              editForm={<UpdateGame game={game} />}
               deleteForm={
                 <DeleteModal
                   type='game'
-                  onDelete={() =>
-                    game._id ? handleDelete(game._id) : Promise.resolve(false)
-                  }
+                  onDelete={() => deleteGame.mutate(String(game._id))}
                 />
               }
-              onStarClick={() => handleStarClick(game)}
+              onStarClick={() =>
+                favoriteGame.mutate({
+                  id: String(game._id),
+                  data: {
+                    favorite: !game.favorite,
+                  },
+                })
+              }
             />
           ))}
         </div>

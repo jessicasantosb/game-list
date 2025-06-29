@@ -6,22 +6,22 @@ import { ensureAuthentication } from '@/middleware/ensureAuthentication';
 const routes = Router();
 
 routes.get(
-  '/platform',
+  '/platforms',
   ensureAuthentication,
   platformControllers.getAllValidator,
   platformControllers.getAll,
 );
 
-routes.post('/platform', ensureAuthentication, platformControllers.create);
+routes.post('/platforms', ensureAuthentication, platformControllers.create);
 
 routes.put(
-  '/platform/:id',
+  '/platforms/:id',
   ensureAuthentication,
   platformControllers.updateById,
 );
 
 routes.delete(
-  '/platform/:id',
+  '/platforms/:id',
   ensureAuthentication,
   platformControllers.deleteById,
 );

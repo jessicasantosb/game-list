@@ -1,0 +1,53 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 2rem;
+  width: 100%;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 1rem;
+}
+
+.label > * {
+  font-size: 1rem;
+}
+
+.rowWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.row {
+  display: flex;
+  gap: 2rem;
+}
+
+.row > * {
+  width: 100%;
+}
+
+.checkbox {
+  width: 20%;
+  margin-left: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+@media screen and (max-width: 1200px) {
+  .row {
+    display: block;
+  }
+
+  .checkbox {
+    margin-left: 0.75rem;
+    padding-top: 1rem;
+  }
+}

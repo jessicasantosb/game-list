@@ -8,6 +8,7 @@
 .auth {
   width: 475px;
   padding: 1rem;
+  margin: 1rem;
   border-radius: 20px;
   border: 2px solid var(--turquoise);
   background: rgba(24, 24, 27, 0.89);

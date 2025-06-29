@@ -1,32 +1,30 @@
-import { useEffect, useState, type ChangeEvent } from 'react';
+import { useState, type ChangeEvent } from 'react';
 
 import search from '../../assets/search.svg';
-import { useCategory } from '../../hooks/useCategory';
-import type { CategoryProps } from '../../types/Category';
+import { useFetchCategories } from '../../hooks/data/useCategoriesQueries';
 import { Button } from '../ui/button/Button';
 import { Input } from '../ui/input/Input';
 import { Select, SelectGroup, SelectItem } from '../ui/select/Select';
 import style from './Filterbar.module.css';
 
 type Props = {
-  onSearch: (filters: FiltersState) => Promise<void>;
+  onSearch: (filters: FiltersState) => void;
   onClear: () => void;
 };
 
 export type FiltersState = {
-  search: string;
+  title: string;
   category: string;
   favorite: string;
 };
 
 export const GameFilters = ({ onSearch, onClear }: Props) => {
-  const [categories, setCategories] = useState<CategoryProps[]>([]);
   const [filters, setFilters] = useState<FiltersState>({
-    search: '',
+    title: '',
     category: '',
     favorite: '',
   });
-  const { getAll } = useCategory();
+  const categories = useFetchCategories();
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -38,22 +36,13 @@ export const GameFilters = ({ onSearch, onClear }: Props) => {
 
   const handleSearch = () => {
     onSearch(filters);
-    setFilters({ search: '', category: '', favorite: '' });
+    setFilters({ title: '', category: '', favorite: '' });
   };
 
   const handleClear = () => {
-    setFilters({ search: '', category: '', favorite: '' });
+    setFilters({ title: '', category: '', favorite: '' });
     onClear();
   };
-
-  useEffect(() => {
-    const fetchCategories = async () => {
-      const data = await getAll({});
-      setCategories(data);
-    };
-
-    fetchCategories();
-  }, [getAll]);
 
   return (
     <div className={style.filtercontainer}>
@@ -61,10 +50,10 @@ export const GameFilters = ({ onSearch, onClear }: Props) => {
         <h3>Filters</h3>
         <Input
           type='text'
-          name='search'
+          name='title'
           variant='rounded'
           placeholder='Search Game'
-          value={filters.search}
+          value={filters.title}
           onChange={handleChange}
         />
 
@@ -77,9 +66,9 @@ export const GameFilters = ({ onSearch, onClear }: Props) => {
             <SelectItem value='' disabled>
               Select Category
             </SelectItem>
-            {categories?.map((cat) => (
-              <SelectItem key={cat.title} value={cat.title}>
-                {cat.title}
+            {categories.data?.categories.map((category) => (
+              <SelectItem key={category.title} value={category.title}>
+                {category.title}
               </SelectItem>
             ))}
           </SelectGroup>

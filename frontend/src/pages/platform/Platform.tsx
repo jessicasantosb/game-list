@@ -1,22 +1,17 @@
-import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
+import { useState } from 'react';
 
 import { CustomPagination } from '../../components/customPagination/CustomPagination';
 import { Header } from '../../components/header/Header';
 import HeaderList from '../../components/ui/headerList/HeaderList';
 import ListItems from '../../components/ui/listItems/ListItems';
-import { usePlatform } from '../../hooks/usePlatform';
-import type { PlatformProps } from '../../types/Platform';
+import { useDeletePlatform } from '../../hooks/data/usePlatformsMutations';
+import { useFetchPlatforms } from '../../hooks/data/usePlatformsQueries';
+import type { SortHeaders } from '../../types/Shared';
 import { formatDateYear } from '../../utils/formatDateYear';
 import { per_page } from '../../utils/getPaginationItems';
 import DeleteModal from '../components/DeleteModal';
-import { NewPlatform } from './forms/create/CreatePlatform';
-import { EditPlatform } from './forms/update/UpdatePlatform';
-
-export type SortHeaders = {
-  sort: string;
-  label: string;
-};
+import { CreatePlatform } from './forms/Create';
+import { UpdatePlatform } from './forms/Update';
 
 const headers: SortHeaders[] = [
   { sort: 'title', label: 'Title' },
@@ -28,57 +23,37 @@ const headers: SortHeaders[] = [
 
 export const Platform = () => {
   const [page, setPage] = useState(1);
-  const [platforms, setPlatforms] = useState<PlatformProps[]>([]);
   const [dir, setDir] = useState<'asc' | 'desc'>('asc');
-  const { getAll, remove, count } = usePlatform();
+  const [sort, setSort] = useState<string>('title');
+  const deletePlatform = useDeletePlatform();
 
-  const totalPages = Math.ceil(count / per_page);
+  const platformsQuery = useFetchPlatforms({ sort, dir, page, per_page });
+  const platforms = platformsQuery.data?.platforms;
+  const count = platformsQuery.data?.count;
 
-  const handleSortClick = async (sort: string) => {
+  const totalPages = Math.ceil(Number(count) / per_page);
+
+  const handleSort = (newSort: string) => {
+    setSort(newSort);
     setDir((prev) => (prev === 'asc' ? 'desc' : 'asc'));
-
-    const platforms = await getAll({ sort, dir, page, per_page });
-
-    setPlatforms(platforms);
   };
-
-  const fetchPlatforms = async () => {
-    const platforms = await getAll({ page, per_page });
-    setPlatforms(platforms);
-  };
-
-  const handleDelete = async (id: string): Promise<boolean> => {
-    try {
-      await remove(id);
-      toast.success('Platform deleted!');
-      fetchPlatforms();
-      return true;
-    } catch (error) {
-      console.error('Error deleting platform:', error);
-      toast.error('Error deleting platform.');
-      return false;
-    }
-  };
-
-  useEffect(() => {
-    fetchPlatforms();
-  }, [page]);
 
   return (
     <div className='container'>
       <Header
         title='Platforms'
         buttonText='NEW PLATFORM'
-        createForm={<NewPlatform oncreated={fetchPlatforms} />}
+        createForm={<CreatePlatform />}
       />
 
-      <HeaderList fields={headers} onSortClick={handleSortClick} />
+      <HeaderList fields={headers} onSortClick={handleSort} />
 
       <div className='itemsContainer'>
+        {platformsQuery.isLoading && <p>Loading...</p>}
         <div>
-          {platforms?.map((platform, index) => (
+          {platforms?.map((platform) => (
             <ListItems
-              key={index}
+              key={platform._id}
               imageUrl={platform.image_url}
               camp1={platform.title}
               camp2={platform.company}
@@ -88,13 +63,11 @@ export const Platform = () => {
               iconDetails
               iconEdit
               iconDelete
-              editForm={
-                <EditPlatform platform={platform} onCreated={fetchPlatforms} />
-              }
+              editForm={<UpdatePlatform platform={platform} />}
               deleteForm={
                 <DeleteModal
                   type='platform'
-                  onDelete={() => handleDelete(platform._id)}
+                  onDelete={() => deletePlatform.mutate(platform._id)}
                 />
               }
             />

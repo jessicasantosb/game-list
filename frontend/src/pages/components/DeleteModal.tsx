@@ -1,6 +1,4 @@
 import React from 'react';
-import styles from './DeleteModal.module.css';
-import { warning } from '../../utils/icons';
 import { Button } from '../../components/ui/button/Button';
 import {
   DialogClose,
@@ -10,12 +8,14 @@ import {
   DialogTitle,
 } from '../../components/ui/dialog/Dialog';
 import { useDialog } from '../../hooks/useDialog';
+import { warning } from '../../utils/icons';
+import styles from './DeleteModal.module.css';
 
 type DeleteType = 'platform' | 'category' | 'game';
 
 interface DeleteModalProps {
   type: DeleteType;
-  onDelete: () => Promise<boolean>;
+  onDelete: () => void;
 }
 
 const getDeleteMessage = (type: DeleteType): string => {
@@ -34,30 +34,21 @@ const getDeleteMessage = (type: DeleteType): string => {
 const DeleteModal: React.FC<DeleteModalProps> = ({ type, onDelete }) => {
   const { closeDialog } = useDialog();
 
-  const handleDelete = async () => {
-    const isDeleted = await onDelete();
-    if (isDeleted) closeDialog();
-  };
-
   return (
-    <DialogContent className={styles.modal}>
-      <div className={styles.iconWrapper}>
-        <img src={warning} alt='Warning' />
-      </div>
+    <DialogContent>
       <DialogHeader>
-        <DialogTitle className={styles.title}>Are you sure?</DialogTitle>
-        <DialogClose className={styles.closeBtn} />
+        <DialogClose />
+        <div className={styles.headerWrapper}>
+          <DialogTitle className={styles.title}>Are you sure?</DialogTitle>
+          <img src={warning} alt='Warning' />
+        </div>
       </DialogHeader>
 
       <p className={styles.message}>{getDeleteMessage(type)}</p>
 
       <DialogFooter className={styles.actions}>
-        <Button className={styles.cancelBtn} onClick={closeDialog}>
-          No, cancel action
-        </Button>
-        <Button className={styles.deleteBtn} onClick={handleDelete}>
-          {`Yes, delete this ${type}`}
-        </Button>
+        <Button onClick={closeDialog}>No, cancel action</Button>
+        <Button onClick={() => onDelete()}>{`Yes, delete this ${type}`}</Button>
       </DialogFooter>
     </DialogContent>
   );
