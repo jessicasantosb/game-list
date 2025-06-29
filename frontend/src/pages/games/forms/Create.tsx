@@ -1,4 +1,4 @@
-import { type FormEvent } from 'react';
+import { useState, type FormEvent } from 'react';
 import { toast } from 'react-toastify';
 import { Button } from '../../../components/ui/button/Button';
 import {
@@ -24,7 +24,10 @@ import { gameSchema } from '../../../schemas/game';
 import { getDataForm } from '../../../utils/getFormData';
 import '../../styles/Forms.css';
 
+type Status = 'Abandoned' | 'Done' | 'Playing';
+
 export function CreateGame() {
+  const [status, setStatus] = useState<Status>();
   const createGame = useCreateGame();
   const categories = useFetchCategories();
   const platforms = useFetchPlatforms();
@@ -115,13 +118,14 @@ export function CreateGame() {
                 name='acquisition_date'
               />
             </div>
-
-            <div className='label'>
-              <Label asterisk htmlFor='finish_date'>
-                Finish Date
-              </Label>
-              <Input id='finish_date' type='date' name='finish_date' />
-            </div>
+            {status !== 'Playing' && (
+              <div className='label'>
+                <Label asterisk htmlFor='finish_date'>
+                  Finish Date
+                </Label>
+                <Input id='finish_date' type='date' name='finish_date' />
+              </div>
+            )}
           </div>
 
           <div className='row'>
@@ -129,7 +133,11 @@ export function CreateGame() {
               <Label asterisk htmlFor='status'>
                 Status
               </Label>
-              <Select id='status' variant='modal' name='status'>
+              <Select
+                id='status'
+                variant='modal'
+                name='status'
+                onChange={(e) => setStatus(e.target.value as Status)}>
                 <SelectGroup>
                   <SelectItem value={'Playing'}>Playing</SelectItem>
                   <SelectItem value={'Done'}>Done</SelectItem>
