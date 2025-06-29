@@ -24,7 +24,7 @@ const Sidebar: React.FC = () => {
   return (
     <aside
       className={`${styles.sidebar} ${isOpen ? styles.open : styles.closed}`}>
-      <Button className={styles.menuButton} onClick={toggleSidebar}>
+      <Button size='icon' style={{margin: '1rem 0 0 0.75rem'}} onClick={toggleSidebar}>
         ☰
       </Button>
       <div className={styles.header}>

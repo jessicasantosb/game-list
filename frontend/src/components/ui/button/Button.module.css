@@ -17,16 +17,26 @@
   opacity: 0.7;
 }
 
-.white {
+.variant-white {
   border-radius: 8px;
   background: var(--white);
   color: var(--gray);
 }
 
-.turquoise {
+.variant-turquoise {
   background: var(--turquoise);
 }
 
-.gray {
+.variant-gray {
   background: var(--graybutton);
+}
+
+.size-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 0.5rem;
+  height: 2.5rem;
+  width: 2.5rem;
 }
