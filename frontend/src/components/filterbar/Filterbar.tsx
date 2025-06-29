@@ -1,5 +1,4 @@
 import { useState, type ChangeEvent } from 'react';
-
 import search from '../../assets/search.svg';
 import { useFetchCategories } from '../../hooks/data/useCategoriesQueries';
 import { Button } from '../ui/button/Button';
@@ -13,17 +12,13 @@ type Props = {
 };
 
 export type FiltersState = {
-  title: string;
-  category: string;
-  favorite: string;
+  title?: string;
+  category?: string;
+  favorite?: boolean;
 };
 
 export const GameFilters = ({ onSearch, onClear }: Props) => {
-  const [filters, setFilters] = useState<FiltersState>({
-    title: '',
-    category: '',
-    favorite: '',
-  });
+  const [filters, setFilters] = useState<FiltersState>({});
   const categories = useFetchCategories();
 
   const handleChange = (
@@ -31,35 +26,39 @@ export const GameFilters = ({ onSearch, onClear }: Props) => {
   ) => {
     const { name, value } = e.target;
 
-    setFilters((prev) => ({ ...prev, [name]: value }));
+    const _favorite = value === 'true' ? true : false;
+
+    setFilters((prev) => {
+      if (name === 'favorite') return { ...prev, favorite: _favorite };
+      return { ...prev, [name]: value };
+    });
   };
 
   const handleSearch = () => {
     onSearch(filters);
-    setFilters({ title: '', category: '', favorite: '' });
   };
 
   const handleClear = () => {
-    setFilters({ title: '', category: '', favorite: '' });
+    setFilters({});
     onClear();
   };
 
   return (
     <div className={style.filtercontainer}>
       <div className={style.querys}>
-        <h3>Filters</h3>
+        <h3 className={style.title}>Filters</h3>
         <Input
           type='text'
           name='title'
           variant='rounded'
           placeholder='Search Game'
-          value={filters.title}
+          value={filters.title ?? ''}
           onChange={handleChange}
         />
 
         <Select
           name='category'
-          value={filters.category}
+          value={filters.category ?? ''}
           variant='default'
           onChange={handleChange}>
           <SelectGroup>
@@ -77,14 +76,20 @@ export const GameFilters = ({ onSearch, onClear }: Props) => {
         <Select
           name='favorite'
           variant='default'
-          value={filters.favorite}
+          value={
+            filters.favorite === undefined
+              ? ''
+              : filters.favorite
+                ? 'true'
+                : 'false'
+          }
           onChange={handleChange}>
           <SelectGroup>
             <SelectItem value='' disabled>
-              Favorite status
+              Select Favorite
             </SelectItem>
-            <SelectItem value='true'>Yes</SelectItem>
-            <SelectItem value='false'>No</SelectItem>
+            <SelectItem value='true'>Favorites Only</SelectItem>
+            <SelectItem value='false'>Non-Favorites</SelectItem>
           </SelectGroup>
         </Select>
       </div>
@@ -94,10 +99,8 @@ export const GameFilters = ({ onSearch, onClear }: Props) => {
           Clear
         </Button>
         <Button variant='turquoise' onClick={handleSearch}>
-          <div className={style.searchbtn}>
-            Search
-            <img src={search} alt='Search' />
-          </div>
+          Search
+          <img src={search} alt='Search' />
         </Button>
       </div>
     </div>

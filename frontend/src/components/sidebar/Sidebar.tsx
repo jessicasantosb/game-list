@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { useSidebar } from '../../hooks/useSidebar';
-import { useUser } from '../../hooks/useUser';
+import { logout } from '../../services/logout';
 import {
   category,
   compactLogo,
@@ -17,7 +17,6 @@ import styles from './Sidebar.module.css';
 
 const Sidebar: React.FC = () => {
   const { isOpen, toggleSidebar } = useSidebar();
-  const { logout } = useUser();
 
   const navLinkStyle = ({ isActive }: { isActive: boolean }) =>
     isActive ? { backgroundColor: '#42D9C8', color: '#fff' } : undefined;
@@ -77,7 +76,7 @@ const Sidebar: React.FC = () => {
       </nav>
 
       <Button
-        onClick={logout}
+        onClick={() => logout()}
         className={`${styles.navItem} ${styles.logout} ${!isOpen ? styles.logoutClosed : ''}`}>
         {isOpen && <span>Logout</span>}
 

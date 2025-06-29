@@ -20,9 +20,6 @@
 git clone git@github.com:jessicasantosb/AWS_FS_ABR25_D03_COMPASS_Desafio3_GameList.git
 cd AWS_FS_ABR25_D03_COMPASS_Desafio3_GameList
 
-# Navigate to project
-cd AWS_FS_ABR25_D03_COMPASS_Desafio3_GameList
-
 # Set up environment variables
 echo "PORT=8888" > backend/.env
 echo "JWT_SECRET=your_secret_key" >> backend/.env

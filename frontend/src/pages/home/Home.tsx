@@ -1,46 +1,23 @@
-import { useEffect, useState } from 'react';
-
 import { Header } from '../../components/header/Header';
 import { HomeCard } from '../../components/homeCard/HomeCard';
-import { useUser } from '../../hooks/useUser';
 import { category, game, platform, starHome } from '../../utils/icons';
 import { CreateCategory } from '../category/forms/Create';
 import { CreateGame } from '../games/forms/Create';
 import { CreatePlatform } from '../platform/forms/Create';
 
 import { useFetchSummary } from '../../hooks/data/useStatsQueries';
+import { getUserName } from '../../services/getUserName';
 import styles from './Home.module.css';
 
 export function Home() {
-  const [summary, setSummary] = useState({
-    gamesCount: 0,
-    favoriteGamesCount: 0,
-    categoriesCount: 0,
-    platformCount: 0,
-  });
-
-  const stats = useFetchSummary();
-  const { user } = useUser();
-
-  useEffect(() => {
-    if (!stats.data) {
-      setSummary({
-        gamesCount: 0,
-        favoriteGamesCount: 0,
-        categoriesCount: 0,
-        platformCount: 0,
-      });
-      return;
-    }
-
-    setSummary(stats.data);
-  }, []);
+  const { data: stats } = useFetchSummary();
+  const user = getUserName();
 
   return (
     <main className='container'>
-      <Header hiddenButton hiddenLine>
+      <Header hiddenButton>
         <div className={styles.textHome}>
-          <h1>Hello, {user?.full_name}!</h1>
+          <h1>Hello, {user.full_name}!</h1>
           <p>Choose one of options below.</p>
         </div>
       </Header>
@@ -51,7 +28,7 @@ export function Home() {
           haveButton
           icon={game}
           title='Games'
-          count={summary.gamesCount}
+          count={stats?.gamesCount}
           createForm={<CreateGame />}
         />
 
@@ -60,7 +37,7 @@ export function Home() {
           haveButton
           icon={category}
           title='Categories'
-          count={summary.categoriesCount}
+          count={stats?.categoriesCount}
           createForm={<CreateCategory />}
         />
 
@@ -69,7 +46,7 @@ export function Home() {
           haveButton
           icon={platform}
           title='Platforms'
-          count={summary.platformCount}
+          count={stats?.platformCount}
           createForm={<CreatePlatform />}
         />
 
@@ -77,7 +54,7 @@ export function Home() {
           to='/games'
           icon={starHome}
           title='Favorite Games'
-          count={summary.favoriteGamesCount}
+          count={stats?.favoriteGamesCount}
         />
       </div>
     </main>

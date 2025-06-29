@@ -4,6 +4,9 @@ import { gamesService } from '../../services/api/games';
 import type { GamesPaginationRequest } from '../../types/Game';
 
 export const useFetchGames = (params: GamesPaginationRequest) => {
+
+  // console.log(params);
+  
   return useQuery({
     queryKey: ['games', params],
     queryFn: () => gamesService.getAll(params),
