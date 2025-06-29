@@ -11,9 +11,8 @@ import {
 } from '../../../components/ui/dialog/Dialog';
 import { Input } from '../../../components/ui/input/Input';
 import { Label } from '../../../components/ui/label/Label';
-import { useDialog } from '../../../hooks/useDialog';
-
 import { useCreatePlatform } from '../../../hooks/data/usePlatformsMutations';
+import { useDialog } from '../../../hooks/useDialog';
 import { platformSchema } from '../../../schemas/platform';
 import { getDataForm } from '../../../utils/getFormData';
 import '../../styles/Forms.css';

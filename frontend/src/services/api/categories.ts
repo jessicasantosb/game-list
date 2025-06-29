@@ -1,8 +1,11 @@
+import { api } from './api';
 
 import type { CategoryRequest } from '../../schemas/category';
-import type { CategoryGetAllResponse, CategoryUpdateRequest } from '../../types/Category';
+import type {
+  CategoryGetAllResponse,
+  CategoryUpdateRequest,
+} from '../../types/Category';
 import type { BaseResponse, PaginationRequest } from '../../types/Shared';
-import { api } from './api';
 
 const getAll = async (params: PaginationRequest = {}) => {
   const result = await api.get<CategoryGetAllResponse>('/categories', {

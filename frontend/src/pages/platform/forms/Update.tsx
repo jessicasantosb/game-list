@@ -11,17 +11,17 @@ import {
 } from '../../../components/ui/dialog/Dialog';
 import { Input } from '../../../components/ui/input/Input';
 import { Label } from '../../../components/ui/label/Label';
-import { useDialog } from '../../../hooks/useDialog';
-import { toInputDateString } from '../../../utils/toInputDateString';
-
 import { useUpdatePlatform } from '../../../hooks/data/usePlatformsMutations';
-
+import { useDialog } from '../../../hooks/useDialog';
 import {
   platformSchema,
   type PlatformRequest,
 } from '../../../schemas/platform';
-import type { PlatformResponse } from '../../../types/Platform';
 import { getDataForm } from '../../../utils/getFormData';
+import { toInputDateString } from '../../../utils/toInputDateString';
+
+import type { PlatformResponse } from '../../../types/Platform';
+
 import '../../styles/Forms.css';
 
 export function UpdatePlatform({ platform }: { platform: PlatformResponse }) {

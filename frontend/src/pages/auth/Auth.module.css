@@ -33,7 +33,7 @@
 .subtitle {
   text-align: center;
   color: var(--lightgray);
-  font-size: 0.90rem;
+  font-size: 0.9rem;
   font-weight: 400;
 }
 .form {
@@ -46,7 +46,7 @@
 
 .label {
   color: var(--gray);
-  font-size: 0.90rem;
+  font-size: 0.9rem;
   font-weight: 400;
   display: flex;
   flex-direction: column;
@@ -56,7 +56,7 @@
 .error {
   text-align: center;
   color: rgb(230, 23, 23);
-  font-size: 0.90rem;
+  font-size: 0.9rem;
   font-weight: 400;
 }
 
@@ -65,7 +65,7 @@
   padding: 8px 0;
   border: 2px solid var(--turquoise);
   border-radius: 4px;
-  font-size: 0.90rem;
+  font-size: 0.9rem;
   font-weight: 500;
   background: none;
   color: var(--turquoise);
@@ -83,7 +83,7 @@
 .footer {
   margin: 28px 0 40px;
   text-align: center;
-  font-size: 0.90rem;
+  font-size: 0.9rem;
   font-weight: 400;
   color: var(--gray);
 }

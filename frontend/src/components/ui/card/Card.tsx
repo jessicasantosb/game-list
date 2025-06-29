@@ -1,6 +1,6 @@
-import type { HTMLAttributes } from 'react';
-
 import style from './Card.module.css';
+
+import type { HTMLAttributes } from 'react';
 
 type CardProps = HTMLAttributes<HTMLDivElement> & {
   variant?: 'modal' | 'auth';

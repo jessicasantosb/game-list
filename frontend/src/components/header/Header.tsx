@@ -1,9 +1,10 @@
-import type { HTMLAttributes, ReactNode } from 'react';
+import style from './Header.module.css';
 import { useSidebar } from '../../hooks/useSidebar';
 import { arrow } from '../../utils/icons';
 import { Button } from '../ui/button/Button';
 import { Dialog, DialogTrigger } from '../ui/dialog/Dialog';
-import style from './Header.module.css';
+
+import type { HTMLAttributes, ReactNode } from 'react';
 
 type HeaderProps = HTMLAttributes<HTMLElement> & {
   title?: string;

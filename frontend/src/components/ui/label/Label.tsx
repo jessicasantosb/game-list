@@ -1,6 +1,6 @@
-import type { LabelHTMLAttributes } from 'react';
-
 import style from './Label.module.css';
+
+import type { LabelHTMLAttributes } from 'react';
 
 type LabelProps = LabelHTMLAttributes<HTMLLabelElement> & {
   asterisk?: boolean;

@@ -1,7 +1,9 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import type { ReactNode } from 'react';
+
 import { DialogProvider } from '../context/DialogContext';
 import { SidebarProvider } from '../context/SidebarContext';
+
+import type { ReactNode } from 'react';
 
 const queryClient = new QueryClient({
   defaultOptions: {

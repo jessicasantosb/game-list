@@ -1,4 +1,6 @@
 import React from 'react';
+
+import styles from './DeleteModal.module.css';
 import { Button } from '../../components/ui/button/Button';
 import {
   DialogClose,
@@ -9,7 +11,6 @@ import {
 } from '../../components/ui/dialog/Dialog';
 import { useDialog } from '../../hooks/useDialog';
 import { warning } from '../../utils/icons';
-import styles from './DeleteModal.module.css';
 
 type DeleteType = 'platform' | 'category' | 'game';
 

@@ -1,12 +1,12 @@
+import style from './Pagination.module.css';
+import { arrowLeft, arrowRight } from '../../../utils/icons';
+
 import type {
   AnchorHTMLAttributes,
   ComponentProps,
   HTMLAttributes,
   LiHTMLAttributes,
 } from 'react';
-
-import style from './Pagination.module.css';
-import { arrowLeft, arrowRight } from '../../../utils/icons';
 
 type PaginationProps = HTMLAttributes<HTMLElement>;
 type PaginationContentProps = HTMLAttributes<HTMLUListElement>;

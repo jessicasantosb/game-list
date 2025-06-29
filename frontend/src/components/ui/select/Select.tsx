@@ -1,11 +1,11 @@
+import style from './Select.module.css';
+
 import type {
   LabelHTMLAttributes,
   OptgroupHTMLAttributes,
   OptionHTMLAttributes,
   SelectHTMLAttributes,
 } from 'react';
-
-import style from './Select.module.css';
 
 type SelectProps = SelectHTMLAttributes<HTMLSelectElement> & {
   variant?: 'modal' | 'default' | 'disable';

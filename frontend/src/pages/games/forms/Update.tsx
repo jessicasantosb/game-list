@@ -16,16 +16,16 @@ import {
   SelectGroup,
   SelectItem,
 } from '../../../components/ui/select/Select';
-import { useDialog } from '../../../hooks/useDialog';
-import type { GameResponse } from '../../../types/Game';
-
 import { Textarea } from '../../../components/ui/textarea/Textarea';
 import { useFetchCategories } from '../../../hooks/data/useCategoriesQueries';
 import { useUpdateGame } from '../../../hooks/data/useGamesMutations';
 import { useFetchPlatforms } from '../../../hooks/data/usePlatformsQueries';
+import { useDialog } from '../../../hooks/useDialog';
 import { gameSchema, type GameRequest } from '../../../schemas/game';
 import { getDataForm } from '../../../utils/getFormData';
 import { toInputDateString } from '../../../utils/toInputDateString';
+
+import type { GameResponse } from '../../../types/Game';
 import '../../styles/Forms.css';
 
 export function UpdateGame({ game }: { game: GameResponse }) {

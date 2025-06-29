@@ -1,8 +1,10 @@
-import type { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
+
+import styles from './HomeCard.module.css';
 import { Button } from '../ui/button/Button';
 import { Dialog, DialogTrigger } from '../ui/dialog/Dialog';
-import styles from './HomeCard.module.css';
+
+import type { ReactNode } from 'react';
 
 type HomeCardProps = {
   icon?: string;

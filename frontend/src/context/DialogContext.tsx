@@ -1,4 +1,5 @@
 import { useState, type ReactNode } from 'react';
+
 import { DialogContext } from '../hooks/useDialog';
 
 type DialogProviderProps = {

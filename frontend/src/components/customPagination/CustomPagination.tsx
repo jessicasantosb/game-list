@@ -1,4 +1,3 @@
-import type { Dispatch } from 'react';
 import { getPaginationItems } from '../../utils/getPaginationItems';
 import {
   Pagination,
@@ -10,10 +9,12 @@ import {
   PaginationPrevious,
 } from '../ui/pagination/Pagination';
 
+import type { Dispatch, SetStateAction } from 'react';
+
 type CustomPagination = {
   page: number;
   totalPages: number;
-  setPage: Dispatch<React.SetStateAction<number>>;
+  setPage: Dispatch<SetStateAction<number>>;
 };
 
 export function CustomPagination({

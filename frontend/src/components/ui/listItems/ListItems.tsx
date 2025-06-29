@@ -1,5 +1,6 @@
 import { useState, type ReactNode } from 'react';
 
+import styles from './ListItems.module.css';
 import {
   eye,
   eyeClosed,
@@ -12,8 +13,6 @@ import {
   trashBlack,
 } from '../../../utils/icons';
 import { Dialog, DialogTrigger } from '../dialog/Dialog';
-
-import styles from './ListItems.module.css';
 
 interface ListItemsProps {
   imageUrl?: string;

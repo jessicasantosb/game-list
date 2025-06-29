@@ -1,10 +1,11 @@
 import { useState, type ChangeEvent } from 'react';
+
+import style from './Filterbar.module.css';
 import search from '../../assets/search.svg';
 import { useFetchCategories } from '../../hooks/data/useCategoriesQueries';
 import { Button } from '../ui/button/Button';
 import { Input } from '../ui/input/Input';
 import { Select, SelectGroup, SelectItem } from '../ui/select/Select';
-import style from './Filterbar.module.css';
 
 type Props = {
   onSearch: (filters: FiltersState) => void;

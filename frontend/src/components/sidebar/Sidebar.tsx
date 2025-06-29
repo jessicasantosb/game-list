@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
+import styles from './Sidebar.module.css';
 import { useSidebar } from '../../hooks/useSidebar';
 import { logout } from '../../services/logout';
 import {
@@ -13,7 +14,6 @@ import {
   platform,
 } from '../../utils/icons';
 import { Button } from '../ui/button/Button';
-import styles from './Sidebar.module.css';
 
 const Sidebar: React.FC = () => {
   const { isOpen, toggleSidebar } = useSidebar();

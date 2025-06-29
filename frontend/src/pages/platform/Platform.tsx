@@ -6,12 +6,13 @@ import HeaderList from '../../components/ui/headerList/HeaderList';
 import ListItems from '../../components/ui/listItems/ListItems';
 import { useDeletePlatform } from '../../hooks/data/usePlatformsMutations';
 import { useFetchPlatforms } from '../../hooks/data/usePlatformsQueries';
-import type { SortHeaders } from '../../types/Shared';
 import { formatDateYear } from '../../utils/formatDateYear';
 import { per_page } from '../../utils/getPaginationItems';
 import DeleteModal from '../components/DeleteModal';
 import { CreatePlatform } from './forms/Create';
 import { UpdatePlatform } from './forms/Update';
+
+import type { SortHeaders } from '../../types/Shared';
 
 const headers: SortHeaders[] = [
   { sort: 'title', label: 'Title' },

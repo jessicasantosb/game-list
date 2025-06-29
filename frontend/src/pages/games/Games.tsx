@@ -13,14 +13,15 @@ import {
   useFavoriteGame,
 } from '../../hooks/data/useGamesMutations';
 import { useFetchGames } from '../../hooks/data/useGamesQueries';
-import type { GamesPaginationRequest } from '../../types/Game';
-import type { SortHeaders } from '../../types/Shared';
 import { formatDate } from '../../utils/formatDate';
 import { per_page } from '../../utils/getPaginationItems';
 import DeleteModal from '../components/DeleteModal';
 import { CreateGame } from './forms/Create';
 import { DetailsGame } from './forms/Details';
 import { UpdateGame } from './forms/Update';
+
+import type { GamesPaginationRequest } from '../../types/Game';
+import type { SortHeaders } from '../../types/Shared';
 
 const headers: SortHeaders[] = [
   { sort: 'title', label: 'Title' },

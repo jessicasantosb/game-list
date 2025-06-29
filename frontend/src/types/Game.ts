@@ -1,5 +1,5 @@
-import type { GameRequest } from '../schemas/game';
 import type { PaginationRequest } from './Shared';
+import type { GameRequest } from '../schemas/game';
 
 export type GameResponse = {
   _id: string;

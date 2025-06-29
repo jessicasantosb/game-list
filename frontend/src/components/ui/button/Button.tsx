@@ -1,6 +1,6 @@
-import type { ButtonHTMLAttributes } from 'react';
-
 import style from './Button.module.css';
+
+import type { ButtonHTMLAttributes } from 'react';
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: 'white' | 'turquoise' | 'gray';

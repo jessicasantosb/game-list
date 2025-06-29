@@ -1,4 +1,3 @@
-import type { HTMLAttributes, ReactNode } from 'react';
 import { Button } from '../../../components/ui/button/Button';
 import {
   Dialog,
@@ -17,9 +16,10 @@ import {
   SelectItem,
 } from '../../../components/ui/select/Select';
 import { Textarea } from '../../../components/ui/textarea/Textarea';
+import { toInputDateString } from '../../../utils/toInputDateString';
 
 import type { GameResponse } from '../../../types/Game';
-import { toInputDateString } from '../../../utils/toInputDateString';
+import type { HTMLAttributes, ReactNode } from 'react';
 import '../../styles/Forms.css';
 
 type UpdateModalProps = HTMLAttributes<HTMLElement> & {

@@ -1,13 +1,12 @@
+import styles from './Home.module.css';
 import { Header } from '../../components/header/Header';
 import { HomeCard } from '../../components/homeCard/HomeCard';
+import { useFetchSummary } from '../../hooks/data/useStatsQueries';
+import { getUserName } from '../../services/getUserName';
 import { category, game, platform, starHome } from '../../utils/icons';
 import { CreateCategory } from '../category/forms/Create';
 import { CreateGame } from '../games/forms/Create';
 import { CreatePlatform } from '../platform/forms/Create';
-
-import { useFetchSummary } from '../../hooks/data/useStatsQueries';
-import { getUserName } from '../../services/getUserName';
-import styles from './Home.module.css';
 
 export function Home() {
   const { data: stats } = useFetchSummary();

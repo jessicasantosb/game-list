@@ -6,12 +6,13 @@ import HeaderList from '../../components/ui/headerList/HeaderList';
 import ListItems from '../../components/ui/listItems/ListItems';
 import { useDeleteCategory } from '../../hooks/data/useCategoriesMutations';
 import { useFetchCategories } from '../../hooks/data/useCategoriesQueries';
-import type { SortHeaders } from '../../types/Shared';
 import { formatDate } from '../../utils/formatDate';
 import { per_page } from '../../utils/getPaginationItems';
 import DeleteModal from '../components/DeleteModal';
 import { CreateCategory } from './forms/Create';
 import { UpdateCategory } from './forms/Update';
+
+import type { SortHeaders } from '../../types/Shared';
 
 const headers: SortHeaders[] = [
   { sort: 'title', label: 'Title' },

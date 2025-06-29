@@ -1,3 +1,5 @@
+import { api } from './api';
+
 import type { GameRequest } from '../../schemas/game';
 import type {
   GameFavoriteRequest,
@@ -7,7 +9,6 @@ import type {
   GameUpdateRequest,
 } from '../../types/Game';
 import type { BaseResponse } from '../../types/Shared';
-import { api } from './api';
 
 const getAll = async (params: GamesPaginationRequest) => {
   const result = await api.get<GameGetAllResponse>('/games', { params });

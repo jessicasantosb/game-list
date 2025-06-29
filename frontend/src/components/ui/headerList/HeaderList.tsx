@@ -1,7 +1,7 @@
-import orderListIcon from '../../../assets/orderList.svg';
-
 import { useState } from 'react';
+
 import styles from './HeaderList.module.css';
+import orderListIcon from '../../../assets/orderList.svg';
 import { orderListDown, orderListUp } from '../../../utils/icons';
 
 type Header = {

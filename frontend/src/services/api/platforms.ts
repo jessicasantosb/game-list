@@ -1,3 +1,5 @@
+import { api } from './api';
+
 import type { PlatformRequest } from '../../schemas/platform';
 import type {
   PlatformGetAllResponse,
@@ -5,7 +7,6 @@ import type {
   PlatformUpdateRequest,
 } from '../../types/Platform';
 import type { BaseResponse, PaginationRequest } from '../../types/Shared';
-import { api } from './api';
 
 const getAll = async (params: PaginationRequest) => {
   const result = await api.get<PlatformGetAllResponse>('/platforms', {

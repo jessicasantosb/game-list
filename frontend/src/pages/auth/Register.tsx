@@ -1,6 +1,8 @@
 import { type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
+
+import style from './Auth.module.css';
 import { Button } from '../../components/ui/button/Button';
 import {
   Card,
@@ -16,7 +18,6 @@ import { useSignUp } from '../../hooks/data/useUsersMutations';
 import { signUpSchema, type SignUpRequest } from '../../schemas/signUp';
 import { getDataForm } from '../../utils/getFormData';
 import { logo } from '../../utils/icons';
-import style from './Auth.module.css';
 
 export const Register = () => {
   const signup = useSignUp();

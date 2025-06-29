@@ -18,8 +18,9 @@ import {
   categorySchema,
   type CategoryRequest,
 } from '../../../schemas/category';
-import type { CategoryResponse } from '../../../types/Category';
 import { getDataForm } from '../../../utils/getFormData';
+
+import type { CategoryResponse } from '../../../types/Category';
 import '../../styles/Forms.css';
 
 export function UpdateCategory({ category }: { category: CategoryResponse }) {

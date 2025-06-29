@@ -1,10 +1,10 @@
-import type { ButtonHTMLAttributes, HTMLAttributes, ReactNode } from 'react';
-
+import style from './Dialog.module.css';
 import { DialogProvider } from '../../../context/DialogContext';
 import { useDialog } from '../../../hooks/useDialog';
 import { x } from '../../../utils/icons';
 import { Slot } from '../slot/Slot';
-import style from './Dialog.module.css';
+
+import type { ButtonHTMLAttributes, HTMLAttributes, ReactNode } from 'react';
 
 type DialogProps = { children: ReactNode };
 type DialogHeader = HTMLAttributes<HTMLDivElement>;

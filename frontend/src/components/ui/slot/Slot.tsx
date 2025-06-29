@@ -18,7 +18,6 @@ export const Slot = ({ children, ...props }: SlotProps) => {
     return;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const element = child as ReactElement<any>;
 
   return cloneElement(child, {

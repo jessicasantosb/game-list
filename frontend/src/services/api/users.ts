@@ -1,6 +1,7 @@
+import { api } from './api';
+
 import type { SignInRequest } from '../../schemas/signIn';
 import type { SignUpRequest } from '../../schemas/signUp';
-import { api } from './api';
 
 const signup = async (data: SignUpRequest) => {
   const result = await api.post('/register', data);

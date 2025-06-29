@@ -12,9 +12,8 @@ import {
 import { Input } from '../../../components/ui/input/Input';
 import { Label } from '../../../components/ui/label/Label';
 import { Textarea } from '../../../components/ui/textarea/Textarea';
-import { useDialog } from '../../../hooks/useDialog';
-
 import { useCreateCategory } from '../../../hooks/data/useCategoriesMutations';
+import { useDialog } from '../../../hooks/useDialog';
 import { categorySchema } from '../../../schemas/category';
 import { getDataForm } from '../../../utils/getFormData';
 import '../../styles/Forms.css';
