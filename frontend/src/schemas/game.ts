@@ -12,7 +12,7 @@ export const gameSchema = z.object({
     .optional(),
   status: z.enum(['Done', 'Playing', 'Abandoned']),
   acquisition_date: z.coerce.date(),
-  finish_date: z.coerce.date(),
+  finish_date: z.coerce.date().optional(),
 });
 
 export type GameRequest = z.infer<typeof gameSchema>;

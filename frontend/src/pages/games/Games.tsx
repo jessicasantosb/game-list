@@ -10,7 +10,18 @@ import {
 } from '../../components/filterbar/Filterbar';
 import { Header } from '../../components/header/Header';
 import { Dialog, DialogTrigger } from '../../components/ui/dialog/Dialog';
-import { Table, TableBody, TableButton, TableCell, TableHead, TableHeader, TableHeadFake, TableImage, TableRow, TableStarButton } from '../../components/ui/table/Table';
+import {
+  Table,
+  TableBody,
+  TableButton,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableHeadFake,
+  TableImage,
+  TableRow,
+  TableStarButton,
+} from '../../components/ui/table/Table';
 import {
   useDeleteGame,
   useFavoriteGame,
@@ -77,19 +88,19 @@ export function Games() {
     <div className='container'>
       <Header title='Games' buttonText='NEW GAME' createForm={<CreateGame />} />
       <GameFilters onSearch={handleFilters} onClear={handleClearFilters} />
-    
+
       <Table>
-         <TableHeader>
-           <TableRow>
-           <TableHeadFake />
-             {headers.map(({ label, sort }) => (
+        <TableHeader>
+          <TableRow>
+            <TableHeadFake />
+            {headers.map(({ label, sort }) => (
               <TableHead key={label} onClick={() => handleSort(sort)}>
                 {label}
               </TableHead>
             ))}
           </TableRow>
         </TableHeader>
-        
+
         <TableBody>
           {games?.map((game) => (
             <TableRow key={game._id}>
@@ -102,12 +113,14 @@ export function Games() {
               <TableCell>{formatDateYear(game.updatedAt)}</TableCell>
               <TableCell>
                 <TableStarButton
-                  onClick={() => favoriteGame.mutate({
-                    id: String(game._id),
-                    data: {
-                      favorite: !game.favorite,
-                    },
-                  })}
+                  onClick={() =>
+                    favoriteGame.mutate({
+                      id: String(game._id),
+                      data: {
+                        favorite: !game.favorite,
+                      },
+                    })
+                  }
                   isFavorite={game.favorite}
                 />
               </TableCell>
@@ -135,15 +148,16 @@ export function Games() {
                   <DialogTrigger>
                     <TableButton formType='delete' />
                   </DialogTrigger>
-                  <DeleteModal type='game'
-                    onDelete={() => deleteGame.mutate(String(game._id))} />
+                  <DeleteModal
+                    type='game'
+                    onDelete={() => deleteGame.mutate(String(game._id))}
+                  />
                 </Dialog>
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-    
 
       <CustomPagination page={page} totalPages={totalPages} setPage={setPage} />
     </div>

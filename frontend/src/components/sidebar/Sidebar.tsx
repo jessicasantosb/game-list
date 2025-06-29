@@ -25,7 +25,9 @@ const Sidebar: React.FC = () => {
     <aside
       className={`${styles.sidebar} ${isOpen ? styles.open : styles.closed}`}>
       <div className={styles.hamburguer}>
-          <Button size='icon' onClick={toggleSidebar}>☰</Button>
+        <Button size='icon' onClick={toggleSidebar}>
+          ☰
+        </Button>
       </div>
       <div className={styles.header}>
         {isOpen ? (

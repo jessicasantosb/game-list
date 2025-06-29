@@ -10,7 +10,17 @@ import { formatDateYear } from '../../utils/formatDateYear';
 import { per_page } from '../../utils/getPaginationItems';
 import DeleteModal from '../components/DeleteModal';
 import { UpdatePlatform } from './forms/Update';
-import { Table, TableBody, TableButton, TableCell, TableHead, TableHeader, TableHeadFake, TableImage, TableRow } from '../../components/ui/table/Table';
+import {
+  Table,
+  TableBody,
+  TableButton,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableHeadFake,
+  TableImage,
+  TableRow,
+} from '../../components/ui/table/Table';
 import { truncateString } from '../../utils/truncateString';
 
 import type { SortHeaders } from '../../types/Shared';
@@ -80,13 +90,16 @@ export const Platform = () => {
                   <UpdatePlatform platform={platform} />
                 </Dialog>
               </TableCell>
-              
+
               <TableCell style={{ paddingInline: '0px' }}>
                 <Dialog>
                   <DialogTrigger>
                     <TableButton formType='delete' />
                   </DialogTrigger>
-                  <DeleteModal type='platform' onDelete={() => deletePlatform.mutate(platform._id)} />
+                  <DeleteModal
+                    type='platform'
+                    onDelete={() => deletePlatform.mutate(platform._id)}
+                  />
                 </Dialog>
               </TableCell>
             </TableRow>

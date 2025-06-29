@@ -29,7 +29,6 @@ import x from '../assets/x.svg';
 import imageController from './../assets/controller-game-list.png';
 import orderListIcon from './../assets/orderList.svg';
 
-
 export {
   orderListIcon,
   arrow,

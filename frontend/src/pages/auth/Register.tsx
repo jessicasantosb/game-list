@@ -101,7 +101,7 @@ export const Register = () => {
           )}
 
           <Button type='submit' variant='turquoise' className={style.button}>
-            Sign Up
+            SIGN UP
           </Button>
         </form>
       </CardContent>

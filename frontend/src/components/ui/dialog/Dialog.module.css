@@ -18,7 +18,7 @@
 .content {
   max-height: 85dvh;
   width: 100%;
-  max-width: 40dvw;
+  max-width: 45dvw;
   padding: 2rem;
   position: absolute;
   top: 50%;
@@ -29,35 +29,10 @@
   color: var(--black);
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 1rem;
+  white-space: normal;
   overflow-y: scroll;
-}
-
-@media screen and (max-width: 1200px) {
-  .content {
-    padding: 1rem;
-    padding-top: 3rem;
-  }
-
-  .close {
-    top: 1rem;
-    right: 1rem;
-  }
-}
-
-@media screen and (max-width: 800px) {
-  .content {
-    max-width: 300px;
-  }
-
-  .title {
-    font-size: 1.15rem;
-    font-weight: 700;
-  }
-
-  .footer {
-    padding-top: 1rem;
-  }
 }
 
 .header {
@@ -72,8 +47,10 @@
 }
 
 .description {
+  text-align: center;
   font-size: 14px;
   font-weight: 400;
+  line-height: 1rem;
 }
 
 .footer {
@@ -82,4 +59,32 @@
   align-items: center;
   justify-content: flex-end;
   gap: 1rem;
+}
+
+@media screen and (max-width: 1200px) {
+  .content {
+    padding: 1rem;
+    padding-top: 3rem;
+    max-width: 70dvw;
+  }
+
+  .close {
+    top: 1rem;
+    right: 1rem;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .content {
+    max-width: 80dvw;
+  }
+
+  .title {
+    font-size: 1.15rem;
+    font-weight: 700;
+  }
+
+  .footer {
+    padding-top: 1rem;
+  }
 }

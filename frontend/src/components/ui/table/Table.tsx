@@ -12,7 +12,7 @@ import {
   starFilled,
   trash,
   trashBlack,
-  orderListIcon
+  orderListIcon,
 } from '../../../utils/icons';
 import { Button } from '../button/Button';
 
