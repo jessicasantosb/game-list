@@ -24,7 +24,7 @@
   border-radius: 8px;
   width: 100%;
   max-width: 360px;
-  min-height: 173px;
+  height: 200px;
   margin-inline: auto;
   display: flex;
   flex-direction: column;

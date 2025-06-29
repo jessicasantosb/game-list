@@ -21,7 +21,6 @@
   font-size: 1.5rem;
   z-index: 10;
   transition: left 0.3s ease;
-  margin-left: 1rem;
 }
 
 .arrowIcon {
@@ -35,7 +34,6 @@
 
 .texts {
   margin-top: 0.25rem;
-  margin-inline: 1rem 1.5rem;
   font-size: 0.875rem;
   font-weight: 500;
 }
