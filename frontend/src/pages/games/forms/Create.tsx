@@ -61,14 +61,14 @@ export function CreateGame() {
       <form className='form' onSubmit={handleSubmit}>
         <div className='label'>
           <Label asterisk>Title</Label>
-          <Input placeholder='Mario Kart 8' name='title' />
+          <Input placeholder='SuperTux' name='title' />
         </div>
 
         <Label className='label'>
           Description
           <Textarea
             id='description'
-            placeholder='Amazing game'
+            placeholder='A classic 2D platformer'
             name='description'
           />
         </Label>

@@ -73,19 +73,13 @@ export function UpdateGame({ game }: { game: GameResponse }) {
           <Label asterisk htmlFor='title'>
             Title
           </Label>
-          <Input
-            id='title'
-            placeholder={'title'}
-            defaultValue={game.title}
-            name='title'
-          />
+          <Input id='title' defaultValue={game.title} name='title' />
         </div>
 
         <Label className='label'>
           Description
           <Textarea
             id='description'
-            placeholder={'description'}
             defaultValue={game.description}
             name='description'
           />

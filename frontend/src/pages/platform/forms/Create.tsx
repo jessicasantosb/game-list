@@ -53,12 +53,12 @@ export function CreatePlatform() {
       <form className='form' onSubmit={handleSubmit}>
         <div className='label'>
           <Label asterisk>Title</Label>
-          <Input placeholder='Epic Games' name='title' />
+          <Input placeholder='Nintendo Switch' name='title' />
         </div>
 
         <Label className='label'>
           Company
-          <Input placeholder='Epic' name='company' />
+          <Input placeholder='Nintendo' name='company' />
         </Label>
 
         <Label className='label'>

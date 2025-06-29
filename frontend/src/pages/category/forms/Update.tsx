@@ -68,11 +68,7 @@ export function UpdateCategory({ category }: { category: CategoryResponse }) {
 
         <Label className='label'>
           Description
-          <Textarea
-            placeholder='Enter category description'
-            name='description'
-            defaultValue={category.description}
-          />
+          <Textarea name='description' defaultValue={category.description} />
         </Label>
 
         <DialogFooter>

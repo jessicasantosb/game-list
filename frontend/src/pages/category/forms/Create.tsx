@@ -54,12 +54,15 @@ export function CreateCategory() {
       <form className='form' onSubmit={handleSubmit}>
         <div className='label'>
           <Label asterisk>Title</Label>
-          <Input name='title' placeholder='Mario Kart 8' />
+          <Input name='title' placeholder='Simulation' />
         </div>
 
         <Label className='label'>
           Description
-          <Textarea name='description' placeholder='Amazing game' />
+          <Textarea
+            name='description'
+            placeholder='Replicates real-world or imagined activities in detail.'
+          />
         </Label>
 
         <DialogFooter>
