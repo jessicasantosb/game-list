@@ -1,6 +1,8 @@
 import type { PaginationRequest } from './Shared';
 import type { GameRequest } from '../schemas/game';
 
+export type Status = 'Abandoned' | 'Done' | 'Playing';
+
 export type GameResponse = {
   _id: string;
   image_url: string;
@@ -8,7 +10,7 @@ export type GameResponse = {
   description: string;
   category: string;
   platform: string;
-  status: string;
+  status: Status;
   favorite?: boolean;
   createdAt?: Date;
   updatedAt?: Date;

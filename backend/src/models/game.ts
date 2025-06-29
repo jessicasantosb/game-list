@@ -34,7 +34,6 @@ const gamesSchema = new mongoose.Schema(
     },
     finish_date: {
       type: Date,
-      required: true,
     },
     user_id: {
       type: mongoose.Schema.Types.ObjectId,

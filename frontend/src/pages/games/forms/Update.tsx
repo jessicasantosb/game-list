@@ -1,4 +1,4 @@
-import { type FormEvent } from 'react';
+import { useState, type FormEvent } from 'react';
 import { toast } from 'react-toastify';
 
 import { Button } from '../../../components/ui/button/Button';
@@ -25,10 +25,11 @@ import { gameSchema, type GameRequest } from '../../../schemas/game';
 import { getDataForm } from '../../../utils/getFormData';
 import { toInputDateString } from '../../../utils/toInputDateString';
 
-import type { GameResponse } from '../../../types/Game';
+import type { GameResponse, Status } from '../../../types/Game';
 import '../../styles/Forms.css';
 
 export function UpdateGame({ game }: { game: GameResponse }) {
+  const [status, setStatus] = useState<Status>(game.status);
   const platforms = useFetchPlatforms();
   const categories = useFetchCategories();
   const updateGame = useUpdateGame();
@@ -142,19 +143,20 @@ export function UpdateGame({ game }: { game: GameResponse }) {
                 defaultValue={toInputDateString(game.acquisition_date)}
               />
             </div>
-
-            <div className='label'>
-              <Label asterisk htmlFor='finish_date'>
-                Finish Date
-              </Label>
-              <Input
-                id='finish_date'
-                type='date'
-                variant='squared'
-                name='finish_date'
-                defaultValue={toInputDateString(game.finish_date)}
-              />
-            </div>
+            {status !== 'Playing' && (
+              <div className='label'>
+                <Label asterisk htmlFor='finish_date'>
+                  Finish Date
+                </Label>
+                <Input
+                  id='finish_date'
+                  type='date'
+                  variant='squared'
+                  name='finish_date'
+                  defaultValue={toInputDateString(game.finish_date)}
+                />
+              </div>
+            )}
           </div>
 
           <div className='row'>
@@ -166,7 +168,8 @@ export function UpdateGame({ game }: { game: GameResponse }) {
                 id='status'
                 variant='modal'
                 defaultValue={game.status}
-                name='status'>
+                name='status'
+                onChange={(e) => setStatus(e.target.value as Status)}>
                 <SelectGroup>
                   <SelectItem defaultValue={'Playing'}>Playing</SelectItem>
                   <SelectItem defaultValue={'Done'}>Done</SelectItem>

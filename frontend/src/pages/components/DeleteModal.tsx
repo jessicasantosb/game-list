@@ -20,21 +20,16 @@ interface DeleteModalProps {
   onDelete: () => void;
 }
 
-const getDeleteMessage = (type: DeleteType): string => {
-  switch (type) {
-    case 'platform':
-      return 'Deleting this platform will remove it permanently from the system. This action is not reversible.';
-    case 'category':
-      return 'Deleting this category will remove all games associated. This action is not reversible.';
-    case 'game':
-      return 'Deleting this game will remove it permanently from the system. This action is not reversible.';
-    default:
-      return '';
-  }
-};
-
 const DeleteModal: React.FC<DeleteModalProps> = ({ type, onDelete }) => {
   const { closeDialog } = useDialog();
+
+  const description = {
+    platform:
+      'Deleting this platform will remove it permanently from the system. This action is not reversible.',
+    category:
+      'Deleting this category will remove all games associated. This action is not reversible.',
+    game: 'Deleting this game will remove it permanently from the system. This action is not reversible.',
+  };
 
   return (
     <DialogContent>
@@ -45,11 +40,7 @@ const DeleteModal: React.FC<DeleteModalProps> = ({ type, onDelete }) => {
           <img src={warning} alt='Warning' />
         </div>
       </DialogHeader>
-
-      <DialogDescription style={{textAlign: 'center'}}>
-        { getDeleteMessage(type) }
-      </DialogDescription>
-
+      <DialogDescription>{description[type]}</DialogDescription>
       <DialogFooter className={styles.actions}>
         <Button onClick={closeDialog}>No, cancel action</Button>
         <Button onClick={() => onDelete()}>{`Yes, delete this ${type}`}</Button>

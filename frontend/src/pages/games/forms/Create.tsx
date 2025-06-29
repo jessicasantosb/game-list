@@ -23,12 +23,12 @@ import { useFetchPlatforms } from '../../../hooks/data/usePlatformsQueries';
 import { useDialog } from '../../../hooks/useDialog';
 import { gameSchema } from '../../../schemas/game';
 import { getDataForm } from '../../../utils/getFormData';
-import '../../styles/Forms.css';
 
-type Status = 'Abandoned' | 'Done' | 'Playing';
+import '../../styles/Forms.css';
+import type { Status } from '../../../types/Game';
 
 export function CreateGame() {
-  const [status, setStatus] = useState<Status>();
+  const [status, setStatus] = useState<Status>('Playing');
   const createGame = useCreateGame();
   const categories = useFetchCategories();
   const platforms = useFetchPlatforms();
