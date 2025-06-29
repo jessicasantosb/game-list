@@ -5,6 +5,7 @@ import { Button } from '../../components/ui/button/Button';
 import {
   DialogClose,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -45,7 +46,9 @@ const DeleteModal: React.FC<DeleteModalProps> = ({ type, onDelete }) => {
         </div>
       </DialogHeader>
 
-      <p className={styles.message}>{getDeleteMessage(type)}</p>
+      <DialogDescription style={{textAlign: 'center'}}>
+        { getDeleteMessage(type) }
+      </DialogDescription>
 
       <DialogFooter className={styles.actions}>
         <Button onClick={closeDialog}>No, cancel action</Button>
