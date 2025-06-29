@@ -6,9 +6,20 @@
 
 <h1 align="center">Desafio 3 - Game List</h1>
 
+<br />
+
 ## 🚀 Quick Access
 
 [The app is currently hosted here](http://ec2-3-132-237-48.us-east-2.compute.amazonaws.com/)
+
+<br/>
+
+## 🔍 Key Features
+- **Optimized Codebase:** Clean, maintainable code with enhanced performance
+- **Containerized Architecture:** Docker containers for each service
+- **Reverse Proxy:** Nginx for efficient routing
+
+<br/>
 
 ## ⚙️ Installation Options
 
@@ -36,8 +47,7 @@ docker compose up -d --build
 #### Notes
 
 - Access on http://localhost
-- To run the frontend locally without Docker, you can use **Vite’s proxy** to http://localhost:8888 on port 5173 (see vite.config.js).
-- If you’re not using **MongoDB Atlas (cloud)**, this setup includes a ready-to-use local MongoDB container.
+- To run the frontend locally without Docker, you can use Vite’s proxy to http://localhost:8888 on port 5173 (see vite.config.js).
 
 ---
 
@@ -72,28 +82,8 @@ sudo docker compose up -d --build
 
 - Access with your public DNS available on AWS console
 
+<br/>
+
 ## 🔗 Related Projects
 
 - Previous challenge (without using Docker and NGINX): **[DESAFIO 2](https://github.com/Giron-jpg/AWS_FS_ABR25_D02_COMPASS_Game_List)**
-
-## 🔍 Key Features
-- **Containerized Architecture:** Docker containers for each service
-- **Reverse Proxy:** Nginx for efficient routing
-
-## 💻 Technologies Used
-
-- **Docker**
-- **Nginx**
-- **Node.js**
-- **TypeScript**
-- **React**
-- **Express**
-- **Cors**
-- **MongoDB + Mongoose**
-- **JWT**
-- **Bcrypt**
-- **Vite**
-- **JWT-decode**
-- **Axios**
-- **tsx**
-- **ESLint + Prettier**
