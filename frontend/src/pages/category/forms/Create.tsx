@@ -1,6 +1,5 @@
 import { type FormEvent } from 'react';
 import { toast } from 'react-toastify';
-import { z } from 'zod';
 
 import { Button } from '../../../components/ui/button/Button';
 import {
@@ -34,8 +33,8 @@ export function CreateCategory() {
     const error = result.error
     
     if (error) {
-      const messages = error.errors.map((err) => `${err.path.join('.')}: ${err.message}`).join('\n');
-      toast.error(messages); 
+      const firstError = error.errors[0];
+      toast.error(`${firstError.path.join('.')}: ${firstError.message}`);
       return;
     }
 

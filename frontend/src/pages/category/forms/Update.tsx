@@ -38,8 +38,8 @@ export function UpdateCategory({ category }: { category: CategoryResponse }) {
     const error = result.error
     
     if (error) {
-      const messages = error.errors.map((err) => `${err.path.join('.')}: ${err.message}`).join('\n');
-      toast.error(messages); 
+      const firstError = error.errors[0];
+      toast.error(`${firstError.path.join('.')}: ${firstError.message}`);
       return;
     }
 

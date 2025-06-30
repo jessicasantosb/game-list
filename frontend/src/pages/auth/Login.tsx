@@ -30,11 +30,14 @@ export const Login = () => {
       schema: signInSchema,
     });
 
-    if (result.error) {
-      toast.error('You must fill in all fields!');
+    const error = result.error
+    
+    if (error) {
+      const firstError = error.errors[0];
+      toast.error(`${firstError.path.join('.')}: ${firstError.message}`);
       return;
     }
-
+    
     signin.mutate(result.data, {
       onSuccess: () => toast.success('Login successful!'),
       onError: () => toast.error('Error logging in!'),

@@ -2,10 +2,7 @@ import z from 'zod';
 
 export const signInSchema = z.object({
   email: z.string().email(),
-  password: z
-    .string()
-    .min(8)
-    .regex(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[^A-Za-z\d]).{8,}$/),
+  password: z.string()
 });
 
 export type SignInRequest = z.infer<typeof signInSchema>;

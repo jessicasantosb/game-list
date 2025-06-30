@@ -29,8 +29,11 @@ export function CreatePlatform() {
       schema: platformSchema,
     });
 
-    if (result.error) {
-      toast.error('Error creating platform!');
+    const error = result.error
+    
+    if (error) {
+      const firstError = error.errors[0];
+      toast.error(`${firstError.path.join('.')}: ${firstError.message}`);
       return;
     }
 

@@ -42,11 +42,14 @@ export function UpdateGame({ game }: { game: GameResponse }) {
       form: e.currentTarget,
       schema: gameSchema,
     });
+    
+    const error = result.error;
 
-    if (result.error) {
-      toast.error('You must fill in all required fields!');
+    if (error) {
+      const firstError = error.errors[0];
+      toast.error(`${firstError.path.join('.')}: ${firstError.message}`);
       return;
-    }
+    }    
 
     updateGame.mutate(
       {

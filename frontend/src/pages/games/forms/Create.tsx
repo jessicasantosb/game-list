@@ -42,8 +42,11 @@ export function CreateGame() {
       schema: gameSchema,
     });
 
-    if (result.error) {
-      toast.error('Error creating game!');
+    const error = result.error   
+
+    if (error) {
+      const firstError = error.errors[0];
+      toast.error(`${firstError.path.join('.')}: ${firstError.message}`);
       return;
     }
 
