@@ -30,14 +30,14 @@ export const Login = () => {
       schema: signInSchema,
     });
 
-    const error = result.error
-    
+    const error = result.error;
+
     if (error) {
       const firstError = error.errors[0];
       toast.error(`${firstError.path.join('.')}: ${firstError.message}`);
       return;
     }
-    
+
     signin.mutate(result.data, {
       onSuccess: () => toast.success('Login successful!'),
       onError: () => toast.error('Error logging in!'),

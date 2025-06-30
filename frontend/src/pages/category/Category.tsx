@@ -57,11 +57,13 @@ export function Category() {
 
       <Table>
         <TableHeader>
-          {headers.map(({ label, sort }) => (
-            <TableHead key={label} onClick={() => handleSort(sort)}>
-              {label}
-            </TableHead>
-          ))}
+          <TableRow>
+            {headers.map(({ label, sort }) => (
+              <TableHead key={label} onClick={() => handleSort(sort)}>
+                {label}
+              </TableHead>
+            ))}
+          </TableRow>
         </TableHeader>
 
         <TableBody>
