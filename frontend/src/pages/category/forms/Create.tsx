@@ -16,7 +16,7 @@ import { useCreateCategory } from '../../../hooks/data/useCategoriesMutations';
 import { useDialog } from '../../../hooks/useDialog';
 import { categorySchema } from '../../../schemas/category';
 import { getDataForm } from '../../../utils/getFormData';
-import '../../styles/Forms.css';
+import style from '../../styles/Forms.module.css';
 
 export function CreateCategory() {
   const createCategory = useCreateCategory();
@@ -30,8 +30,8 @@ export function CreateCategory() {
       schema: categorySchema,
     });
 
-    const error = result.error
-    
+    const error = result.error;
+
     if (error) {
       const firstError = error.errors[0];
       toast.error(`${firstError.path.join('.')}: ${firstError.message}`);
@@ -53,13 +53,13 @@ export function CreateCategory() {
         <DialogClose />
       </DialogHeader>
 
-      <form className='form' onSubmit={handleSubmit}>
-        <div className='label'>
+      <form className={style.form} onSubmit={handleSubmit}>
+        <div className={style.label}>
           <Label asterisk>Title</Label>
           <Input name='title' placeholder='Simulation' autoFocus />
         </div>
 
-        <Label className='label'>
+        <Label className={style.label}>
           Description
           <Textarea
             name='description'

@@ -19,9 +19,9 @@ import {
   type CategoryRequest,
 } from '../../../schemas/category';
 import { getDataForm } from '../../../utils/getFormData';
+import style from '../../styles/Forms.module.css';
 
 import type { CategoryResponse } from '../../../types/Category';
-import '../../styles/Forms.css';
 
 export function UpdateCategory({ category }: { category: CategoryResponse }) {
   const updateCategory = useUpdateCategory();
@@ -35,8 +35,8 @@ export function UpdateCategory({ category }: { category: CategoryResponse }) {
       schema: categorySchema,
     });
 
-    const error = result.error
-    
+    const error = result.error;
+
     if (error) {
       const firstError = error.errors[0];
       toast.error(`${firstError.path.join('.')}: ${firstError.message}`);
@@ -64,13 +64,13 @@ export function UpdateCategory({ category }: { category: CategoryResponse }) {
         <DialogClose />
       </DialogHeader>
 
-      <form className='form' onSubmit={handleSubmit}>
-        <div className='label'>
+      <form className={style.form} onSubmit={handleSubmit}>
+        <div className={style.label}>
           <Label asterisk>Title</Label>
           <Input name='title' defaultValue={category.title} />
         </div>
 
-        <Label className='label'>
+        <Label className={style.label}>
           Description
           <Textarea name='description' defaultValue={category.description} />
         </Label>

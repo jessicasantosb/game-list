@@ -19,10 +19,9 @@ import {
 } from '../../../schemas/platform';
 import { getDataForm } from '../../../utils/getFormData';
 import { toInputDateString } from '../../../utils/toInputDateString';
+import style from '../../styles/Forms.module.css';
 
 import type { PlatformResponse } from '../../../types/Platform';
-
-import '../../styles/Forms.css';
 
 export function UpdatePlatform({ platform }: { platform: PlatformResponse }) {
   const updatePlatform = useUpdatePlatform();
@@ -36,8 +35,8 @@ export function UpdatePlatform({ platform }: { platform: PlatformResponse }) {
       schema: platformSchema,
     });
 
-    const error = result.error
-    
+    const error = result.error;
+
     if (error) {
       const firstError = error.errors[0];
       toast.error(`${firstError.path.join('.')}: ${firstError.message}`);
@@ -65,18 +64,18 @@ export function UpdatePlatform({ platform }: { platform: PlatformResponse }) {
         <DialogClose />
       </DialogHeader>
 
-      <form className='form' onSubmit={handleSubmit}>
-        <div className='label'>
+      <form className={style.form} onSubmit={handleSubmit}>
+        <div className={style.label}>
           <Label asterisk>Title</Label>
           <Input name='title' defaultValue={platform.title} />
         </div>
 
-        <Label className='label'>
+        <Label className={style.label}>
           Company
           <Input name='company' defaultValue={platform.company} />
         </Label>
 
-        <Label className='label'>
+        <Label className={style.label}>
           Acquisition year
           <Input
             type='date'
@@ -85,7 +84,7 @@ export function UpdatePlatform({ platform }: { platform: PlatformResponse }) {
           />
         </Label>
 
-        <Label className='label'>
+        <Label className={style.label}>
           Platform image (url)
           <Input name='image_url' defaultValue={platform.image_url} />
         </Label>

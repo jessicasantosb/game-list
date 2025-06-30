@@ -24,9 +24,9 @@ import { useDialog } from '../../../hooks/useDialog';
 import { gameSchema, type GameRequest } from '../../../schemas/game';
 import { getDataForm } from '../../../utils/getFormData';
 import { toInputDateString } from '../../../utils/toInputDateString';
+import style from '../../styles/Forms.module.css';
 
 import type { GameResponse, Status } from '../../../types/Game';
-import '../../styles/Forms.css';
 
 export function UpdateGame({ game }: { game: GameResponse }) {
   const [status, setStatus] = useState<Status>(game.status);
@@ -42,14 +42,14 @@ export function UpdateGame({ game }: { game: GameResponse }) {
       form: e.currentTarget,
       schema: gameSchema,
     });
-    
+
     const error = result.error;
 
     if (error) {
       const firstError = error.errors[0];
       toast.error(`${firstError.path.join('.')}: ${firstError.message}`);
       return;
-    }    
+    }
 
     updateGame.mutate(
       {
@@ -72,15 +72,15 @@ export function UpdateGame({ game }: { game: GameResponse }) {
         <DialogClose />
       </DialogHeader>
 
-      <form className='form' onSubmit={handleSubmit}>
-        <div className='label'>
+      <form className={style.form} onSubmit={handleSubmit}>
+        <div className={style.label}>
           <Label asterisk htmlFor='title'>
             Title
           </Label>
           <Input id='title' defaultValue={game.title} name='title' />
         </div>
 
-        <Label className='label'>
+        <Label className={style.label}>
           Description
           <Textarea
             id='description'
@@ -89,9 +89,9 @@ export function UpdateGame({ game }: { game: GameResponse }) {
           />
         </Label>
 
-        <div className='rowWrapper'>
-          <div className='row'>
-            <div className='label'>
+        <div className={style.rowWrapper}>
+          <div className={style.row}>
+            <div className={style.label}>
               <Label htmlFor='category' asterisk>
                 Category
               </Label>
@@ -112,7 +112,7 @@ export function UpdateGame({ game }: { game: GameResponse }) {
                 </SelectGroup>
               </Select>
             </div>
-            <div className='label'>
+            <div className={style.label}>
               <Label htmlFor='platform' asterisk>
                 Platform
               </Label>
@@ -135,8 +135,8 @@ export function UpdateGame({ game }: { game: GameResponse }) {
             </div>
           </div>
 
-          <div className='row'>
-            <div className='label'>
+          <div className={style.row}>
+            <div className={style.label}>
               <Label asterisk>Acquisition date</Label>
               <Input
                 id='acquisition_date'
@@ -147,7 +147,7 @@ export function UpdateGame({ game }: { game: GameResponse }) {
               />
             </div>
             {status !== 'Playing' && (
-              <div className='label'>
+              <div className={style.label}>
                 <Label asterisk htmlFor='finish_date'>
                   Finish Date
                 </Label>
@@ -162,8 +162,8 @@ export function UpdateGame({ game }: { game: GameResponse }) {
             )}
           </div>
 
-          <div className='row'>
-            <div className='label'>
+          <div className={style.row}>
+            <div className={style.label}>
               <Label htmlFor='status' asterisk>
                 Status
               </Label>
@@ -181,7 +181,7 @@ export function UpdateGame({ game }: { game: GameResponse }) {
               </Select>
             </div>
 
-            <div className='checkbox'>
+            <div className={style.checkbox}>
               <Input
                 type='checkbox'
                 name='favorite'
@@ -193,7 +193,7 @@ export function UpdateGame({ game }: { game: GameResponse }) {
           </div>
         </div>
 
-        <Label className='label'>
+        <Label className={style.label}>
           Image (URL)
           <Input
             id='image_url'

@@ -15,7 +15,7 @@ import { useCreatePlatform } from '../../../hooks/data/usePlatformsMutations';
 import { useDialog } from '../../../hooks/useDialog';
 import { platformSchema } from '../../../schemas/platform';
 import { getDataForm } from '../../../utils/getFormData';
-import '../../styles/Forms.css';
+import style from '../../styles/Forms.module.css';
 
 export function CreatePlatform() {
   const createPlatform = useCreatePlatform();
@@ -29,8 +29,8 @@ export function CreatePlatform() {
       schema: platformSchema,
     });
 
-    const error = result.error
-    
+    const error = result.error;
+
     if (error) {
       const firstError = error.errors[0];
       toast.error(`${firstError.path.join('.')}: ${firstError.message}`);
@@ -52,23 +52,23 @@ export function CreatePlatform() {
         <DialogClose />
       </DialogHeader>
 
-      <form className='form' onSubmit={handleSubmit}>
-        <div className='label'>
+      <form className={style.form} onSubmit={handleSubmit}>
+        <div className={style.label}>
           <Label asterisk>Title</Label>
-          <Input placeholder='Nintendo Switch' name='title' autoFocus/>
+          <Input placeholder='Nintendo Switch' name='title' autoFocus />
         </div>
 
-        <Label className='label'>
+        <Label className={style.label}>
           Company
           <Input placeholder='Nintendo' name='company' />
         </Label>
 
-        <Label className='label'>
+        <Label className={style.label}>
           Acquisition year
           <Input type='date' placeholder='17/05/2019' name='acquisition_year' />
         </Label>
 
-        <Label className='label'>
+        <Label className={style.label}>
           Platform image (url)
           <Input placeholder='http://cdn....' name='image_url' />
         </Label>

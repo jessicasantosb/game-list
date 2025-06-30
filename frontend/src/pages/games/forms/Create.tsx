@@ -23,8 +23,8 @@ import { useFetchPlatforms } from '../../../hooks/data/usePlatformsQueries';
 import { useDialog } from '../../../hooks/useDialog';
 import { gameSchema } from '../../../schemas/game';
 import { getDataForm } from '../../../utils/getFormData';
+import style from '../../styles/Forms.module.css';
 
-import '../../styles/Forms.css';
 import type { Status } from '../../../types/Game';
 
 export function CreateGame() {
@@ -42,7 +42,7 @@ export function CreateGame() {
       schema: gameSchema,
     });
 
-    const error = result.error   
+    const error = result.error;
 
     if (error) {
       const firstError = error.errors[0];
@@ -65,13 +65,13 @@ export function CreateGame() {
         <DialogClose />
       </DialogHeader>
 
-      <form className='form' onSubmit={handleSubmit}>
-        <div className='label'>
+      <form className={style.form} onSubmit={handleSubmit}>
+        <div className={style.label}>
           <Label asterisk>Title</Label>
-          <Input placeholder='SuperTux' name='title' autoFocus/>
+          <Input placeholder='SuperTux' name='title' autoFocus />
         </div>
 
-        <Label className='label'>
+        <Label className={style.label}>
           Description
           <Textarea
             id='description'
@@ -80,9 +80,9 @@ export function CreateGame() {
           />
         </Label>
 
-        <div className='rowWrapper'>
-          <div className='row'>
-            <div className='label'>
+        <div className={style.rowWrapper}>
+          <div className={style.row}>
+            <div className={style.label}>
               <Label asterisk htmlFor='category'>
                 Category
               </Label>
@@ -98,7 +98,7 @@ export function CreateGame() {
               </Select>
             </div>
 
-            <div className='label'>
+            <div className={style.label}>
               <Label htmlFor='platform'>Platform</Label>
               <Select id='platform' variant='modal' name='platform'>
                 <SelectGroup>
@@ -113,8 +113,8 @@ export function CreateGame() {
             </div>
           </div>
 
-          <div className='row'>
-            <div className='label'>
+          <div className={style.row}>
+            <div className={style.label}>
               <Label asterisk>Acquisition date</Label>
               <Input
                 id='acquisition_date'
@@ -123,7 +123,7 @@ export function CreateGame() {
               />
             </div>
             {status !== 'Playing' && (
-              <div className='label'>
+              <div className={style.label}>
                 <Label asterisk htmlFor='finish_date'>
                   Finish Date
                 </Label>
@@ -132,8 +132,8 @@ export function CreateGame() {
             )}
           </div>
 
-          <div className='row'>
-            <div className='label'>
+          <div className={style.row}>
+            <div className={style.label}>
               <Label asterisk htmlFor='status'>
                 Status
               </Label>
@@ -150,14 +150,14 @@ export function CreateGame() {
               </Select>
             </div>
 
-            <div className='checkbox'>
+            <div className={style.checkbox}>
               <Input type='checkbox' name='favorite' id='favorite' />
               <Label htmlFor='favorite'>Favorite</Label>
             </div>
           </div>
         </div>
 
-        <Label className='label'>
+        <Label className={style.label}>
           Image (URL)
           <Input
             id='image_url'

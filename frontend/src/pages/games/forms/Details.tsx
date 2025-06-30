@@ -17,10 +17,10 @@ import {
 } from '../../../components/ui/select/Select';
 import { Textarea } from '../../../components/ui/textarea/Textarea';
 import { toInputDateString } from '../../../utils/toInputDateString';
+import style from '../../styles/Forms.module.css';
 
 import type { GameResponse } from '../../../types/Game';
 import type { HTMLAttributes, ReactNode } from 'react';
-import '../../styles/Forms.css';
 
 type UpdateModalProps = HTMLAttributes<HTMLElement> & {
   updateForm?: ReactNode;
@@ -42,20 +42,20 @@ export function DetailsGame({
         <DialogClose />
       </DialogHeader>
 
-      <form className='form'>
-        <div className='label'>
+      <form className={style.form}>
+        <div className={style.label}>
           <Label asterisk>Title</Label>
           <Input value={game.title} readOnly />
         </div>
 
-        <Label className='label'>
+        <Label className={style.label}>
           Description
           <Textarea value={game.description} readOnly />
         </Label>
 
-        <div className='rowWrapper'>
-          <div className='row'>
-            <div className='label'>
+        <div className={style.rowWrapper}>
+          <div className={style.row}>
+            <div className={style.label}>
               <Label asterisk>Category</Label>
               <Select variant='disable' disabled>
                 <SelectGroup>
@@ -64,7 +64,7 @@ export function DetailsGame({
               </Select>
             </div>
 
-            <div className='label'>
+            <div className={style.label}>
               <Label asterisk>Plataform</Label>
               <Select variant='disable' disabled>
                 <SelectGroup>
@@ -74,8 +74,8 @@ export function DetailsGame({
             </div>
           </div>
 
-          <div className='row'>
-            <div className='label'>
+          <div className={style.row}>
+            <div className={style.label}>
               <Label asterisk>Acquisition date</Label>
               <Input
                 type='date'
@@ -84,7 +84,7 @@ export function DetailsGame({
               />
             </div>
 
-            <div className='label'>
+            <div className={style.label}>
               <Label asterisk htmlFor='finish_date'>
                 Finish Date
               </Label>
@@ -96,8 +96,8 @@ export function DetailsGame({
             </div>
           </div>
 
-          <div className='row'>
-            <div className='label'>
+          <div className={style.row}>
+            <div className={style.label}>
               <Label asterisk htmlFor='status'>
                 Status
               </Label>
@@ -108,14 +108,14 @@ export function DetailsGame({
               </Select>
             </div>
 
-            <div className='checkbox'>
+            <div className={style.checkbox}>
               <Input type='checkbox' readOnly checked={game.favorite} />
               <Label htmlFor='favorite'>Favorite</Label>
             </div>
           </div>
         </div>
 
-        <Label className='label'>
+        <Label className={style.label}>
           Image (URL)
           <Input value={game.image_url} readOnly />
         </Label>
