@@ -35,8 +35,11 @@ export function UpdateCategory({ category }: { category: CategoryResponse }) {
       schema: categorySchema,
     });
 
-    if (result.error) {
-      toast.error('Error updating category!');
+    const error = result.error
+    
+    if (error) {
+      const messages = error.errors.map((err) => `${err.path.join('.')}: ${err.message}`).join('\n');
+      toast.error(messages); 
       return;
     }
 
