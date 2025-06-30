@@ -54,7 +54,7 @@ export function PaginationPrevious({ ...props }: PaginationButtonProps) {
       className={`${style.link} ${style.previous}`}
       {...props}>
       <img src={arrowLeft} alt='Arrow Left' className={style.arrowLeft} />
-      <span>Previous</span>
+      <span className={style.spanPreviousNext}>Previous</span>
     </PaginationLink>
   );
 }
@@ -65,7 +65,7 @@ export function PaginationNext({ ...props }: PaginationButtonProps) {
       aria-label='Go to next page'
       className={`${style.link} ${style.next}`}
       {...props}>
-      <span>Next</span>
+      <span className={style.spanPreviousNext}>Next</span>
       <img src={arrowRight} alt='Arrow Left' className={style.arrowRight} />
     </PaginationLink>
   );
