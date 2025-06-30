@@ -52,7 +52,7 @@ export function CreatePlatform() {
       <form className='form' onSubmit={handleSubmit}>
         <div className='label'>
           <Label asterisk>Title</Label>
-          <Input placeholder='Nintendo Switch' name='title' />
+          <Input placeholder='Nintendo Switch' name='title' autoFocus/>
         </div>
 
         <Label className='label'>

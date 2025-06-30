@@ -53,7 +53,7 @@ export function CreateCategory() {
       <form className='form' onSubmit={handleSubmit}>
         <div className='label'>
           <Label asterisk>Title</Label>
-          <Input name='title' placeholder='Simulation' />
+          <Input name='title' placeholder='Simulation' autoFocus />
         </div>
 
         <Label className='label'>

@@ -64,6 +64,7 @@ export const Login = () => {
               type='email'
               placeholder='Enter your email'
               style={{ width: 'auto', height: '44px' }}
+              autoFocus
             />
           </Label>
           <Label className={style.label}>

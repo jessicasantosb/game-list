@@ -60,6 +60,7 @@ export const Register = () => {
               type='text'
               placeholder='Enter your name'
               style={{ width: 'auto', height: '44px' }}
+              autoFocus
             />
           </Label>
 

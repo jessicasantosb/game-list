@@ -65,7 +65,7 @@ export function CreateGame() {
       <form className='form' onSubmit={handleSubmit}>
         <div className='label'>
           <Label asterisk>Title</Label>
-          <Input placeholder='SuperTux' name='title' />
+          <Input placeholder='SuperTux' name='title' autoFocus/>
         </div>
 
         <Label className='label'>
