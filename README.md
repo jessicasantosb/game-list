@@ -97,44 +97,50 @@ sudo docker compose up -d --build
 
 ### Root
 
+```
 📂 game-list
-┣ 📂 backend # Backend API (Node.js + Express)
-┣ 📂 frontend # Frontend (React + Vite)
-┣ 📂 nginx # Nginx configuration
-┣ 📜 docker-compose.yml# Docker Compose configuration
-┣ 📜 Dockerfile # Root Dockerfile (orchestration)
-┣ 📜 .gitignore # Git ignore rules
-┣ 📜 .dockerignore # Docker ignore rules
-┗ 📜 README.md # Project documentation
+┣ 📂 backend              # Backend API (Node.js + Express)
+┣ 📂 frontend             # Frontend (React + Vite)
+┣ 📂 nginx                # Nginx configuration
+┣ 📄 docker-compose.yml   # Docker Compose configuration
+┣ 📄 Dockerfile           # Root Dockerfile (orchestration)
+┣ 📄 .gitignore           # Git ignore rules
+┣ 📄 .dockerignore        # Docker ignore rules
+┗ 📄 README.md            # Project documentation
+```
 
 ### Frontend
 
+```
 📂 frontend
-┣ 📂 src # Application source code
-┃ ┣ 📂 components # Reusable UI components
-┃ ┣ 📂 pages # Application pages (routes)
-┃ ┣ 📂 services # API requests and business logic
-┃ ┣ 📂 utils # Helper functions and utilities
-┃ ┗ 📜 main.tsx # Application entry point
-┣ 📜 .env  
- ┣ 📜 .env.example  
- ┣ 📜 .prettierrc  
- ┣ 📜 Dockerfile  
- ┣ 📜 eslint.config.js  
- ┣ 📜 package.json
+┣ 📂 src               # Application source code
+┃ ┣ 📂 components      # Reusable UI components
+┃ ┣ 📂 pages           # Application pages (routes)
+┃ ┣ 📂 services        # API requests and business logic
+┃ ┣ 📂 utils           # Helper functions and utilities
+┃ ┗ 📄 main.tsx        # Application entry point
+┣ 📄 .env  
+ ┣ 📄 .env.example  
+ ┣ 📄 .prettierrc  
+ ┣ 📄 Dockerfile  
+ ┣ 📄 eslint.config.js  
+ ┣ 📄 package.json
+```
 
 ### Backend
 
+```
 📂 backend
-┣ 📂 src # Backend source code
-┃ ┣ 📂 controllers # Request handlers
-┃ ┣ 📂 models # Database models
-┃ ┣ 📂 routes # API routes
-┃ ┣ 📂 services # Business logic
-┃ ┗ 📜 index.ts # Entry point
-┣ 📜 package.json  
- ┣ 📜 .env.example  
- ┗ 📜 Dockerfile
+┣ 📂 src              # Backend source code
+┃ ┣ 📂 controllers    # Request handlers
+┃ ┣ 📂 models         # Database models
+┃ ┣ 📂 routes         # API routes
+┃ ┣ 📂 services       # Business logic
+┃ ┗ 📄 index.ts       # Entry point
+┣ 📄 package.json  
+ ┣ 📄 .env.example  
+ ┗ 📄 Dockerfile
+```
 
 <br/>
 
