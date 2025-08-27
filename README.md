@@ -146,7 +146,7 @@ sudo docker compose up -d --build
 
 ## 🛠 Tech Stack
 
-**Backend:** Node.js, Express, TypeScript, JWT, Bcrypt, MongoDB + Mongoose  
-**Frontend:** React, Vite, Axios, tsx, JWT-decode  
-**Dev Tools:** ESLint, Prettier   
-**Infrastructure:** Docker, Nginx  
+**Backend:** Node.js, Express, TypeScript, JWT, Bcrypt and MongoDB + Mongoose  
+**Frontend:** React, Vite, Axios, TypeScript, JWT-decode, Tanstack Query and Zod  
+**Dev Tools:** ESLint and Prettier   
+**Infrastructure:** Docker and Nginx  
